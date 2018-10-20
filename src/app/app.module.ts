@@ -6,12 +6,14 @@ import {AppComponent} from './app.component';
 
 import {LightningLevelService} from './lightning-level.service';
 import {LightingChartComponent} from './lighting-chart/lighting-chart.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LightingChartComponent
+    LightingChartComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
