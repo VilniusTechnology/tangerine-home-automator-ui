@@ -8,11 +8,11 @@ import {LightingLevel} from './lighting-level';
 })
 export class LightningLevelService {
 
-  private baseUrl =  'http://localhost:3000';
+  private baseUrl =  'http://192.168.1.47:3001';
   constructor(private httpClient: HttpClient) { }
 
   getInitialLightLevel() {
-    let data = this.httpClient.get<LightingLevel[]>(`${this.baseUrl}/api/light`);
+    let data = this.httpClient.get<LightingLevel[]>(`${this.baseUrl}/data`);
     // console.log('getInitialLightLevel()', data);
     return data;
   }

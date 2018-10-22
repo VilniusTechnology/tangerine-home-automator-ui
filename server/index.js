@@ -12,10 +12,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/light', (req, res) => {
+app.get('http://192.168.1.47:3001/data', (req, res) => {
   res.send(light.lightPositions);
   console.log('Had sent positions');
 });
+
 
 setInterval(function () {
   light.updateMarket();

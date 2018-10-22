@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "orange-home-automator-ui"
+  "defaultProject": "orange-home-automator-ui",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

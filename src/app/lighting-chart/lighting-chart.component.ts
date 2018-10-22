@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import * as d3 from 'd3';
 
 import {LightingLevel} from '../lighting-level';
@@ -10,7 +10,7 @@ import {LightingLevel} from '../lighting-level';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class LightingChartComponent implements OnChanges {
+export class LightingChartComponent implements OnInit {
   @ViewChild('chart')
   chartElement: ElementRef;
 
@@ -22,7 +22,7 @@ export class LightingChartComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges() {
+  ngOnInit() {
 
     let lvl = new LightingLevel();
     lvl.timestamp = 1050;
@@ -93,7 +93,7 @@ var dataset = this.lightingLevel.map(function(d) {
 })
 
 // 1. Add the SVG to the page and employ #2
-var svg = d3.select("body").append("svg")
+var svg = d3.selectAll("#fart").remove().append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -156,7 +156,7 @@ svg.append("path")
   });
 
     // Define the div for the tooltip
-    var div = d3.select("body").append("div")	
+    var div = d3.select("#chart").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
   
