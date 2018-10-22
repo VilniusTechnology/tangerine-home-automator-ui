@@ -9,6 +9,8 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 
+import dator from 'date-and-time';
+
 import {LightingLevel} from '../lighting-level';
 
 @Component({
@@ -138,8 +140,7 @@ export class LightingChartComponent implements OnInit {
 
               const dateTime = new Date(d.timestamp * 1000);
               const msg = 'Timestamp: '
-                  + dateTime.getFullYear() + '-' + dateTime.getMonth() + '-' + dateTime.getDate() + ' '
-                  + dateTime.getHours() + ':' + dateTime.getMinutes()
+                  + dator.format(dateTime, 'YYYY/MM/DD HH:mm:ss') + ' '
                   + '<br/> Light value: ' + d.level;
               console.log(msg);
 
