@@ -1,5 +1,13 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+
+import { HttpClient} from  '@angular/common/http';
+
 import * as d3 from 'd3';
+
+import * as d3Scale from 'd3-scale';
+import * as d3Shape from 'd3-shape';
+import * as d3Array from 'd3-array';
+import * as d3Axis from 'd3-axis';
 
 import {LightingLevel} from '../lighting-level';
 
@@ -11,156 +19,146 @@ import {LightingLevel} from '../lighting-level';
 })
 
 export class LightingChartComponent implements OnInit {
-  @ViewChild('chart')
-  chartElement: ElementRef;
+    @ViewChild('chart')
+    chartElement: ElementRef;
 
-  @Input()
-  lightingLevel: LightingLevel[];
+    @Input()
+    lightingLevel: LightingLevel[];
 
-  private svgElement: HTMLElement;
-  private chartProps: any;
+    private svgElement: HTMLElement;
+    private chartProps: any;
 
-  constructor() { }
+    title = 'Line Chart';
 
-  ngOnInit() {
+    private margin = {top: 20, right: 20, bottom: 30, left: 50};
+    private width: number;
+    private height: number;
+    private x: any;
+    private y: any;
+    private svg: any;
+    private line: d3Shape.Line<[number, number]>;
 
-    let lvl = new LightingLevel();
-    lvl.timestamp = 1050;
-    lvl.lightlvl = 67;
 
-    let lvl2 = new LightingLevel();
-    lvl2.timestamp = 1051;
-    lvl2.lightlvl = 68;
-
-    let lvl3 = new LightingLevel();
-    lvl3.timestamp = 1052;
-    lvl3.lightlvl = 99;
-
-    let lvl4 = new LightingLevel();
-    lvl4.timestamp = 1055;
-    lvl4.lightlvl = 10;
-
-    let lvl5 = new LightingLevel();
-    lvl5.timestamp = 1055;
-    lvl5.lightlvl = 35;
-
-    this.lightingLevel = [lvl, lvl2, lvl3, lvl4, lvl5];
-
-    if (this.lightingLevel) {
-      this.buildChart();
+    // https://github.com/datencia/d3js-angular-examples
+    constructor(private  httpClient:  HttpClient) {
+        this.width = 900 - this.margin.left - this.margin.right;
+        this.height = 500 - this.margin.top - this.margin.bottom;
     }
-  }
 
-  buildChart() {
+    ngOnInit() {
+      this.getDataAndInit();
+    }
 
-    console.log('buildChart()', this.lightingLevel);
+    private getDataAndInit() {
+        this.httpClient.get('http://192.168.1.47:3001/data').subscribe(
+            data => {
+                this.initSvg();
+                this.initAxis(data);
+                this.drawAxis();
+                this.drawLine(data);
+                this.setBuble(data);
+            },
+            error => {
+                console.log('Error', error);
+            }
+        );
+    }
 
-    this.chartProps = {};
+    private initSvg() {
 
-// 2. Use the margin convention practice 
-var margin = {top: 50, right: 50, bottom: 50, left: 50}
-  , width = window.innerWidth - margin.left - margin.right // Use the window's width 
-  , height = window.innerHeight - margin.top - margin.bottom; // Use the window's height
+        d3.select('svg').append('rect')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('fill', '#0073e6');
 
-// 5. X scale will use the index of our data
-var xScale = d3.scaleLinear()
-    .domain([1040, 1060]) // input
-    .range([0, width]); // output
+        this.svg = d3.select('svg')
+            .append('g')
+            .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    }
 
-// 6. Y scale will use the randomly generate number 
-var yScale = d3.scaleLinear()
-    .domain([0, 100]) // input 
-    .range([height, 0]); // output 
+    private initAxis(data) {
+        this.x = d3Scale.scaleTime().range([0, this.width]);
+        this.y = d3Scale.scaleLinear().range([this.height, 0]);
+        this.x.domain(d3Array.extent(data, (d) => d.timestamp ));
+        this.y.domain(d3Array.extent(data, (d) => d.level ));
+    }
 
-// 7. d3's line generator
-var line = d3.line()
-    .x(function(d, i) { 
-      // set the x values for the line generator
-      return xScale(d.x); 
-    }) 
-    .y(function(d) { 
-      // set the y values for the line generator 
-      return yScale(d.y); 
-    });
-    // .curve(d3.curveMonotoneX) // apply smoothing to the line
+    private drawAxis() {
 
-// 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
-var dataset = this.lightingLevel.map(function(d) { 
-  return {
-    "y": d.lightlvl,
-    "x": d.timestamp, 
-  } 
-})
+        this.svg.append('g')
+            .attr('class', 'axis axis--x')
+            .attr('transform', 'translate(0,' + this.height + ')')
+            .call(d3Axis.axisBottom(this.x));
 
-// 1. Add the SVG to the page and employ #2
-var svg = d3.selectAll("#fart").remove().append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        this.svg.append('g')
+            .attr('class', 'axis axis--y')
+            .call(d3Axis.axisLeft(this.y))
+            .append('text')
+            .attr('class', 'axis-title')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 6)
+            .attr('dy', '.71em')
+            .style('text-anchor', 'end')
+            .text('Price ($)');
+    }
 
-// 3. Call the x axis in a group tag
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+    private drawLine(data) {
+        this.line = d3Shape.line()
+            .x( (d: any) => this.x(d.timestamp) )
+            .y( (d: any) => this.y(d.level) );
 
-// 4. Call the y axis in a group tag
-svg.append("g")
-    .attr("class", "y axis")
-    .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
+        this.svg.append('path')
+            .datum(data)
+            .attr('class', 'line')
+            .attr('d', this.line)
+            .style('stroke', 'yellow')
+            .style('fill', 'none')
+            .attr('stroke-width', 2)
+            .attr('class', 'line');
+    }
 
-// 9. Append the path, bind the data, and call the line generator 
-svg.append("path")
-    .style('stroke', 'yellow')
-    .style('fill', 'none')
-    .datum(dataset) // 10. Binds data to the line 
-    .attr("class", "line") // Assign a class for styling 
-    .attr("d", line); // 11. Calls the line generator 
+    protected setBuble(data) {
 
+        // Define the div for the tooltip
+        const div = d3.select('#chart').append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
 
+        // // 12. Appends a circle for each datapoint
+        this.svg.selectAll('circle')
+            .data(data)
+            .enter().append('circle') // Uses the enter().append() method
+            .style('stroke', 'black')
+            .style('fill', 'yellow')
+            .attr('class', 'dot') // Assign a class for styling
+            .attr('cx', (d: any) => this.x(d.timestamp) )
+            .attr('cy', (d: any) => this.y(d.level) )
+            .attr('r', 5)
+            .on('mouseover', function(d) {
 
-//////////////////////////////////////////////
-//////////////////////////////////////////////
+              const dateTime = new Date(d.timestamp * 1000);
+              const msg = 'Timestamp: '
+                  + dateTime.getFullYear() + '-' + dateTime.getMonth() + '-' + dateTime.getDate() + ' '
+                  + dateTime.getHours() + ':' + dateTime.getMinutes()
+                  + '<br/> Light value: ' + d.level;
+              console.log(msg);
 
-    // 12. Appends a circle for each datapoint 
-    svg.selectAll(".dot")
-    .data(dataset)
-    .enter().append("circle") // Uses the enter().append() method
-    .style('stroke', 'black')
-    .style('fill', 'yellow')
-    .attr("class", "dot") // Assign a class for styling
-    .attr("cx", function(d, i) { return xScale(d.x) })
-    .attr("cy", function(d) { return yScale(d.y) })
-    .attr("r", 5)
-    .on("mouseover", function(d) {	
-      
-      console.log(d);
+                div.transition()
+                    .duration(200)
+                    .style('opacity', .9)
+                    .style('background', 'lightsteelblue')
+                    .style('pointer-events', 'none')
+                    .style('padding', '10px')
+                    .style('position', 'absolute');
 
-      div.transition()		
-          .duration(200)		
-          .style("opacity", .9)
-          .style("background", 'lightsteelblue')
-          .style("pointer-events", 'none')
-          .style("padding", '10px')
-          .style("position", 'absolute');
-
-      div	.html('Timestamp: ' + d.x + "<br/> Light value: " + d.y)	
-          .style("left", (d3.event.pageX + 10) + "px")		
-          .style("top", (d3.event.pageY - 50) + "px");	
-      })					
-  .on("mouseout", function(d) {		
-      div.transition()		
-          .duration(500)		
-          .style("opacity", 0);	
-  });
-
-    // Define the div for the tooltip
-    var div = d3.select("#chart").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
-  
-    // Setting the required objects in chartProps so they could be used to update the chart
-    this.chartProps.svg = svg;
-  }
+                div	.html(msg)
+                    .style('left', (d3.event.pageX + 10) + 'px')
+                    .style('top', (d3.event.pageY - 50) + 'px');
+            })
+            .on('mouseout', function(d) {
+                div.transition()
+                    .duration(500)
+                    .style('opacity', 0);
+            });
+    }
 }
