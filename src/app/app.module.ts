@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 
 import {LightningLevelService} from './lightning-level.service';
+import {MainTransportService} from './main-transport.service';
 import {DataService} from './data.service';
 
 
@@ -31,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
   ],
   providers: [
+    MainTransportService,
     LightningLevelService,
     DataService,
   ],
