@@ -27,30 +27,30 @@ export class LightingChartComponent implements OnInit {
     chartElement: ElementRef;
 
     @Input()
-    public parentData;
+    public currentReading;
+
+    protected title = 'Line Chart of Lighting lever over time';
 
     private svgElement: HTMLElement;
     private chartProps: any;
 
-    title = 'Line Chart';
-    currentReading = '-';
-    parentComponent = {};
-
-    private margin = {top: 20, right: 20, bottom: 100, left: 50};
+    private margin = {top: 20, right: 30, bottom: 100, left: 10};
     private width: number;
     private height: number;
     private x: any;
+    private xScaleOriginal : any;
     private y: any;
     private svg: any;
+    private chart: any;
     private line: d3Shape.Line<[number, number]>;
 
 
     // https://github.com/datencia/d3js-angular-examples
     constructor(private  httpClient:  HttpClient, private inj:Injector) {
 
-        this.parentComponent = this.inj.get(GraphsComponent);
+        this.currentReading = this.inj.get(GraphsComponent);
 
-        this.width = 900 - this.margin.left - this.margin.right;
+        this.width = 1000 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
     }
 
@@ -90,6 +90,11 @@ export class LightingChartComponent implements OnInit {
 
         this.x.domain(d3Array.extent(data, (d) => d.date ));
         this.y.domain(d3Array.extent(data, (d) => d.level ));
+
+        // zoom
+        const zoom = d3.zoom()
+                    .on('zoom', this.zoomed.bind(this));
+        this.chart.call(zoom);
     }
 
     private drawLine(data) {
@@ -120,12 +125,13 @@ export class LightingChartComponent implements OnInit {
                 ).ticks(25)
             );
 
-            // Rotate x axis labels
-            this.svg.selectAll("text")
+        // Rotate x axis labels
+        this.svg.selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)");
+
 
         this.svg.append('g')
             .attr('class', 'axis axis--y')
@@ -156,8 +162,6 @@ export class LightingChartComponent implements OnInit {
             .attr('cy', (d: any) => this.y(d.level) )
             .attr('r', 5)
             .on('mouseover', function(d) {
-
-              console.log(d);
 
               const dateTime = new Date(d.timestamp * 1000);
               const msg = 'Timestamp: '
@@ -190,8 +194,23 @@ export class LightingChartComponent implements OnInit {
             .attr('height', '100%')
             .attr('fill', '#0073e6');
 
-        this.svg = d3.select('svg')
-            .append('g')
+        this.svg = d3.select('svg');
+        this.chart = this.svg.append('g')
             .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    }
+
+    private zoomed() {
+        //X Axis zoom
+        // const t = d3.event.transform;
+        // this.x = t.rescaleX(this.x);
+        
+        const ta = d3.event.transform;
+        this.x.domain(ta.rescaleX(this.xScaleOriginal).domain());
+
+        // this.xAxisElement.call(this.xAxis);
+        // for (let [key, value] of this.dataObjects) {
+        //     this.chart.select('#' + key + '')
+        //         .attr('d', this.valueline(value.data));
+        // }
     }
 }

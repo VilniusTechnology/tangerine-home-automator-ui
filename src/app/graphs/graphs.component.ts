@@ -11,10 +11,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GraphsComponent implements OnInit {
 
-  public currentReading = '-';
+  public currentReading = 0;
   public readings: AutomatorMainResponse;
-
-  public sync = 0;
 
   constructor(private _mainTransportService: MainTransportService) { }
 
@@ -29,7 +27,7 @@ export class GraphsComponent implements OnInit {
     this._mainTransportService.getData().subscribe(data => { 
       // console.log(data);
       this.readings = data
-      this.sync = data.light_lvl
+      this.currentReading = data.light_lvl
     });
   }
 
