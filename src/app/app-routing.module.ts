@@ -6,6 +6,9 @@ import {HistoryComponent} from './history/history.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {HighchartsComponent} from './highcharts/highcharts.component';
+import {LightomatorComponent} from './lightomator/lightomator.component';
+
+
 
 const routes: Routes = [
   {
@@ -28,6 +31,10 @@ const routes: Routes = [
     path:  'highcharts',
     component: HighchartsComponent,
   },
+  {
+    path:  'lightomator',
+    component: LightomatorComponent,
+  }
   // {
   //   path:  'history/show/:id',
   //   component: HistoryComponent,

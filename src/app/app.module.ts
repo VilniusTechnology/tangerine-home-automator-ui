@@ -25,6 +25,18 @@ import { ColorSliderComponent } from './color-picker/color-slider/color-slider.c
 import { PromisesComponent } from './promises/promises.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { LightomatorComponent } from './lightomator/lightomator.component';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
+import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -39,7 +51,8 @@ import { HomeComponent } from './home/home.component';
     HistoryComponent,
     PromisesComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LightomatorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +60,16 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     HighchartsChartModule,
     ColorPickerModule,
+    BrowserAnimationsModule,
+    MatButtonModule, 
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatRadioModule,
   ],
   providers: [
     MainTransportService,

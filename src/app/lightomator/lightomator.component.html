@@ -1,0 +1,117 @@
+<style>
+    .example-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.example-radio-button {
+  margin: 10px;
+}
+
+.example-selected-value {
+  margin: 20px 0;
+}
+</style>
+
+<mat-radio-group class="example-radio-group">
+    <mat-radio-button class="example-radio-button" *ngFor="let season of ledModesList" value="season.code"
+    (change)="handleModeChange($event)">
+        {{season.title}}
+    </mat-radio-button>
+</mat-radio-group>
+
+<hr/>
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon>send</mat-icon>
+        </div>
+        <mat-card-title>Add timing mode</mat-card-title>
+    </mat-card-header>
+
+<form #form>
+
+
+<mat-form-field>
+    <input matInput placeholder="title" value="{{freshInterval.title}}" name="title" #title>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="from" value="{{freshInterval.from}}" type="time" min="00:00" max="23:59" name="from">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="to" value="{{freshInterval.to}}" type="time" min="00:00" max="23:58" name="to">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="red" value="{{freshInterval.settings.red}}" name="" type="number" min="0" max="255" >
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="green" value="{{freshInterval.settings.green}}" name="" type="number" min="0" max="255">
+  </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="blue" value="{{freshInterval.settings.blue}}" name="" type="number" min="0" max="255">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" 
+        (click)="handleClick($event, form)"
+        >
+        Add
+    </button>
+
+</form>
+</mat-card>
+<hr/>
+
+    <mat-card>
+            <mat-card-header>
+                    <div mat-card-avatar>
+                            <mat-icon>donut_large</mat-icon>
+                    </div>
+                    <mat-card-title>Current timing modes</mat-card-title>
+            </mat-card-header>
+    <mat-accordion>
+
+        <mat-expansion-panel *ngFor="let interval of intervals">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{interval.title}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{interval.title}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <mat-form-field>
+            <input matInput placeholder="title" value="{{interval.title}}">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput placeholder="from" value="{{interval.from}}">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="to" value="{{interval.to}}">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput placeholder="red" value="{{interval.settings.red}}" type="number" min="0" max="255" >
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="green" value="{{interval.settings.green}}">
+        </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="blue" value="{{interval.settings.blue}}">
+            </mat-form-field>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    </mat-card>
+  <hr/> 
+
+
