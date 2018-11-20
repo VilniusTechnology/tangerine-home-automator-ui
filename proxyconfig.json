@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target" : "hyyp://localhost:1234",
+    "secure" : false,
+    "changeOrigin": true
+  }
+}

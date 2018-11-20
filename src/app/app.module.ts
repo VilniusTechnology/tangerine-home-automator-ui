@@ -15,6 +15,9 @@ import { HistoryComponent } from './history/history.component';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
+import { PromisesComponent } from './promises/promises.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { AppRoutingModule } from './app-routing.module';
     LightingChartComponent,
     TopbarComponent,
     GraphsComponent,
-    HistoryComponent
+    HistoryComponent,
+    PromisesComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
