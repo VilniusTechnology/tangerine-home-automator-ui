@@ -5,6 +5,7 @@ import {GraphsComponent} from './graphs/graphs.component';
 import {HistoryComponent} from './history/history.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
+import {HighchartsComponent} from './highcharts/highcharts.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path:  'history',
     component: HistoryComponent,
+  },
+  {
+    path:  'highcharts',
+    component: HighchartsComponent,
   },
   // {
   //   path:  'history/show/:id',

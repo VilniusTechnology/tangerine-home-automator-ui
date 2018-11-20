@@ -3,4 +3,22 @@
   <p>
     history works!
   </p>
+  
+  <span [style.background]="arrayColors[selectedColor]"
+    [cpToggle]="true"
+    [cpDialogDisplay]="'inline'"
+    [cpDisableInput]="true"
+
+    [cpAddColorButton]="false"
+
+
+    [(colorPicker)]="color" ></span>
+
+<div [style.background]="arrayColors['color1']"
+  (click)="selectedColor='color1'"></div>
+
+<div [style.background]="arrayColors['color2']"
+  (click)="selectedColor='color2'"></div>
+
+
 </div>
