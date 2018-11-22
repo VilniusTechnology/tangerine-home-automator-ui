@@ -24,10 +24,10 @@ export class GraphsComponent implements OnInit {
     //     console.log(that.lightingLevel);
     // }, 1000);
 
-    this._mainTransportService.getData().subscribe(data => { 
+      this._mainTransportService.getData().subscribe(data => {
       // console.log(data);
-      this.readings = data
-      this.currentReading = data.light_lvl
+      this.readings = data;
+      this.currentReading = data.light_lvl;
     });
   }
 

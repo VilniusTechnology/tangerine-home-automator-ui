@@ -38,7 +38,7 @@ export class LightingChartComponent implements OnInit {
     private width: number;
     private height: number;
     private x: any;
-    private xScaleOriginal : any;
+    private xScaleOriginal: any;
     private y: any;
     private svg: any;
     private chart: any;
@@ -65,7 +65,7 @@ export class LightingChartComponent implements OnInit {
         this.httpClient.get('http://192.168.1.47:3001/data')
         .subscribe(
             data => {
-                
+
                 this.initSvg();
                 this.initAxis(data);
                 this.drawAxis();
@@ -79,7 +79,7 @@ export class LightingChartComponent implements OnInit {
     }
 
     private initAxis(data) {
-        
+
         let parseTime = d3.timeParse("%s");
         data.forEach(function(d) {
             d.date = parseTime(d.timestamp);

@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    mainNestUrl: 'http://192.168.1.47:8080/',
+    nestTimedSettingsUrl: 'http://192.168.1.47:3002',
+    // nestTimedSettingsUrl: 'http://localhost:3002',
 };
 
 /*

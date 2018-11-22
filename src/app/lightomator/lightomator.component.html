@@ -1,26 +1,88 @@
-<style>
-    .example-radio-group {
-  display: inline-flex;
-  flex-direction: column;
-}
+<div class="flex-container" [style.background-color]="currentColor">
+    <div>
+        <mat-card class="result">
+            <mat-card-content>
+                <h2 class="example-h2">Controlls</h2>
 
-.example-radio-button {
-  margin: 10px;
-}
-
-.example-selected-value {
-  margin: 20px 0;
-}
-</style>
-
-<mat-radio-group class="example-radio-group">
-    <mat-radio-button class="example-radio-button" *ngFor="let season of ledModesList" value="season.code"
-    (change)="handleModeChange($event)">
-        {{season.title}}
-    </mat-radio-button>
-</mat-radio-group>
+                <section class="example-section">
+                    <mat-slide-toggle
+                            class="example-margin"
+                            [(ngModel)]="ledState"
+                            [checked]="ledState"
+                            (change)="dispatchLedControlAction()"
+                    >
+                        Switch On/Off
+                    </mat-slide-toggle>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div class="flex-container" [style.background-color]="currentColor">
+    <div>
+        <mat-card class="result" [style.background-color]="'red'">
+            <mat-card-content>
+                <h3 class="example-h3">{{sliders.red.value}}</h3>
+                <mat-slider
+                        class="sli1"
+                        [max]="255"
+                        [min]="0"
+                        [step]="1"
+                        [(ngModel)]="sliders.red.value"
+                        (change)="dispatchLedControlAction($event)" >
+                </mat-slider>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="result" [style.background-color]="'green'">
+            <mat-card-content>
+                <h3 class="example-h3">{{sliders.green.value}}</h3>
+                <mat-slider
+                        class="sli2"
+                        [max]="255"
+                        [min]="0"
+                        [step]="1"
+                        [(ngModel)]="sliders.green.value"
+                        (change)="dispatchLedControlAction($event)" >
+                </mat-slider>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="result" [style.background-color]="'blue'">
+            <mat-card-content>
+                <h3 class="example-h3">{{sliders.blue.value}}</h3>
+                <mat-slider
+                        class="sli3"
+                        [max]="255"
+                        [min]="0"
+                        [step]="1"
+                        [(ngModel)]="sliders.blue.value"
+                        (change)="dispatchLedControlAction($event)" >
+                </mat-slider>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<mat-card class="result">
+    <mat-card-content>
+        <mat-radio-group [(ngModel)]="ledMode" class="example-radio-group" >
+            <mat-radio-button class="example-radio-button" *ngFor="let ledMode of ledModesList" [value]="ledMode.code"
+            (change)="dispatchLedControlAction($event)">
+                {{ledMode.title}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-card-content>
+</mat-card>
 
 <hr/>
+
+<!-- LED CONTROLS PART ENDS-->
+
+<!-- LED TIMERS PART STARTS-->
+
+
 <mat-card>
     <mat-card-header>
         <div mat-card-avatar>
@@ -28,90 +90,108 @@
         </div>
         <mat-card-title>Add timing mode</mat-card-title>
     </mat-card-header>
+    <form [formGroup]="myForm">
+        <hr/>
 
-<form #form>
+        <mat-form-field>
+            <input matInput placeholder="title" formControlName="title">
+        </mat-form-field>
 
+        <mat-form-field>
+            <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
+        </mat-form-field>
 
-<mat-form-field>
-    <input matInput placeholder="title" value="{{freshInterval.title}}" name="title" #title>
-  </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="from" value="{{freshInterval.from}}" type="time" min="00:00" max="23:59" name="from">
-  </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
+        </mat-form-field>
 
-  <mat-form-field>
-      <input matInput placeholder="to" value="{{freshInterval.to}}" type="time" min="00:00" max="23:58" name="to">
-  </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="red" value="{{freshInterval.settings.red}}" name="" type="number" min="0" max="255" >
-  </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
+        </mat-form-field>
 
-  <mat-form-field>
-      <input matInput placeholder="green" value="{{freshInterval.settings.green}}" name="" type="number" min="0" max="255">
-  </mat-form-field>
+        <button mat-raised-button color="primary"
+            (click)="handleAdd($event)"
+            >
+            Add
+        </button>
 
-    <mat-form-field>
-        <input matInput placeholder="blue" value="{{freshInterval.settings.blue}}" name="" type="number" min="0" max="255">
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" 
-        (click)="handleClick($event, form)"
-        >
-        Add
-    </button>
-
-</form>
+    </form>
 </mat-card>
+
 <hr/>
 
-    <mat-card>
-            <mat-card-header>
-                    <div mat-card-avatar>
-                            <mat-icon>donut_large</mat-icon>
-                    </div>
-                    <mat-card-title>Current timing modes</mat-card-title>
-            </mat-card-header>
-    <mat-accordion>
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar>
+                <mat-icon>donut_large</mat-icon>
+        </div>
+        <mat-card-title>Current timing modes</mat-card-title>
+    </mat-card-header>
 
-        <mat-expansion-panel *ngFor="let interval of intervals">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{interval.title}}
-            </mat-panel-title>
-            <mat-panel-description>
-                {{interval.title}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-    
-        <mat-form-field>
-            <input matInput placeholder="title" value="{{interval.title}}">
-        </mat-form-field>
-    
-        <mat-form-field>
-            <input matInput placeholder="from" value="{{interval.from}}">
-        </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="to" value="{{interval.to}}">
-        </mat-form-field>
-        
-        <mat-form-field>
-            <input matInput placeholder="red" value="{{interval.settings.red}}" type="number" min="0" max="255" >
-        </mat-form-field>
+    <div [formGroup]="formSet">
+        <mat-accordion>
+            <div formArrayName="intervals">
+                <mat-expansion-panel *ngFor="let interval of formSet.controls.intervals.controls; let i=index; let title=interval" [formGroupName]="i">
 
-        <mat-form-field>
-            <input matInput placeholder="green" value="{{interval.settings.green}}">
-        </mat-form-field>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{ this.intervals[i].title}} - {{ this.intervals[i].id}}
+                        </mat-panel-title>
+                        <mat-panel-description> </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-            <mat-form-field>
-                <input matInput placeholder="blue" value="{{interval.settings.blue}}">
-            </mat-form-field>
-        </mat-expansion-panel>
+                    <mat-form-field>
+                        <input matInput placeholder="title" formControlName="title">
+                    </mat-form-field>
 
-    </mat-accordion>
-    </mat-card>
-  <hr/> 
+                    <mat-form-field>
+                        <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
+                    </mat-form-field>
+
+                    <br/>
+
+                    <button mat-raised-button color="accent"
+                            (click)="handleUpdate($event, i)"
+                    >
+                        Update
+                    </button>
+                    <button mat-raised-button color="warn"
+                            (click)="handleDelete($event, i)"
+                    >
+                        Delete
+                    </button>
+                    <hr/>
+                </mat-expansion-panel>
+            </div>
+        </mat-accordion>
+    </div>
+</mat-card>
+
+<hr/>
 
 

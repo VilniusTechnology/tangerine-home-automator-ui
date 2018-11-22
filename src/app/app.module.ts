@@ -15,7 +15,6 @@ import {LightingChartComponent} from './lighting-chart/lighting-chart.component'
 import { TopbarComponent } from './topbar/topbar.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { HistoryComponent } from './history/history.component';
-import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HighchartsComponent } from './highcharts/highcharts.component';
@@ -29,7 +28,7 @@ import { LightomatorComponent } from './lightomator/lightomator.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -37,39 +36,47 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LightingChartComponent,
-    TopbarComponent,
-    GraphsComponent,
-    HistoryComponent,
-    HighchartsComponent,
-    ColorSliderComponent,
-    HistoryComponent,
-    PromisesComponent,
-    LoginComponent,
-    HomeComponent,
-    LightomatorComponent
+      AppComponent,
+      LightingChartComponent,
+      TopbarComponent,
+      GraphsComponent,
+      HistoryComponent,
+      HighchartsComponent,
+      ColorSliderComponent,
+      HistoryComponent,
+      PromisesComponent,
+      LoginComponent,
+      HomeComponent,
+      LightomatorComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    HighchartsChartModule,
-    ColorPickerModule,
-    BrowserAnimationsModule,
-    MatButtonModule, 
-    MatCheckboxModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatRadioModule,
+      BrowserModule,
+      HttpClientModule,
+      AppRoutingModule,
+      HighchartsChartModule,
+      ColorPickerModule,
+      BrowserAnimationsModule,
+      MatButtonModule,
+      MatCheckboxModule,
+      MatExpansionModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatCardModule,
+      MatIconModule,
+      MatListModule,
+      MatRadioModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatSlideToggleModule,
+      MatSliderModule,
+      MatGridListModule,
   ],
   providers: [
     MainTransportService,
