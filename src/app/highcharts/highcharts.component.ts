@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
 
-import {LithuanianAdminMapSvgLoaderService} from './services/lithuanian-admin-map-svg-loader.service';
-
-import mapJson from './services/ltu-admin-map.json';
-import * as HighMaps from 'highcharts/highmaps';
-
+//import mapJson from './services/ltu-admin-map.json';
+//import * as HighMaps from 'highcharts/highmaps';
 
 @Component({
   selector: 'app-highcharts',
@@ -15,17 +11,15 @@ import * as HighMaps from 'highcharts/highmaps';
 
 export class HighchartsComponent implements OnInit {
 
-  Highcharts = HighMaps;
-  chartOptions = {
-    series: mapJson
-  };
+  // Highcharts = HighMaps;
+  // chartOptions = {
+  //   series: mapJson
+  //};
 
-  constructor(
-    private mapLoader : LithuanianAdminMapSvgLoaderService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    console.log(mapJson[0]);
+    // console.log(mapJson[0]);
   }
 
 }

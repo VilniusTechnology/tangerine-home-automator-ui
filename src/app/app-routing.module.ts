@@ -7,6 +7,8 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {HighchartsComponent} from './highcharts/highcharts.component';
 import {LightomatorComponent} from './lightomator/lightomator.component';
+import { LedControlPanelComponent } from './led-control-panel/led-control-panel.component';
+import { LedTimingModesComponent } from './led-timing-modes/led-timing-modes.component';
 
 
 
@@ -34,6 +36,14 @@ const routes: Routes = [
   {
     path:  'lightomator',
     component: LightomatorComponent,
+  },
+  {
+    path:  'lightomator/led',
+    component: LedControlPanelComponent,
+  },
+  {
+    path:  'lightomator/timing',
+    component: LedTimingModesComponent,
   }
   // {
   //   path:  'history/show/:id',

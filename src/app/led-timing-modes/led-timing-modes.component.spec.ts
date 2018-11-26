@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PromisesComponent } from './promises.component';
+import { LedTimingModesComponent } from './led-timing-modes.component';
 
-describe('PromisesComponent', () => {
-  let component: PromisesComponent;
-  let fixture: ComponentFixture<PromisesComponent>;
+describe('LedTimingModesComponent', () => {
+  let component: LedTimingModesComponent;
+  let fixture: ComponentFixture<LedTimingModesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PromisesComponent ]
+      declarations: [ LedTimingModesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PromisesComponent);
+    fixture = TestBed.createComponent(LedTimingModesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

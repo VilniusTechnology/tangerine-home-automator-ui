@@ -51,6 +51,16 @@ export class LightAutomatorConnectionService {
         });
     }
 
+    reloadDb(payload) {
+        console.log('payload', payload);
+        const prom = this.httpClient.post(`${this.baseUrl}/reload-db`, payload);
+        return new Promise( (resolve, reject) => {
+            prom.subscribe((rawData) => {
+                resolve(rawData);
+            });
+        });
+    }
+
     deleteTimedMode(a) {
         return new Promise( (resolve, reject) => {
             resolve(a);

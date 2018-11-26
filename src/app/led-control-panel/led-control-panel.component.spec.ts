@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ColorSliderComponent } from './color-slider.component';
+import { LedControlPanelComponent } from './led-control-panel.component';
 
-describe('ColorSliderComponent', () => {
-  let component: ColorSliderComponent;
-  let fixture: ComponentFixture<ColorSliderComponent>;
+describe('LedControlPanelComponent', () => {
+  let component: LedControlPanelComponent;
+  let fixture: ComponentFixture<LedControlPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ColorSliderComponent ]
+      declarations: [ LedControlPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ColorSliderComponent);
+    fixture = TestBed.createComponent(LedControlPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

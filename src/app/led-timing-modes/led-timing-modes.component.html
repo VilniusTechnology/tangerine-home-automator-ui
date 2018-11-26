@@ -1,0 +1,148 @@
+<mat-card>
+  <mat-card-header>
+      <div mat-card-avatar>
+          <mat-icon>send</mat-icon>
+      </div>
+      <mat-card-title>Add timing mode</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="myForm">
+      <mat-form-field>
+          <input matInput placeholder="title" formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
+      </mat-form-field>
+
+    <br/>
+
+      <button mat-raised-button color="primary"
+          (click)="handleAdd($event)"
+          >
+          Add
+      </button>
+
+  </form>
+</mat-card>
+
+
+<mat-card>
+  <mat-card-header>
+      <div mat-card-avatar>
+              <mat-icon>donut_large</mat-icon>
+      </div>
+      <mat-card-title>Current timing modes</mat-card-title>
+  </mat-card-header>
+
+
+  <div [formGroup]="formSet">
+      <mat-accordion>
+          <div formArrayName="intervals">
+              <mat-expansion-panel
+                *ngFor="let interval of formSet.controls.intervals.controls; let i=index; let title=interval" [formGroupName]="i">
+
+                  <mat-expansion-panel-header [style.background-color]=
+                    "colorRgbToHex(
+                        this.intervals[i].settings.red, 
+                        this.intervals[i].settings.green, 
+                        this.intervals[i].settings.blue
+                        )"
+                    >
+                      <mat-panel-title class="headingFont">
+                          {{ this.intervals[i].title}} - {{ this.intervals[i].id}} | 
+                          [ {{ this.intervals[i].from}} - {{ this.intervals[i].to}} ]
+                      </mat-panel-title>
+                      <mat-panel-description> </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                    <div class="mat-expansion-panel-ofset">
+
+                        <mat-form-field>
+                            <input matInput placeholder="title" formControlName="title">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
+                        </mat-form-field>
+
+                        <br/>
+
+                        <button mat-raised-button color="accent"
+                                (click)="handleUpdate($event, i)"
+                        >
+                            Update
+                        </button>
+                        <button mat-raised-button color="warn"
+                                (click)="handleDelete($event, i)"
+                        >
+                            Delete
+                        </button>
+                        
+                    </div>
+              </mat-expansion-panel>
+            </div>
+        </mat-accordion>
+    </div>  
+</mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon>send</mat-icon>
+        </div>
+        <mat-card-title>Add timing mode</mat-card-title>
+    </mat-card-header>
+
+    <button mat-raised-button color="warn"
+            (click)="reloadDb($event)"
+            >
+            ReloadDB
+    </button>
+</mat-card>
+
+
+<mat-card>
+        <mat-card-header>
+            <div mat-card-avatar>
+                <mat-icon>arrow_right_alt</mat-icon>
+            </div>
+            <mat-card-title>Time ranges visualization</mat-card-title>
+        </mat-card-header>
+    
+        <div style="width: 1450px;">
+                <div [chart]="chart"></div>
+        </div>
+</mat-card>
+
