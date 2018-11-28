@@ -1,0 +1,91 @@
+<div class="flex-container" [style.background-color]="currentColor">
+  <div>
+      <mat-card class="result" [style.background-color]="'red'">
+          <mat-card-content>
+              <input type="text" [(ngModel)]="sliders.red.value" class="sli1" />
+              <br/>
+              <mat-slider
+                      class="sli1"
+                      [max]="255"
+                      [min]="0"
+                      [step]="1"
+                      [(ngModel)]="sliders.red.value"
+                      (change)="dispatchLedControlAction($event)" 
+                      [disabled]="!(ledState == 1 ? true : false)" >
+              </mat-slider>
+          </mat-card-content>
+      </mat-card>
+  </div>
+
+  <div>
+      <mat-card class="result" [style.background-color]="'green'">
+          <mat-card-content>
+              <input type="text" [(ngModel)]="sliders.green.value" class="sli2" />
+              <br/>
+              <mat-slider
+                      class="sli2"
+                      [max]="255"
+                      [min]="0"
+                      [step]="1"
+                      [(ngModel)]="sliders.green.value"
+                      (change)="dispatchLedControlAction($event)"
+                      [disabled]="!(ledState == 1 ? true : false)"  >
+              </mat-slider>
+          </mat-card-content>
+      </mat-card>
+  </div>
+  <div>
+      <mat-card class="result" [style.background-color]="'blue'">
+          <mat-card-content>
+              <input type="text" [(ngModel)]="sliders.blue.value"class="sli3" />
+              <br/>
+              <mat-slider
+                      class="sli3"
+                      [max]="255"
+                      [min]="0"
+                      [step]="1"
+                      [(ngModel)]="sliders.blue.value"
+                      (change)="dispatchLedControlAction($event)"
+                      [disabled]="!(ledState == 1 ? true : false)"  >
+              </mat-slider>
+          </mat-card-content>
+      </mat-card>
+  </div>
+
+  <div>
+    <mat-card class="result" [style.background-color]="'yellow'">
+        <mat-card-content>
+            <input type="text" [(ngModel)]="sliders.warmWhite.value" class="sli4" />
+            <br/>
+            <mat-slider
+                    class="sli4"
+                    [max]="255"
+                    [min]="0"
+                    [step]="1"
+                    [(ngModel)]="sliders.warmWhite.value"
+                    (change)="dispatchLedControlAction($event)" 
+                    [disabled]="!(ledState == 1 ? true : false)" >
+            </mat-slider>
+        </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card class="result" [style.background-color]="'white'">
+        <mat-card-content>
+            <input type="text" [(ngModel)]="sliders.coldWhite.value" class="sli5" />
+            <br/>
+            <mat-slider
+                    class="sli5"
+                    [max]="255"
+                    [min]="0"
+                    [step]="1"
+                    [(ngModel)]="sliders.coldWhite.value"
+                    (change)="dispatchLedControlAction($event)" 
+                    [disabled]="!(ledState == 1 ? true : false)" >
+            </mat-slider>
+        </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

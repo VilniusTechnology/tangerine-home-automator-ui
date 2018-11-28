@@ -27,3 +27,86 @@ button.mat-raised-button {
     margin-left: 10px;
 }
 
+mat-slider.sli1> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill,
+mat-slider.sli1 > div > div.mat-slider-thumb-container > div.mat-slider-thumb
+{
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+mat-slider.sli2> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill,
+mat-slider.sli2 > div > div.mat-slider-thumb-container > div.mat-slider-thumb
+{
+  background-color: green;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+mat-slider.sli3 > div > div.mat-slider-thumb-container > div.mat-slider-thumb,
+mat-slider.sli3> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill
+{
+  background-color: blue;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+mat-slider.sli4 > div > div.mat-slider-thumb-container > div.mat-slider-thumb,
+mat-slider.sli4> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill
+{
+  background-color: yellow;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+mat-slider.sli5 > div > div.mat-slider-thumb-container > div.mat-slider-thumb,
+mat-slider.sli5> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill
+{
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+.mat-slider-track-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+input[type=text].sli1 {
+    background-color: red;
+    font-size: 1.2em;
+    border: 3px solid black;
+}
+
+input[type=text].sli2 {
+    background-color: green;
+    font-size: 1.2em;
+    border: 3px solid black;
+}
+
+input[type=text].sli3 {
+    background-color: blue;
+    font-size: 1.2em;
+    border: 3px solid black;
+}
+
+
+input[type=text].sli4 {
+    background-color: yellow;
+    font-size: 1.2em;
+    border: 3px solid black;
+}
+
+input[type=text].sli5 {
+    background-color: white;
+    font-size: 1.2em;
+    border: 3px solid black;
+}

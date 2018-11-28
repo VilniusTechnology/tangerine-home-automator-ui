@@ -20,6 +20,7 @@ export class LedControlPanelComponent implements OnInit {
   public ledMode = 1;
   public ledState = 0;
 
+
   public sliders = {
       'red': {
           'value': 155
@@ -69,31 +70,39 @@ export class LedControlPanelComponent implements OnInit {
 
     return `rgb(${red}, ${green}, ${blue})`;
   }
+
   ////
 
 setLedLightingState(data) {
 
-    console.log('setLedLightingState', data);
+    this.ledMode = data.ledMode;
     this.ledState = data.ledState;
-    this.ledLightingState = {
-        state: data.ledState,
-        mode: data.ledMode,
-        red: data.red.value,
-        green: data.green.value,
-        blue: data.blue.value,
-        coldWhite: data.coldWhite.value,
-        warmWhite: data.warmWhite.value,
-        light_lvl: data.light_lvl,
-        temperature: data.temperature,
-        humidity: data.humidity,
-    };
 
+    // this.ledLightingState = {
+    //     state: data.ledState,
+    //     mode: data.ledMode,
+    //     red: data.red.value,
+    //     green: data.green.value,
+    //     blue: data.blue.value,
+    //     coldWhite: data.coldWhite.value,
+    //     warmWhite: data.warmWhite.value,
+    //     light_lvl: data.light_lvl,
+    //     temperature: data.temperature,
+    //     humidity: data.humidity,
+    // };
+    
+    this.currentColor = this.determineCurrentColor();
+}
+
+setSlidersStates(data) {
     this.sliders.red.value = data.red.value;
     this.sliders.green.value = data.green.value;
     this.sliders.blue.value = data.blue.value;
     this.sliders.coldWhite.value = data.coldWhite.value;
     this.sliders.warmWhite.value = data.warmWhite.value;
+
     this.currentColor = this.determineCurrentColor();
+    this.dispatchLedControlAction();
 }
 
   onLedModeSelect(event) {
@@ -103,7 +112,7 @@ setLedLightingState(data) {
 
   ngGetLedLightingState() {
       this.currentColor = this.determineCurrentColor();
-
+      
       return {
           state: this.ledState ? 1 : 0,
           mode: this.ledMode,
@@ -116,17 +125,14 @@ setLedLightingState(data) {
   }
 
   dispatchLedControlAction() {
-
-      const that = this;
       const data = this.ngGetLedLightingState();
-      console.log(data);
+
       this._mainTransportService.setLedParams(data)
           .then((data) => {
-              that.setLedLightingState(data);
-              that.currentColor = this.determineCurrentColor();
+              this.setLedLightingState(data);
+              this.currentColor = this.determineCurrentColor();
               // console.log('dispatchLedControlAction: ', data);
           });
-
   }
 
   dispatchHealthCheck() {

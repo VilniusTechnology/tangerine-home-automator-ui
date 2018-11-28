@@ -1,0 +1,20 @@
+<div class="flex-container" [style.background-color]="currentColor">
+  <div>
+      <mat-card class="result">
+          <mat-card-content>
+              <h2 class="example-h2"> Manual control is {{ (ledState == 1 ? 'ON' : 'OFF')  }}</h2>
+
+              <section class="example-section">
+                  <mat-slide-toggle
+                          class="example-margin"
+                          [(ngModel)]="ledState"
+                          [checked]="ledState"
+                          (change)="dispatchLedControlAction()"
+                  >
+                      Switch On/Off
+                  </mat-slide-toggle>
+              </section>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</div>

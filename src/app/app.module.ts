@@ -16,8 +16,6 @@ import { HistoryComponent } from './history/history.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-
-import { ColorSliderComponent } from './color-picker/color-slider/color-slider.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { LightomatorComponent } from './lightomator/lightomator.component';
@@ -43,6 +41,8 @@ import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
 import * as xrange from 'highcharts/modules/xrange.src';
+import { LedStateSwitchComponent } from './led-control-panel/led-state-switch/led-state-switch.component';
+import { LedSlidersComponent } from './led-control-panel/led-sliders/led-sliders.component';
 
 
 @NgModule({
@@ -52,13 +52,14 @@ import * as xrange from 'highcharts/modules/xrange.src';
       TopbarComponent,
       GraphsComponent,
       HistoryComponent,
-      ColorSliderComponent,
       HighchartsComponent,
       LoginComponent,
       HomeComponent,
       LightomatorComponent,
       LedControlPanelComponent,
-      LedTimingModesComponent
+      LedTimingModesComponent,
+      LedStateSwitchComponent,
+      LedSlidersComponent
   ],
   imports: [
       ChartModule,
