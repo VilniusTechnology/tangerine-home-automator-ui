@@ -12,7 +12,7 @@ import * as d3Axis from 'd3-axis';
 
 import dator from 'date-and-time';
 
-import {LightingLevel} from '../lighting-level';
+import {LightingLevel} from '../services/lighting-level';
 import {GraphsComponent} from '../graphs/graphs.component';
 
 @Component({

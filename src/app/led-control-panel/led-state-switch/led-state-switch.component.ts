@@ -1,23 +1,25 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-led-state-switch',
-  templateUrl: './led-state-switch.component.html',
-  styleUrls: ['./led-state-switch.component.css']
+    selector: 'app-led-state-switch',
+    templateUrl: './led-state-switch.component.html',
+    styleUrls: ['./led-state-switch.component.css']
 })
 export class LedStateSwitchComponent implements OnInit {
 
-  @Input('state') public ledState: number = 0;
+    @Input('state') public ledState: number = 0;
 
-  @Output() public change = new EventEmitter();
+    @Output() public change = new EventEmitter();
 
-  constructor() { }
+    public currentColor: string = 'white';
 
-  ngOnInit() {
-  }
+    constructor() {}
 
-  dispatchLedControlAction() {
-    this.change.emit(this.ledState);
-  }
+    ngOnInit() {
+    }
+
+    dispatchLedControlAction() {
+        this.change.emit(this.ledState);
+    }
 
 }

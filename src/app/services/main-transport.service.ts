@@ -4,8 +4,9 @@ import * as _ from 'lodash';
 import { HttpClient} from  '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AutomatorMainResponse } from './entities/AutomatorMainResponse';
-import {environment} from '../environments/environment';
+import { AutomatorMainResponse } from '../entities/AutomatorMainResponse';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'

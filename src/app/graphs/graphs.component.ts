@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {MainTransportService} from '../main-transport.service';
+import {MainTransportService} from '../services/main-transport.service';
 import { AutomatorMainResponse } from '../entities/AutomatorMainResponse';
 import { Observable } from 'rxjs/Observable';
 

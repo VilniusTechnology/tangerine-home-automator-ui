@@ -1,29 +1,52 @@
 <nav>
-  <ul>
-    <li>
-      <a routerLink="graphs">
-          <i class="material-icons">show_chart</i>
-      </a>
-    </li>
-    <li>
-        <a routerLink="history">
-            <i class="material-icons">dns</i>
-        </a>
-    </li>
-    <li>
-      <a routerLink="highcharts">
-          <i class="material-icons">pie_chart</i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="lightomator/led">
-          <i class="material-icons">highlight</i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="lightomator/timing">
-          <i class="material-icons">alarm</i>
-      </a>
-    </li>
-  </ul>
+    <div class="flex-cont">
+        <div class="buttons" style="margin-top: 20px; margin-left: 20px;">
+            MND-H
+        </div>
+        <div class="buttons">
+            <ul>
+                <li>
+                    <a routerLink="graphs">
+                        <i class="material-icons">show_chart</i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="history">
+                        <i class="material-icons">dns</i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="highcharts">
+                        <i class="material-icons">pie_chart</i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="lightomator/led">
+                        <i class="material-icons">highlight</i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="lightomator/timing">
+                        <i class="material-icons">alarm</i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="led-emulator">
+                        <i class="material-icons">brightness_high</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div (click)="onLogout()" class="logout">
+        <ul>
+            <li>
+                <a>
+                    <i class="material-icons">exit_to_app</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 </nav>

@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
-import {Observable} from 'rxjs';
-
-import {LightingLevel} from './lighting-level';
-import {LightningLevelService} from './lightning-level.service';
-import {DataService} from './data.service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +11,16 @@ import {DataService} from './data.service';
   ]
 })
 export class AppComponent {
-  title = 'orange-home-automator-ui';
+    title = 'orange-home-automator-ui';
 
-  constructor() {
-  }
+    ngOnInit(): void {
+        firebase.initializeApp({
+            apiKey: "",
+            authDomain: "mandarin-home-automator-ui.firebaseapp.com",
+        });
+    }
+
+    constructor() {
+
+    }
 }

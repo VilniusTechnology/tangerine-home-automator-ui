@@ -6,7 +6,7 @@
 <app-led-sliders
     [state]="ledState"
     [sliders]="sliders"
-    (change)="setSlidersStates($event)"
+    (change)="onSlidersChange($event)"
     ></app-led-sliders>
 
 <mat-card class="result">

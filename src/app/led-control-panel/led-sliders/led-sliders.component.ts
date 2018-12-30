@@ -8,7 +8,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class LedSlidersComponent implements OnInit {
 
   @Input('state') public ledState: number = 0;
-
   @Input('sliders') public sliders = {
     "red" : 0,
     "green" : 0,
@@ -26,6 +25,10 @@ export class LedSlidersComponent implements OnInit {
 
   dispatchLedControlAction() {
     this.change.emit(this.sliders);
+  }
+
+  oncolorValuechange($event) {
+    this.dispatchLedControlAction();
   }
 
 }

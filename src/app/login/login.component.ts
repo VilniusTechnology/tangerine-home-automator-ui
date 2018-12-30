@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private Auth: AuthService) { }
+    public showSpinner = false;
 
-  ngOnInit() {
-  }
+    constructor(private authService: AuthService) { }
 
-  loginUser(event) {
-      event.preventDefault();
+    ngOnInit() {
+    }
 
-      const target = event.target;
+    onLogin(form: NgForm) {
 
-      const username = target.querySelector('#username').value;
-      const password = target.querySelector('#password').value;
+        this.showSpinner = true;
 
-      const response = this.Auth.getUserDetails(username, password);
+        const email    = form.value.email; 
+        const password = form.value.password;
 
-      console.log(response, username, password);
-  }
-
+        this.authService.login(email, password);
+        this.showSpinner = false;
+    }
 }
