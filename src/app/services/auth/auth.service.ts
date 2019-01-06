@@ -15,8 +15,8 @@ export class AuthService {
     login(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response) => {
-            console.log(response);
-            console.log(firebase.auth().currentUser.email);
+            // console.log(response);
+            // console.log(firebase.auth().currentUser.email);
 
             this.router.navigate(['/']);
             firebase.auth().currentUser.getIdToken().then(
@@ -27,7 +27,7 @@ export class AuthService {
 
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
     }
 
@@ -41,7 +41,7 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        console.log('isAuthenticated', this.token);
+        // console.log('isAuthenticated', this.token);
         return this.token != null; 
     }
 }

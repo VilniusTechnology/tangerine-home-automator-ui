@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-history',
@@ -10,7 +9,7 @@ export class HistoryComponent implements OnInit {
 
   entries$: Object;
 
-  constructor(private data: DataService) { }
+  constructor() { }
 
   ngOnInit() {
     this.data.getUsers().subscribe(

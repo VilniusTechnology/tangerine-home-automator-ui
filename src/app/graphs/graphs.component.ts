@@ -11,25 +11,18 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GraphsComponent implements OnInit {
 
-  public currentReading = 0;
-  public readings: AutomatorMainResponse;
+    public currentReading = 0;
+    public readings: AutomatorMainResponse;
 
-  constructor(private _mainTransportService: MainTransportService) { }
+    constructor(private _mainTransportService: MainTransportService) { }
 
-  ngOnInit() {
-
-    // var intervalID = setInterval(function() {
-    //     that.parentComponent.getDataAndInit();
-    //     that.lightingLevel = that.parentComponent.currentReading;
-    //     console.log(that.lightingLevel);
-    // }, 1000);
-
-      this._mainTransportService.getData().subscribe(data => {
-      // console.log(data);
-      this.readings = data;
-      this.currentReading = data.light_lvl;
+    ngOnInit() {
+        this._mainTransportService.getData().subscribe(data => {
+        // console.log(data);
+        this.readings = data;
+        this.currentReading = data.light_lvl;
     });
-  }
+    }
 
 }
 

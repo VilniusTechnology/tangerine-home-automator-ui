@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import {LightingLevel} from './lighting-level';
+import {LightingLevel} from '../models/lighting-level';
 
 @Injectable({
   providedIn: 'root'

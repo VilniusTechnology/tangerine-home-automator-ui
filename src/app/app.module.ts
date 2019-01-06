@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 
 import {LightningLevelService} from './services/lightning-level.service';
 import {MainTransportService} from './services/main-transport.service';
-import {DataService} from './services/data.service';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import {LightingChartComponent} from './lighting-chart/lighting-chart.component';
@@ -48,7 +47,8 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { AuthService } from './services/auth/auth.service';
 import { LedEmulatorComponent } from './led-emulator/led-emulator.component';
 import { SocketService } from './led-emulator/shared/services/socket.service';
-
+import { HeadedComponent } from './layout/headed/headed.component';
+import { HeadlessComponent } from './layout/headless/headless.component';
 
 @NgModule({
     declarations: [
@@ -65,7 +65,9 @@ import { SocketService } from './led-emulator/shared/services/socket.service';
         LedTimingModesComponent,
         LedStateSwitchComponent,
         LedSlidersComponent,
-        LedEmulatorComponent
+        LedEmulatorComponent,
+        HeadedComponent,
+        HeadlessComponent
     ],
     imports: [
         ChartModule,
@@ -93,7 +95,6 @@ import { SocketService } from './led-emulator/shared/services/socket.service';
     providers: [
         MainTransportService,
         LightningLevelService,
-        DataService,
         { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting, xrange ] },
         AuthGuardService,
         AuthService,

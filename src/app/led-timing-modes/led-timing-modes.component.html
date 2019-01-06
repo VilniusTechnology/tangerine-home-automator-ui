@@ -55,7 +55,7 @@
       <mat-accordion>
           <div formArrayName="intervals">
               <mat-expansion-panel
-                *ngFor="let interval of formSet.controls.intervals.controls; let i=index; let title=interval" [formGroupName]="i">
+                *ngFor="let interval of formSet['controls'].intervals['controls']; let i=index;" [formGroupName]="i">
 
                   <mat-expansion-panel-header [style.background-color]=
                     "colorRgbToHex(

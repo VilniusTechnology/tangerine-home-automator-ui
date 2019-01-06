@@ -19,10 +19,8 @@ export class LightAutomatorConnectionService {
 
         return new Promise(function(resolve, reject) {
             prom.subscribe((rawData) => {
-                // console.log('rawData: ', rawData);
                 let outData = [];
                 _.forEach(rawData, (val, key) => {
-                    // console.log('timedMode: ', val, key);
                     outData[key] = new TimedMode(val);
                 });
 

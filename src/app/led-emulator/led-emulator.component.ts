@@ -21,10 +21,13 @@ export class LedEmulatorComponent implements OnInit {
     ledColor: string = 'green';
   
     constructor(private socketService: SocketService) { }
-  
     
     ngOnInit(): void {
       this.initIoConnection();
+    }
+
+    openNewWindow() {
+        window.open('/led-outlet', '', 'width=350,height=280');
     }
   
     private initIoConnection(): void {
@@ -56,7 +59,11 @@ export class LedEmulatorComponent implements OnInit {
       this.socketService.send({
         from: 'fefefer',
         content: message,
-        color: 'none'
+        color: {
+            red: 0,
+            green: 0,
+            blue: 0,
+        }
       });
       this.messageContent = null;
     }
@@ -68,13 +75,21 @@ export class LedEmulatorComponent implements OnInit {
         message = {
             from: 'fefefer',
             content: 'JOINED',
-            color: 'none'
+            color: {
+                red: 0,
+                green: 0,
+                blue: 0,
+            }
         }
       } else if (action === Action.RENAME) {
         message = {
             from: 'fefefer',
             content: 'RENAME',
-            color: 'none'
+            color: {
+                red: 0,
+                green: 0,
+                blue: 0,
+            }
         };
       }
   

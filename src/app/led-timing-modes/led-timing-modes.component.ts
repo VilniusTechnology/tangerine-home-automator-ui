@@ -44,14 +44,13 @@ export class LedTimingModesComponent implements OnInit {
         this.formSet = this.fb.group({
             intervals: this.fb.array([])
         });
-        this.myForm.valueChanges.subscribe(console.log);
+        // this.myForm.valueChanges.subscribe(console.log);
 
         this.loadTimedModes();  
     }
 
     initChart(data, columns) {
         let lineDate = new Date();
-        lineDate.getTime();
 
         this.chart = new Chart({
             time: {
@@ -69,7 +68,7 @@ export class LedTimingModesComponent implements OnInit {
                 plotLines: [{
                     color: '#FF0000', // Red
                     width: 2,
-                    value: lineDate // Position, you'll have to translate this to the values on your x axis
+                    value: lineDate.getTime() // Position, you'll have to translate this to the values on your x axis
                 }]
             },
             yAxis: {
@@ -81,30 +80,22 @@ export class LedTimingModesComponent implements OnInit {
             },
             series: [{
                 name: 'TimeFrame',
-                borderColor: 'gray',
                 pointWidth: 20,
                 data: data,
-                dataLabels: {
-                    enabled: true
-                }
+                // borderColor: 'gray',
+                // dataLabels: {
+                //     enabled: true
+                // }
             }]
         });
     }
 
-    get intervalsForms() {
-        return this.formSet.get('intervals');
-    }
-
     getTimedModes() {
-        this._lightAutomatorConnectionService.getTimedModes().then((data) => {
-            // console.log('inData: ', data);
-
+        this._lightAutomatorConnectionService.getTimedModes().then((data: any) => {
             const current_date = moment().format('YYYY-MM-DD');
             let outData = [];
             let columns = [];
             data.forEach((elem, key) => {
-                console.log(`${current_date} ${elem.from}:00`);
-
                 let date1 = new Date(`${current_date} ${elem.from}:00`);
                 date1.getTime();
 
@@ -114,8 +105,8 @@ export class LedTimingModesComponent implements OnInit {
                 let lightColorString = `rgb(${elem.settings.red}, ${elem.settings.green}, ${elem.settings.blue});`;
                 let hexColor = '#' + this.rgbToHex(elem.settings.red) + this.rgbToHex(elem.settings.green) + this.rgbToHex(elem.settings.blue);
                 outData.push({
-                        x:  Math.round(date1),
-                        x2: Math.round(date2),
+                        x:  Math.round(date1.getTime()),
+                        x2: Math.round(date2.getTime()),
                         y: key,
                         color: hexColor,
                         marker: {
@@ -127,8 +118,7 @@ export class LedTimingModesComponent implements OnInit {
                 columns.push(`${elem.title} - [${elem.from} | ${elem.to} ]`);
             });
 
-
-            console.log('outData: ', outData);
+            // console.log('outData: ', outData);
             this.initChart(outData, columns);
         });
     }
@@ -146,71 +136,59 @@ export class LedTimingModesComponent implements OnInit {
     };
 
     loadTimedModes() {
-        const that = this;
         this._lightAutomatorConnectionService.getTimedModes().then((data) => {
-            that.intervals = _.values(data);
+            this.intervals = _.values(data);
 
-            that.formSet = this.fb.group({
+            this.formSet = this.fb.group({
                 intervals: this.fb.array([])
             });
 
-            _.forEach(that.intervals, (val, key) => {
+            _.forEach(this.intervals, (val, key) => {
                 const dt = val.toJSON();
-                that.createFormEntry(dt);
+                this.createFormEntry(dt);
             });
 
         });
     }
 
     updateTimedMode(id) {
-        const that = this;
-        this._lightAutomatorConnectionService.editTimedMode(this.formSet.controls.intervals.controls[id].value)
+        this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][id].value)
             .then((data) => {
-                that.loadTimedModes();
+                this.loadTimedModes();
             });
     }
 
     deleteTimedMode(id) {
-        const that = this;
         this._lightAutomatorConnectionService.deleteTimedMode(this.myForm.value)
             .then((data) => {
-                console.log('handleClick', this.formSet.controls.intervals.controls);
+                console.log('handleClick', this.formSet['controls'].intervals['controls']);
                 // that.loadTimedModes();
-                // that.formSet.removeAt(data.i);
+                // this.formSet.removeAt(data.i);
             });
     }
 
     addTimedMode() {
-        const that = this;
         this._lightAutomatorConnectionService.createTimedMode(this.myForm.value)
             .then((data) => {
-                console.log('handleClick', data);
-                that.loadTimedModes();
-                that.createFormEntry(this.formTemplate);
+                this.loadTimedModes();
+                this.createFormEntry(this.formTemplate);
             });
     }
 
     reloadDb() {
-        const that = this;
         this._lightAutomatorConnectionService.reloadDb({})
             .then((data) => {
-                console.log('handleClick', data);
-                that.loadTimedModes();
-                that.createFormEntry(this.formTemplate);
+                this.loadTimedModes();
+                this.createFormEntry(this.formTemplate);
             });
     }
 
-    /////
-
     createFormEntry(data) {
-        const interval = this.fb.group(data);
-        this.intervalsForms.push(interval);
+        this.formSet['controls'].intervals['controls'].push(this.fb.group(data));
     }
-    ////
 
     handleAdd(event) {
         event.preventDefault();
-        console.log(this.myForm.value);
 
         this.addTimedMode();
     }
@@ -218,7 +196,6 @@ export class LedTimingModesComponent implements OnInit {
     handleUpdate(event, id) {
         event.preventDefault();
         this.updateTimedMode(id);
-        console.log(id);
     }
 
     handleDelete(event, id) {
@@ -226,9 +203,12 @@ export class LedTimingModesComponent implements OnInit {
         this.deleteTimedMode(id);
     }
 
-    updateSeriesData(data: Array<any>): void {
+    updateSeriesData(data: Highcharts.SeriesOptions): void {
         let series = this.chart;
-        series.setData(data);
+
+        console.log('data', data);
+
+        series.addSerie(data, true);
     }
 
 }

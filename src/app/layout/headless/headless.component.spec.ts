@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopbarComponent } from './topbar.component';
+import { HeadlessComponent } from './headless.component';
 
-describe('TopbarComponent', () => {
-  let component: TopbarComponent;
-  let fixture: ComponentFixture<TopbarComponent>;
+describe('HeadlessComponent', () => {
+  let component: HeadlessComponent;
+  let fixture: ComponentFixture<HeadlessComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopbarComponent ]
+      declarations: [ HeadlessComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopbarComponent);
+    fixture = TestBed.createComponent(HeadlessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
