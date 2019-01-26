@@ -16,7 +16,7 @@ export class LightAutomatorConnectionService {
         private httpClient: HttpClient, 
         private endpointsService: EndpointsService
     ) { 
-        this.baseUrl = this.endpointsService.getEndpointUrlByKey('mainNestUrl');
+        this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
     }
 
     getTimedModes() {

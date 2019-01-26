@@ -11,14 +11,13 @@ export const environment = {
         healthCheckPeriod: 3000,
         useEmulator: true,
         emulatorEndpoints: {
-            mainNestUrl: 'http://localhost:8081',
-            ledControllerAddress: 'http://localhost:7777',
-            // nestTimedSettingsUrl: 'http://localhost:8082',
+            main: 'http://localhost:8081',
+            ledController: 'http://localhost:7777',
+            ledEmulator: 'http://localhost:7777',
         },
         hardwareEndpoints: {
-            mainNestUrl: 'http://192.168.1.47:8081/',
-            ledControllerAddress: 'http://192.168.1.47:8080/',
-            // nestTimedSettingsUrl: 'http://192.168.1.47:3002',
+            main: 'http://192.168.1.47:8081/',
+            ledController: 'http://192.168.1.47:8080/',
         },
     }
 };
