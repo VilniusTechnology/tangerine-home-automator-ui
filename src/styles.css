@@ -21,6 +21,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 1.2em;
     font-family: Kanit, "Helvetica Neue", sans-serif; 
     mix-blend-mode: difference;
+    -webkit-text-stroke: 0.0228rem black;
 }
 
 button.mat-raised-button {

@@ -21,7 +21,7 @@ export class LedEmulatorComponent implements OnInit {
     }
 
     openNewWindow() {
-        window.open('/led-outlet', '', 'width=350,height=280');
+        window.open('/led-outlet', '', 'width=450,height=280');
     }
 
 }
