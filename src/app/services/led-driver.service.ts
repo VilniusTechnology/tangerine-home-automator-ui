@@ -5,19 +5,20 @@ import { HttpClient} from  '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AutomatorMainResponse } from '../models/AutomatorMainResponse';
-import { environment } from 'src/environments/environment';
+import { EndpointsService } from './endpoints.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LedDriverService {
-    private baseUrl = environment.ledControllerAddress;
+    private baseUrl: string;
 
-    constructor(private  httpClient:  HttpClient) { 
-        if (environment.useEmulator) {
-            this.baseUrl = environment.ledEmulatedControllerAdress;
-        }
+    constructor(
+        private  httpClient:  HttpClient, 
+        private endpointsService: EndpointsService
+    ) { 
+        this.baseUrl = this.endpointsService.getEndpointUrlByKey('mainNestUrl');
     }
 
     getData(): Observable<AutomatorMainResponse> {

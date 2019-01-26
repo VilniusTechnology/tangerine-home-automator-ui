@@ -1,18 +1,23 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 import {TimedMode} from '../timed-mode';
 import * as _ from 'lodash';
+import { EndpointsService } from './endpoints.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LightAutomatorConnectionService {
 
-    private baseUrl = environment.nestTimedSettingsUrl;
+    private baseUrl: string;
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(
+        private httpClient: HttpClient, 
+        private endpointsService: EndpointsService
+    ) { 
+        this.baseUrl = this.endpointsService.getEndpointUrlByKey('mainNestUrl');
+    }
 
     getTimedModes() {
         const prom = this.httpClient.get(`${this.baseUrl}/get-light-time-programs`);

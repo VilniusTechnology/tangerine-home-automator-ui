@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LightOutletComponent } from './light-outlet/light-outlet.component';
+import { LightOutletComponent } from 'src/app/components/light-outlet/light-outlet.component';
 
 const routes: Routes = [
     {

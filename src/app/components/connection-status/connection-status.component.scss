@@ -1,0 +1,17 @@
+.connection-status-box {
+    padding: 0.6rem;
+    font-size: 1rem;
+
+    &.ok {
+        color: green;
+        border: 1px solid green;
+        background-color: rgb(171, 227, 171);
+    }
+    
+    &.fail {
+        color: red;
+        border: 1px solid red;
+        background-color: rgb(230, 161, 161);
+    }
+}
+

@@ -1,7 +1,7 @@
 import {AppComponent} from './app.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
@@ -43,6 +43,10 @@ import { LedEmulatorComponent } from './modules/led-emulator/led-emulator.compon
 import { LedEmulatorService } from './modules/led-emulator/shared/services/led-emulator.service';
 import { LightomatorComponent } from './modules/lightomator/lightomator.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
+import { EndpointsService } from './services/endpoints.service';
+import { ConnectionStatusComponent } from './components/connection-status/connection-status.component';
+import { EndpointsHealthService } from './services/endpoints-health.service';
+import { EndpointsStatusInterceptor } from './services/endpoints-status-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -61,7 +65,8 @@ import { TopbarComponent } from './layout/topbar/topbar.component';
         LedSlidersComponent,
         LedEmulatorComponent,
         HeadedComponent,
-        HeadlessComponent
+        HeadlessComponent,
+        ConnectionStatusComponent,
     ],
     imports: [
         ChartModule,
@@ -93,6 +98,13 @@ import { TopbarComponent } from './layout/topbar/topbar.component';
         AuthGuardService,
         AuthService,
         LedEmulatorService,
+        EndpointsService,
+        EndpointsHealthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: EndpointsStatusInterceptor,
+            multi: true
+          }
     ],
     bootstrap: [AppComponent]
 })

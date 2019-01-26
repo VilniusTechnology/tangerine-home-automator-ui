@@ -1,5 +1,6 @@
 nav {
     display: flex; 
+    flex-direction: column;
     width: 100%; 
     background-color: #004ba0; 
     justify-content: space-between;
@@ -9,46 +10,52 @@ nav {
     vertical-align: middle;
 }
 
-.flex-cont {
+.navigation {
     display: flex; 
-    width: 100%;
-}
+    flex-direction: row;
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #004ba0;
-}
+    .flex-cont {
+        display: flex; 
+        width: 100%;
+    }
 
-li {
-    float: left;
-}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #004ba0;
+    }
 
-li a {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+    li {
+        float: left;
+    }
 
-li a:hover {
-    background-color: #63a3ff;
-}
+    li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
 
-.title {
-    width: 150px;
-    align-self: flex-start;
-}
+    li a:hover {
+        background-color: #63a3ff;
+    }
 
-.buttons {
-    align-self: flex-start;
-    margin-left: 20px;
-}
+    .title {
+        width: 150px;
+        align-self: flex-start;
+    }
 
-.logout {
-    align-self: flex-end; 
-    width: 50px;
+    .buttons {
+        align-self: flex-start;
+        margin-left: 20px;
+    }
+
+    .logout {
+        align-self: flex-end; 
+        width: 50px;
+    }
+
 }

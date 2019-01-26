@@ -12,7 +12,7 @@ export class LedEmulatorService {
     private socket;
 
     public initSocket(): void {
-        this.socket = socketIo(environment.ledEmulatorAdress);
+        this.socket = socketIo(environment.endpoints.emulatorEndpoints.ledControllerAddress);
     }
 
     public send(message: Message): void {

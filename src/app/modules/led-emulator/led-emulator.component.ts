@@ -24,7 +24,7 @@ export class LedEmulatorComponent implements OnInit {
     
     ngOnInit(): void {
         this.sc = new SocketClient();
-        this.sc.initSocket(environment.ledEmulatorAdress);
+        this.sc.initSocket(environment.endpoints.emulatorEndpoints.ledControllerAddress);
         this.sc.onMessage().subscribe((message) => {
             this.ledColor = `rgb(${message.color.red.value}, ${message.color.green.value}, ${message.color.blue.value})`;
             console.log(this.ledColor);

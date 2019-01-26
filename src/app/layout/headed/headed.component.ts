@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-headed',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeadedComponent implements OnInit {
 
-  constructor() { }
+    constructor(private endpointsHealthService: EndpointsHealthService) 
+    { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.endpointsHealthService.periodicallyCheckAllEndpointsHealth(environment.endpoints.healthCheckPeriod);
+    }
 
 }
