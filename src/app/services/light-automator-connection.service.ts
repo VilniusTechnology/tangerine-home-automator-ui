@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import {TimedMode} from '../timed-mode';
+import {TimedMode} from '../models/timed-mode';
 import * as _ from 'lodash';
 import { EndpointsService } from './endpoints.service';
 

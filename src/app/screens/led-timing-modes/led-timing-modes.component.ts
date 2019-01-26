@@ -28,7 +28,7 @@ export class LedTimingModesComponent implements OnInit {
         'blue': 0,
     };
 
-    public chart: Chart;
+    public chart: any;
 
     constructor(
         private fb: FormBuilder,
@@ -36,13 +36,13 @@ export class LedTimingModesComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.getTimedModes();
+        this.initChart([0], [0]);
+        this.updateTimeModesChart();
 
         this.myForm = this.fb.group(this.formTemplate);
         this.formSet = this.fb.group({
             intervals: this.fb.array([])
         });
-        // this.myForm.valueChanges.subscribe(console.log);
 
         this.loadTimedModes();  
     }
@@ -80,45 +80,44 @@ export class LedTimingModesComponent implements OnInit {
                 name: 'TimeFrame',
                 pointWidth: 20,
                 data: data,
-                // borderColor: 'gray',
-                // dataLabels: {
-                //     enabled: true
-                // }
             }]
         });
     }
 
-    getTimedModes() {
+    updateTimeModesChart() {
         this._lightAutomatorConnectionService.getTimedModes().then((data: any) => {
-            const current_date = moment().format('YYYY-MM-DD');
-            let outData = [];
-            let columns = [];
-            data.forEach((elem, key) => {
-                let date1 = new Date(`${current_date} ${elem.from}:00`);
-                date1.getTime();
-
-                let date2 = new Date(`${current_date} ${elem.to}:00`);
-                date2.getTime();
-
-                let lightColorString = `rgb(${elem.settings.red}, ${elem.settings.green}, ${elem.settings.blue});`;
-                let hexColor = '#' + this.rgbToHex(elem.settings.red) + this.rgbToHex(elem.settings.green) + this.rgbToHex(elem.settings.blue);
-                outData.push({
-                        x:  Math.round(date1.getTime()),
-                        x2: Math.round(date2.getTime()),
-                        y: key,
-                        color: hexColor,
-                        marker: {
-                            symbol: 'triangle',
-                            radius: 10,
-                        }
-                    });
-
-                columns.push(`${elem.title} - [${elem.from} | ${elem.to} ]`);
-            });
-
-            // console.log('outData: ', outData);
-            this.initChart(outData, columns);
+            const preparedData = this.prepareDataForChart(data);
+            this.initChart(preparedData.data, preparedData.columns);
         });
+    }
+
+    private prepareDataForChart(data: any) {
+        const current_date = moment().format('YYYY-MM-DD');
+        let outData = [];
+        let columns = [];
+        data.forEach((elem, key) => {
+            let date1 = new Date(`${current_date} ${elem.from}:00`);
+            date1.getTime();
+
+            let date2 = new Date(`${current_date} ${elem.to}:00`);
+            date2.getTime();
+
+            let hexColor = '#' + this.rgbToHex(elem.settings.red) + this.rgbToHex(elem.settings.green) + this.rgbToHex(elem.settings.blue);
+            outData.push({
+                    x:  Math.round(date1.getTime()),
+                    x2: Math.round(date2.getTime()),
+                    y: key,
+                    color: hexColor,
+                    marker: {
+                        symbol: 'triangle',
+                        radius: 10,
+                    }
+                });
+
+            columns.push(`${elem.title} - [${elem.from} | ${elem.to} ]`);
+        });
+
+        return {'columns': columns, 'data': outData};
     }
 
     colorRgbToHex(red, green, blue) {
@@ -145,7 +144,6 @@ export class LedTimingModesComponent implements OnInit {
                 const dt = val.toJSON();
                 this.createFormEntry(dt);
             });
-
         });
     }
 
@@ -154,14 +152,15 @@ export class LedTimingModesComponent implements OnInit {
         this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][key].value)
             .then((data) => {
                 this.loadTimedModes();
+                this.updateTimeModesChart();
             });
     }
 
     deleteTimedMode(id: string) {
         this._lightAutomatorConnectionService.deleteTimedMode({'id' : id})
             .then((data) => {
-                // console.log('deleteTimedMode response: ', data);
                 this.loadTimedModes();
+                this.updateTimeModesChart();
             });
     }
 
@@ -170,6 +169,7 @@ export class LedTimingModesComponent implements OnInit {
             .then((data) => {
                 this.loadTimedModes();
                 this.createFormEntry(this.formTemplate);
+                this.updateTimeModesChart();
             });
     }
 
@@ -178,6 +178,7 @@ export class LedTimingModesComponent implements OnInit {
             .then((data) => {
                 this.loadTimedModes();
                 this.createFormEntry(this.formTemplate);
+                this.updateTimeModesChart();
             });
     }
 
@@ -193,7 +194,6 @@ export class LedTimingModesComponent implements OnInit {
 
     handleUpdate(event, id) {
         event.preventDefault();
-        // console.log('handleUpdate');
         this.updateTimedMode(id);
     }
 
@@ -204,7 +204,6 @@ export class LedTimingModesComponent implements OnInit {
 
     updateSeriesData(data: Highcharts.SeriesOptions): void {
         let series = this.chart;
-        // console.log('data', data);
         series.addSerie(data, true);
     }
 

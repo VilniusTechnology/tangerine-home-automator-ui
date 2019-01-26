@@ -39,19 +39,6 @@ export class LedControlPanelComponent implements OnInit {
         },
     };
 
-    public ledLightingState = {
-        state: 0,
-        mode: 0,
-        red: 0,
-        green: 0,
-        blue: 0,
-        coldWhite: 0,
-        warmWhite: 0,
-        light_lvl: 0,
-        temperature: 0,
-        humidity: 0
-    };
-
     constructor(
         private _mainTransportService: LedDriverService,
         private rgbService: RgbCalculatorService
@@ -71,7 +58,6 @@ export class LedControlPanelComponent implements OnInit {
     setLedLightingState(data) {
         this.ledMode = data.ledMode;
         this.ledState = data.ledState;
-        // console.log('setLedLightingState', data);
 
         this.currentColor = this.determineCurrentColor();
     }
@@ -108,14 +94,12 @@ export class LedControlPanelComponent implements OnInit {
             .then((data) => {
                 this.setLedLightingState(data);
                 this.currentColor = this.determineCurrentColor();
-                // console.log('dispatchLedControlAction: ', data);
             });
     }
 
     dispatchHealthCheck() {
         this._mainTransportService.performHealthCheck()
             .then((data) => {
-                // console.log(data);
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
             });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-topbar',
@@ -12,13 +13,15 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class TopbarComponent implements OnInit {
 
+    public isEmulated: boolean;
+
     constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
+        this.isEmulated = environment.endpoints.useEmulator;
     }
 
     onLogout() {
-        // console.log('onLogout');
         this.authService.logout();
         this.router.navigate(['login']);
     }

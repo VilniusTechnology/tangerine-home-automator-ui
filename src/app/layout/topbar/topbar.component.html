@@ -1,7 +1,7 @@
 <nav>
     <div class="navigation">
         <div class="flex-cont">
-            <div class="buttons" style="margin-top: 20px; margin-left: 20px;">
+            <div class="buttons" style="margin-top: 10px; margin-left: 20px;">
                 MND-H
             </div>
             <div class="buttons">
@@ -31,7 +31,7 @@
                             <i class="material-icons">alarm</i>
                         </a>
                     </li>
-                    <li>
+                    <li *ngIf="isEmulated">
                         <a routerLink="/led-emulator">
                             <i class="material-icons">brightness_high</i>
                         </a>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="top-msgs">
-        <app-connection-status 
+        <app-connection-status *ngIf="isEmulated"
             [showOn]="'always'"
             [messsageOk]="'LED emulator connected ;)'"
             [messsageFail]="'LED emulator is not connected !!!'"
