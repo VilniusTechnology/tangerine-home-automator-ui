@@ -16,8 +16,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-
 import {LightningLevelService} from './services/lightning-level.service';
 import {LedDriverService} from './services/led-driver.service';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -30,18 +28,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { AuthService } from './services/auth/auth.service';
 import { HeadedComponent } from './layout/headed/headed.component';
 import { HeadlessComponent } from './layout/headless/headless.component';
-import { GraphsComponent } from './modules/graphs/graphs.component';
-import { HighchartsComponent } from './modules/highcharts/highcharts.component';
-import { HomeComponent } from './modules/home/home.component';
-import { LightingChartComponent } from './modules/lighting-chart/lighting-chart.component';
-import { HistoryComponent } from './modules/history/history.component';
-import { LedControlPanelComponent } from './modules/led-control-panel/led-control-panel.component';
-// import { LedTimingModesComponent } from './modules/led-timing-modes/led-timing-modes.component';
 import { LedTimingModesComponent } from './components/led-timing-modes/led-timing-modes.component';
-import { LedStateSwitchComponent } from './modules/led-control-panel/led-state-switch/led-state-switch.component';
-import { LedSlidersComponent } from './modules/led-control-panel/led-sliders/led-sliders.component';
-import { LedEmulatorComponent } from './modules/led-emulator/led-emulator.component';
-import { LightomatorComponent } from './modules/lightomator/lightomator.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
 import { EndpointsService } from './services/endpoints.service';
 import { ConnectionStatusComponent } from './components/connection-status/connection-status.component';
@@ -49,6 +36,16 @@ import { EndpointsHealthService } from './services/endpoints-health.service';
 import { EndpointsStatusInterceptor } from './services/endpoints-status-interceptor.service';
 import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
 import { LedEmulatorViewService } from './services/led-view-emulator.service';
+import { LightingChartComponent } from './screens/lighting-chart/lighting-chart.component';
+import { GraphsComponent } from './screens/graphs/graphs.component';
+import { HistoryComponent } from './screens/history/history.component';
+import { HighchartsComponent } from './screens/highcharts/highcharts.component';
+import { HomeComponent } from './screens/home/home.component';
+import { LightomatorComponent } from './screens/lightomator/lightomator.component';
+import { LedControlPanelComponent } from './screens/led-control-panel/led-control-panel.component';
+import { LedStateSwitchComponent } from './screens/led-control-panel/led-state-switch/led-state-switch.component';
+import { LedSlidersComponent } from './screens/led-control-panel/led-sliders/led-sliders.component';
+import { LedEmulatorComponent } from './screens/led-emulator/led-emulator.component';
 
 @NgModule({
     declarations: [
