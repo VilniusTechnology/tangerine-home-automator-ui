@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-
-import {FormGroup, FormBuilder} from '@angular/forms';
-import {LightAutomatorConnectionService} from '../services/light-automator-connection.service';
-
 import * as _ from 'lodash';
+import * as moment from 'moment';
+
+import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormBuilder} from '@angular/forms';
 
 import { Chart } from 'angular-highcharts';
-
-import * as moment from 'moment';
+import { LightAutomatorConnectionService } from 'src/app/services/light-automator-connection.service';
 
 @Component({
   selector: 'app-led-timing-modes',
@@ -151,19 +149,19 @@ export class LedTimingModesComponent implements OnInit {
         });
     }
 
-    updateTimedMode(id) {
-        this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][id].value)
+    updateTimedMode(key) {
+        console.log('updateTimedMode', this.formSet['controls'].intervals['controls']);
+        this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][key].value)
             .then((data) => {
                 this.loadTimedModes();
             });
     }
 
-    deleteTimedMode(id) {
-        this._lightAutomatorConnectionService.deleteTimedMode(this.myForm.value)
+    deleteTimedMode(id: string) {
+        this._lightAutomatorConnectionService.deleteTimedMode({'id' : id})
             .then((data) => {
-                console.log('handleClick', this.formSet['controls'].intervals['controls']);
-                // that.loadTimedModes();
-                // this.formSet.removeAt(data.i);
+                // console.log('deleteTimedMode response: ', data);
+                this.loadTimedModes();
             });
     }
 
@@ -195,6 +193,7 @@ export class LedTimingModesComponent implements OnInit {
 
     handleUpdate(event, id) {
         event.preventDefault();
+        console.log('handleUpdate');
         this.updateTimedMode(id);
     }
 

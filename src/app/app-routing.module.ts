@@ -1,19 +1,18 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GraphsComponent } from './graphs/graphs.component';
-import { HistoryComponent } from './history/history.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { HighchartsComponent } from './highcharts/highcharts.component';
-import { LightomatorComponent } from './lightomator/lightomator.component';
-import { LedControlPanelComponent } from './led-control-panel/led-control-panel.component';
-import { LedTimingModesComponent } from './led-timing-modes/led-timing-modes.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
-import { LedEmulatorComponent } from './led-emulator/led-emulator.component';
 import { HeadedComponent } from './layout/headed/headed.component';
 import { HeadlessComponent } from './layout/headless/headless.component';
-import { LightOutletComponent } from './modules/led-emulator-detached/light-outlet/light-outlet.component';
+import { HomeComponent } from './modules/home/home.component';
+import { GraphsComponent } from './modules/graphs/graphs.component';
+import { HighchartsComponent } from './modules/highcharts/highcharts.component';
+import { HistoryComponent } from './modules/history/history.component';
+import { LightomatorComponent } from './modules/lightomator/lightomator.component';
+import { LedControlPanelComponent } from './modules/led-control-panel/led-control-panel.component';
+import { LedTimingModesComponent } from './modules/led-timing-modes/led-timing-modes.component';
+import { LedEmulatorComponent } from './modules/led-emulator/led-emulator.component';
 
 const routes: Routes = [
     { 

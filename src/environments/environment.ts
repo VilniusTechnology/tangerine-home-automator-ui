@@ -7,9 +7,13 @@ import { environmentParams } from 'src/environments/environment.params';
 export const environment = {
     production: false,
     firebase: environmentParams.firebase,
-    mainNestUrl: 'http://192.168.1.47:8080/',
-    nestTimedSettingsUrl: 'http://192.168.1.47:3002',
-    // nestTimedSettingsUrl: 'http://localhost:3002',
+    mainNestUrl: 'http://192.168.1.47:8081/',
+    // nestTimedSettingsUrl: 'http://192.168.1.47:3002',
+    nestTimedSettingsUrl: 'http://localhost:8081',
+    useEmulator: true,
+    ledControllerAddress: 'http://192.168.1.47:8080/',
+    ledEmulatorAdress: 'http://localhost:7777',
+    ledEmulatedControllerAdress: 'http://localhost:8081',
 };
 
 /*

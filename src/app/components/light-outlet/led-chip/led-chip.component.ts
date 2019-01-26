@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-led-chip',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LedChipComponent implements OnInit {
 
-    ledColor: string = 'green';
+    @Input('ledColor') ledColor: string = 'black';
 
     constructor() { }
 

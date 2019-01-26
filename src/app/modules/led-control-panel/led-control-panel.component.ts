@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MainTransportService} from '../services/main-transport.service';
+import { LedDriverService } from 'src/app/services/led-driver.service';
 
 @Component({
     selector: 'app-led-control-panel',
@@ -52,7 +52,7 @@ export class LedControlPanelComponent implements OnInit {
     };
 
     constructor(
-        private _mainTransportService: MainTransportService
+        private _mainTransportService: LedDriverService
     ) {
         this.ledMode = 1;
         this.currentColor = this.determineCurrentColor();
@@ -74,10 +74,15 @@ export class LedControlPanelComponent implements OnInit {
         this.ledMode = data.ledMode;
         this.ledState = data.ledState;
         
+        console.log('setLedLightingState', data);
+
         this.currentColor = this.determineCurrentColor();
     }
 
     setSlidersStates(data) {
+
+        console.log('setSlidersStates data: ', data);
+
         this.sliders.red.value = data.red.value;
         this.sliders.green.value = data.green.value;
         this.sliders.blue.value = data.blue.value;
@@ -116,6 +121,7 @@ export class LedControlPanelComponent implements OnInit {
     dispatchHealthCheck() {
         this._mainTransportService.performHealthCheck()
             .then((data) => {
+                console.log(data);
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
             });

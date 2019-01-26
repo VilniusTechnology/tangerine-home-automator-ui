@@ -7,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
+
   entries$: Object;
 
   constructor() { }
 
   ngOnInit() {
-    this.data.getUsers().subscribe(
-      data => this.entries$ = data
-    );
+    // this.data.getUsers().subscribe(
+    //   data => this.entries$ = data
+    // );
   }
 
 }

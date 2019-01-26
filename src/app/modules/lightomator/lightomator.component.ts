@@ -1,7 +1,6 @@
 import { OnInit } from '@angular/core';
 import {Component} from '@angular/core';
 
-
 export interface LedLightingState {
     color: string;
     cols: number;
@@ -16,9 +15,7 @@ export interface LedLightingState {
 })
 export class LightomatorComponent implements OnInit {
 
-    constructor(
-
-    ) { }
+    constructor() { }
 
     ngOnInit() {
     }

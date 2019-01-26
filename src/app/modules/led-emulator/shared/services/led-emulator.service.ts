@@ -5,14 +5,14 @@ import * as socketIo from 'socket.io-client';
 import { LedEmulatorEvent } from '../../models/led-emulator-event';
 import { Message } from '../../models/message';
 
-const SERVER_URL = 'http://localhost:8081';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class SocketService {
+export class LedEmulatorService {
     private socket;
 
     public initSocket(): void {
-        this.socket = socketIo(SERVER_URL);
+        this.socket = socketIo(environment.ledEmulatorAdress);
     }
 
     public send(message: Message): void {
@@ -29,7 +29,10 @@ export class SocketService {
 
     public onEvent(event: LedEmulatorEvent): Observable<any> {
         return new Observable<LedEmulatorEvent>(observer => {
-            this.socket.on(event, () => observer.next());
+            this.socket.on(event, () => {
+                console.log('onEvent', event);
+                observer.next()
+            });
         });
     }
 }

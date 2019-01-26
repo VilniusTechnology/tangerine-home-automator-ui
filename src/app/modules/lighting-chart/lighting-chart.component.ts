@@ -12,7 +12,6 @@ import * as d3Axis from 'd3-axis';
 
 import dator from 'date-and-time';
 
-import {LightingLevel} from '../models/lighting-level';
 import {GraphsComponent} from '../graphs/graphs.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 //import mapJson from './services/ltu-admin-map.json';
-//import * as HighMaps from 'highcharts/highmaps';
+import * as HighMaps from 'highcharts/highmaps';
 
 @Component({
   selector: 'app-highcharts',

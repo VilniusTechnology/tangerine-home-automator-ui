@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import {MainTransportService} from '../services/main-transport.service';
-import { AutomatorMainResponse } from '../entities/AutomatorMainResponse';
-import { Observable } from 'rxjs/Observable';
+import { AutomatorMainResponse } from 'src/app/models/AutomatorMainResponse';
+import { LedDriverService } from 'src/app/services/led-driver.service';
 
 @Component({
   selector: 'app-graphs',
@@ -14,14 +12,14 @@ export class GraphsComponent implements OnInit {
     public currentReading = 0;
     public readings: AutomatorMainResponse;
 
-    constructor(private _mainTransportService: MainTransportService) { }
+    constructor(private _mainTransportService: LedDriverService) { }
 
     ngOnInit() {
         this._mainTransportService.getData().subscribe(data => {
-        // console.log(data);
-        this.readings = data;
-        this.currentReading = data.light_lvl;
-    });
+            // console.log(data);
+            this.readings = data;
+            this.currentReading = data.light_lvl;
+        });
     }
 
 }

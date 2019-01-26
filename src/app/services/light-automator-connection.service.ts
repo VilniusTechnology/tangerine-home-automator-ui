@@ -59,9 +59,12 @@ export class LightAutomatorConnectionService {
         });
     }
 
-    deleteTimedMode(a) {
+    deleteTimedMode(payload) {
+        const prom = this.httpClient.post(`${this.baseUrl}/delete-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
-            resolve(a);
+            prom.subscribe((rawData) => {
+                resolve(rawData);
+            });
         });
     }
 }

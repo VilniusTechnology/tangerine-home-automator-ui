@@ -59,14 +59,14 @@
 
                   <mat-expansion-panel-header [style.background-color]=
                     "colorRgbToHex(
-                        this.intervals[i].settings.red, 
-                        this.intervals[i].settings.green, 
-                        this.intervals[i].settings.blue
+                        intervals[i].settings.red, 
+                        intervals[i].settings.green, 
+                        intervals[i].settings.blue
                         )"
                     >
                       <mat-panel-title class="headingFont">
-                          {{ this.intervals[i].title}} - {{ this.intervals[i].id}} | 
-                          [ {{ this.intervals[i].from}} - {{ this.intervals[i].to}} ]
+                          {{ intervals[i].title}} - {{ intervals[i].id}} | 
+                          [ {{ intervals[i].from}} - {{ intervals[i].to}} ]
                       </mat-panel-title>
                       <mat-panel-description> </mat-panel-description>
                   </mat-expansion-panel-header>
@@ -100,12 +100,12 @@
                         <br/>
 
                         <button mat-raised-button color="accent"
-                                (click)="handleUpdate($event, i)"
+                            (click)="handleUpdate($event, i)"
                         >
                             Update
                         </button>
                         <button mat-raised-button color="warn"
-                                (click)="handleDelete($event, i)"
+                            (click)="handleDelete($event, intervals[i].id)"
                         >
                             Delete
                         </button>
@@ -126,8 +126,7 @@
     </mat-card-header>
 
     <button mat-raised-button color="warn"
-            (click)="reloadDb($event)"
-            >
+        (click)="reloadDb($event)">
             ReloadDB
     </button>
 </mat-card>
