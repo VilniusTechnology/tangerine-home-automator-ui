@@ -25,3 +25,8 @@
     [sliders]="sliders"
     (change)="onSlidersChange($event)"
     ></app-led-sliders>
+
+<app-led-chip
+    [ledColor]="currentColor.rgb"
+    [ledColorColdWhite]="currentColor.cw"
+    [ledColorWarmWhite]="currentColor.ww"></app-led-chip>

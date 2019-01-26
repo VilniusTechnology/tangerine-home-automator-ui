@@ -5,13 +5,16 @@ import { LedChipComponent } from 'src/app/components/light-outlet/led-chip/led-c
 import { LightOutletComponent } from 'src/app/components/light-outlet/light-outlet.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LedEmulatorRoutingModule,
-  ],
-  declarations: [
-      LedChipComponent, 
-      LightOutletComponent
-    ]
+    imports: [
+        CommonModule,
+        LedEmulatorRoutingModule,
+    ],
+    declarations: [
+        LedChipComponent,
+        LightOutletComponent
+    ],
+    exports: [
+        LedChipComponent,
+    ],
 })
 export class LedEmulatorDetachedModule { }

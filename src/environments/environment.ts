@@ -13,12 +13,12 @@ export const environment = {
         emulatorEndpoints: {
             mainNestUrl: 'http://localhost:8081',
             ledControllerAddress: 'http://localhost:7777',
-            nestTimedSettingsUrl: 'http://localhost:8082',
+            // nestTimedSettingsUrl: 'http://localhost:8082',
         },
         hardwareEndpoints: {
             mainNestUrl: 'http://192.168.1.47:8081/',
             ledControllerAddress: 'http://192.168.1.47:8080/',
-            nestTimedSettingsUrl: 'http://192.168.1.47:3002',
+            // nestTimedSettingsUrl: 'http://192.168.1.47:3002',
         },
     }
 };

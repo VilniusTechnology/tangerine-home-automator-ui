@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LedChipComponent implements OnInit {
 
     @Input('ledColor') ledColor: string = 'black';
+    @Input('ledColorColdWhite') ledColorColdWhite: string = 'black';
+    @Input('ledColorWarmWhite') ledColorWarmWhite: string = 'black';
 
     constructor() { }
 

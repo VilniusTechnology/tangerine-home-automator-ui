@@ -150,7 +150,7 @@ export class LedTimingModesComponent implements OnInit {
     }
 
     updateTimedMode(key) {
-        console.log('updateTimedMode', this.formSet['controls'].intervals['controls']);
+        // console.log('updateTimedMode', this.formSet['controls'].intervals['controls']);
         this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][key].value)
             .then((data) => {
                 this.loadTimedModes();
@@ -193,7 +193,7 @@ export class LedTimingModesComponent implements OnInit {
 
     handleUpdate(event, id) {
         event.preventDefault();
-        console.log('handleUpdate');
+        // console.log('handleUpdate');
         this.updateTimedMode(id);
     }
 
@@ -204,9 +204,7 @@ export class LedTimingModesComponent implements OnInit {
 
     updateSeriesData(data: Highcharts.SeriesOptions): void {
         let series = this.chart;
-
-        console.log('data', data);
-
+        // console.log('data', data);
         series.addSerie(data, true);
     }
 

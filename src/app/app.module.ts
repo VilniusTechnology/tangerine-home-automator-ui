@@ -36,17 +36,19 @@ import { HomeComponent } from './modules/home/home.component';
 import { LightingChartComponent } from './modules/lighting-chart/lighting-chart.component';
 import { HistoryComponent } from './modules/history/history.component';
 import { LedControlPanelComponent } from './modules/led-control-panel/led-control-panel.component';
-import { LedTimingModesComponent } from './modules/led-timing-modes/led-timing-modes.component';
+// import { LedTimingModesComponent } from './modules/led-timing-modes/led-timing-modes.component';
+import { LedTimingModesComponent } from './components/led-timing-modes/led-timing-modes.component';
 import { LedStateSwitchComponent } from './modules/led-control-panel/led-state-switch/led-state-switch.component';
 import { LedSlidersComponent } from './modules/led-control-panel/led-sliders/led-sliders.component';
 import { LedEmulatorComponent } from './modules/led-emulator/led-emulator.component';
-import { LedEmulatorService } from './modules/led-emulator/shared/services/led-emulator.service';
 import { LightomatorComponent } from './modules/lightomator/lightomator.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
 import { EndpointsService } from './services/endpoints.service';
 import { ConnectionStatusComponent } from './components/connection-status/connection-status.component';
 import { EndpointsHealthService } from './services/endpoints-health.service';
 import { EndpointsStatusInterceptor } from './services/endpoints-status-interceptor.service';
+import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
+import { LedEmulatorViewService } from './services/led-view-emulator.service';
 
 @NgModule({
     declarations: [
@@ -90,6 +92,7 @@ import { EndpointsStatusInterceptor } from './services/endpoints-status-intercep
         MatSliderModule,
         MatGridListModule,
         MatProgressSpinnerModule,
+        LedEmulatorDetachedModule,
     ],
     providers: [
         LedDriverService,
@@ -97,7 +100,7 @@ import { EndpointsStatusInterceptor } from './services/endpoints-status-intercep
         { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting, xrange ] },
         AuthGuardService,
         AuthService,
-        LedEmulatorService,
+        LedEmulatorViewService,
         EndpointsService,
         EndpointsHealthService,
         {

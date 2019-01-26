@@ -72,7 +72,7 @@ export class LightingChartComponent implements OnInit {
                 this.setBuble(data);
             },
             error => {
-                console.log('Error', error);
+                // console.log('Error', error);
             }
         );
     }

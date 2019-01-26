@@ -4,15 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HeadedComponent } from './layout/headed/headed.component';
-import { HeadlessComponent } from './layout/headless/headless.component';
 import { HomeComponent } from './modules/home/home.component';
 import { GraphsComponent } from './modules/graphs/graphs.component';
 import { HighchartsComponent } from './modules/highcharts/highcharts.component';
 import { HistoryComponent } from './modules/history/history.component';
 import { LightomatorComponent } from './modules/lightomator/lightomator.component';
 import { LedControlPanelComponent } from './modules/led-control-panel/led-control-panel.component';
-import { LedTimingModesComponent } from './modules/led-timing-modes/led-timing-modes.component';
 import { LedEmulatorComponent } from './modules/led-emulator/led-emulator.component';
+import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
+import { LedTimingModesComponent } from './components/led-timing-modes/led-timing-modes.component';
 
 const routes: Routes = [
     { 
@@ -65,11 +65,7 @@ const routes: Routes = [
             },
         ]
     },
-    { 
-        path: 'led-outlet', 
-        component: HeadlessComponent,
-        loadChildren: './modules/led-emulator-detached/led-emulator-detached.module#LedEmulatorDetachedModule',
-    }
+    { path: 'led-outlet', loadChildren: () => LedEmulatorDetachedModule},
 ];
 
 @NgModule({

@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Action } from './models/action';
-import { User } from './models/user';
-import { Message } from './models/message';
-import { SocketClient } from 'mandarin-nest-local-light-driver/dist/client';
-import { environment } from 'src/environments/environment';
+import { LedEmulatorViewService } from 'src/app/services/led-view-emulator.service';
 
 @Component({
   selector: 'app-led-emulator',
@@ -12,23 +8,16 @@ import { environment } from 'src/environments/environment';
 })
 export class LedEmulatorComponent implements OnInit {
   
-    sc;
-    action = Action;
-    user: User;
-    messages: Message[] = [];
-    messageContent: string;
-    ioConnection: any;
-    ledColor: string = 'black';
+    public currentColor: {} = {};
   
-    constructor() { }
+    constructor(private ledEmulatorService: LedEmulatorViewService) { }
     
     ngOnInit(): void {
-        this.sc = new SocketClient();
-        this.sc.initSocket(environment.endpoints.emulatorEndpoints.ledControllerAddress);
-        this.sc.onMessage().subscribe((message) => {
-            this.ledColor = `rgb(${message.color.red.value}, ${message.color.green.value}, ${message.color.blue.value})`;
-            console.log(this.ledColor);
-        })
+        this.ledEmulatorService.subscribeOnColorsSubject().subscribe(
+            (response) => {
+                this.currentColor = response;
+            }
+        );
     }
 
     openNewWindow() {

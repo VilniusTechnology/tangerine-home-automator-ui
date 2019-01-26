@@ -23,11 +23,11 @@ export class EndpointsHealthService {
     }
 
     public checkAllEndpointsHealth() {
-        console.log('Will checkAllEndpointsHealth');
+        // console.log('Will checkAllEndpointsHealth');
 
         this.endpointsService.getAllEnpointKeys()
             .forEach((endpointConfigKey) => {
-                console.log('Will check: ', endpointConfigKey);
+                // console.log('Will check: ', endpointConfigKey);
                 this.checkEndpointHealth(endpointConfigKey);
             });
     }
@@ -57,7 +57,7 @@ export class EndpointsHealthService {
     public updateEndpointHealthStatus(endpointConfigKey: string, status: boolean) {
         this.endpiontsHealthStatuses[endpointConfigKey] = status
         this.enspointsStateSubject.next(this.endpiontsHealthStatuses);
-        console.log('updateEndpointHealthStatus', this.endpiontsHealthStatuses);
+        // console.log('updateEndpointHealthStatus', this.endpiontsHealthStatuses);
     }
 
     public getEndpointHealthStatus(endpointConfigKey: string) {

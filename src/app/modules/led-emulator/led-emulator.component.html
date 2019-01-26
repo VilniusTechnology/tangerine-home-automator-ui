@@ -1,6 +1,7 @@
-<div>
-    <div [style.background-color]="ledColor" style="height: 200px; width: 300px; margin: 25px;"></div>
-</div>
+<app-led-chip
+    [ledColor]="currentColor.rgb"
+    [ledColorColdWhite]="currentColor.cw"
+    [ledColorWarmWhite]="currentColor.ww"></app-led-chip>
 
 <button mat-button (click)="openNewWindow()">Click me!</button>
 

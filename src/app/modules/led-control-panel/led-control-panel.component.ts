@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LedDriverService } from 'src/app/services/led-driver.service';
+import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 
 @Component({
     selector: 'app-led-control-panel',
@@ -9,7 +10,7 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 
 export class LedControlPanelComponent implements OnInit {
 
-    public currentColor;
+    public currentColor: {} = {};
 
     public ledModesList = [
         {code: 0, title: 'AUTO'},
@@ -52,7 +53,8 @@ export class LedControlPanelComponent implements OnInit {
     };
 
     constructor(
-        private _mainTransportService: LedDriverService
+        private _mainTransportService: LedDriverService,
+        private rgbService: RgbCalculatorService
     ) {
         this.ledMode = 1;
         this.currentColor = this.determineCurrentColor();
@@ -63,26 +65,18 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     determineCurrentColor() {
-        const red = this.sliders.red.value;
-        const green = this.sliders.green.value;
-        const blue = this.sliders.blue.value;
-
-        return `rgb(${red}, ${green}, ${blue})`;
+        return this.rgbService.determineCurrentColor(this.sliders);
     }
 
     setLedLightingState(data) {
         this.ledMode = data.ledMode;
         this.ledState = data.ledState;
-        
-        console.log('setLedLightingState', data);
+        // console.log('setLedLightingState', data);
 
         this.currentColor = this.determineCurrentColor();
     }
 
     setSlidersStates(data) {
-
-        console.log('setSlidersStates data: ', data);
-
         this.sliders.red.value = data.red.value;
         this.sliders.green.value = data.green.value;
         this.sliders.blue.value = data.blue.value;
@@ -114,14 +108,14 @@ export class LedControlPanelComponent implements OnInit {
             .then((data) => {
                 this.setLedLightingState(data);
                 this.currentColor = this.determineCurrentColor();
-                console.log('dispatchLedControlAction: ', data);
+                // console.log('dispatchLedControlAction: ', data);
             });
     }
 
     dispatchHealthCheck() {
         this._mainTransportService.performHealthCheck()
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
             });

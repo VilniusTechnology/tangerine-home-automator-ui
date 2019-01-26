@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { SocketClient } from 'mandarin-nest-local-light-driver/dist/client';
-import { environment } from 'src/environments/environment';
+import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
+import { LedEmulatorViewService } from 'src/app/services/led-view-emulator.service';
 
 @Component({
   selector: 'app-light-outlet',
@@ -10,21 +10,27 @@ import { environment } from 'src/environments/environment';
 })
 export class LightOutletComponent implements OnInit {
 
-    title = "Detached LED emulator";
-    sc;
-    ledColor: string = 'green';
+    public title = "Detached LED emulator";
+    public currentColor: {} = {};
 
-    constructor(private titleService: Title) { }
+    constructor(
+        private titleService: Title , 
+        private rgbService: RgbCalculatorService,
+        private ledEmulatorService: LedEmulatorViewService
+    ) { }
 
     ngOnInit() {
         this.titleService.setTitle(this.title);
 
-        this.sc = new SocketClient();
-        this.sc.initSocket(environment.endpoints.emulatorEndpoints.ledControllerAddress);
-        this.sc.onMessage().subscribe((message) => {
-            this.ledColor = `rgb(${message.color.red.value}, ${message.color.green.value}, ${message.color.blue.value})`;
-            console.log(this.ledColor);
-        })
+        this.ledEmulatorService.subscribeOnColorsSubject().subscribe(
+            (response) => {
+                this.currentColor = response;
+            }
+        );   
+    }
+
+    determineCurrentColor(colors: any) {
+        return this.rgbService.determineCurrentColor(colors);
     }
 
 }

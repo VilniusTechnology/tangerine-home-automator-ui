@@ -35,7 +35,7 @@ export class LightAutomatorConnectionService {
     }
 
     createTimedMode(payload) {
-        console.log('payload', payload);
+        // console.log('payload', payload);
         const prom = this.httpClient.post(`${this.baseUrl}/add-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
@@ -45,7 +45,7 @@ export class LightAutomatorConnectionService {
     }
 
     editTimedMode(payload) {
-        console.log('payload', payload);
+        // console.log('payload', payload);
         const prom = this.httpClient.post(`${this.baseUrl}/edit-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
@@ -55,7 +55,7 @@ export class LightAutomatorConnectionService {
     }
 
     reloadDb(payload) {
-        console.log('payload', payload);
+        // console.log('payload', payload);
         const prom = this.httpClient.post(`${this.baseUrl}/reload-db`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {

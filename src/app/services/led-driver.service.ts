@@ -43,7 +43,7 @@ export class LedDriverService {
         const prom = this.httpClient.get(`${this.baseUrl}${queryString}`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                console.log('setLedParams: ', rawData);
+                // console.log('setLedParams: ', rawData);
                 resolve(rawData);
             });
         });
@@ -53,7 +53,7 @@ export class LedDriverService {
         const prom = this.httpClient.get(`${this.baseUrl}?mode=${payload.mode}&state=${payload.state}`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                console.log('setLedSettings: ', rawData);
+                // console.log('setLedSettings: ', rawData);
                 resolve(rawData);
             });
         });

@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit {
     }
 
     onLogout() {
-        console.log('onLogout');
+        // console.log('onLogout');
         this.authService.logout();
         this.router.navigate(['login']);
     }
