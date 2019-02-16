@@ -35,17 +35,16 @@ import { EndpointsHealthService } from './services/endpoints-health.service';
 import { EndpointsStatusInterceptor } from './services/endpoints-status-interceptor.service';
 import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
 import { LedEmulatorViewService } from './services/led-view-emulator.service';
-import { LightingChartComponent } from './screens/lighting-chart/lighting-chart.component';
 import { GraphsComponent } from './screens/graphs/graphs.component';
 import { HistoryComponent } from './screens/history/history.component';
-import { HighchartsComponent } from './screens/highcharts/highcharts.component';
 import { HomeComponent } from './screens/home/home.component';
 import { LightomatorComponent } from './screens/lightomator/lightomator.component';
 import { LedEmulatorComponent } from './screens/led-emulator/led-emulator.component';
-import { LedTimingModesComponent } from './screens/led-timing-modes/led-timing-modes.component';
 import { LedStateSwitchComponent } from './components/led-control-panel/led-state-switch/led-state-switch.component';
 import { LedSlidersComponent } from './components/led-control-panel/led-sliders/led-sliders.component';
 import { LedControlPanelComponent } from './components/led-control-panel/led-control-panel.component';
+import { LightingChartComponent } from './screens/graphs/lighting-chart/lighting-chart.component';
+import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/led-timing-modes.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +53,6 @@ import { LedControlPanelComponent } from './components/led-control-panel/led-con
         TopbarComponent,
         GraphsComponent,
         HistoryComponent,
-        HighchartsComponent,
         LoginComponent,
         HomeComponent,
         LightomatorComponent,

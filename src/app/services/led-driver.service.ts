@@ -58,4 +58,14 @@ export class LedDriverService {
             });
         });
     }
+
+    getSensorsData() {
+        const prom = this.httpClient.get(`${this.baseUrl}/sensors/get-all`);
+        return new Promise( (resolve, reject) => {
+            prom.subscribe((rawData) => {
+                // console.log('setLedSettings: ', rawData);
+                resolve(rawData);
+            });
+        });
+    }
 }

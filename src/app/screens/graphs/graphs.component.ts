@@ -9,17 +9,16 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 })
 export class GraphsComponent implements OnInit {
 
-    public currentReading = 0;
-    public readings: AutomatorMainResponse;
+    public currentReading: number = 0;
+    public readings: any;
 
     constructor(private _mainTransportService: LedDriverService) { }
 
     ngOnInit() {
-        this._mainTransportService.getData().subscribe(data => {
-            // console.log(data);
-            this.readings = data;
-            this.currentReading = data.light_lvl;
-        });
+        // this._mainTransportService.getSensorsData().then(data => {
+        //     this.readings = data;
+        //     // this.currentReading = data.light_lvl;
+        // });
     }
 
 }
