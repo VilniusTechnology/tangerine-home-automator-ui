@@ -1,0 +1,33 @@
+# sudo nano /etc/systemd/system/data-collector.service
+#
+# TODO: symlink it
+# sudo cp /home/madcatzx/projects/orange-home-automator-ui/tangerine-ui.service /etc/systemd/system
+#
+# sudo systemctl enable data-collector
+# sudo systemctl daemon-reload
+# sudo systemctl start data-collector
+# sudo systemctl stop data-collector
+# sudo systemctl restart data-collector
+#
+# sudo journalctl -u data-collector
+
+[Unit]
+Description=data-collector-description
+After=network.target
+
+[Service]
+WorkingDirectory=/home/madcatzx/projects/orange-home-automator-ui
+ExecStart=/usr/local/bin/node /home/madcatzx/projects/orange-home-automator-ui/ng serve --watch --ssl --port 80
+
+Restart=always
+User=madcatzx
+#Group=group
+
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+
+# Setting up APP as a deamon https://stackoverflow.com/questions/4903570/how-does-one-start-a-node-js-server-as-a-daemon-process
+
