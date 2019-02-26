@@ -13,7 +13,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "port": 80,
             "outputPath": "dist/orange-home-automator-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -52,6 +51,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "port": 80,
             "browserTarget": "orange-home-automator-ui:build"
           },
           "configurations": {

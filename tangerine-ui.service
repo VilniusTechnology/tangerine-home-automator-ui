@@ -1,23 +1,23 @@
-# sudo nano /etc/systemd/system/data-collector.service
+# sudo nano /etc/systemd/system/tangerine-ui.service
 #
 # TODO: symlink it
 # sudo cp /home/madcatzx/projects/orange-home-automator-ui/tangerine-ui.service /etc/systemd/system
 #
-# sudo systemctl enable data-collector
+# sudo systemctl enable tangerine-ui
 # sudo systemctl daemon-reload
-# sudo systemctl start data-collector
-# sudo systemctl stop data-collector
-# sudo systemctl restart data-collector
+# sudo systemctl start tangerine-ui
+# sudo systemctl stop tangerine-ui
+# sudo systemctl restart tangerine-ui
 #
-# sudo journalctl -u data-collector
+# sudo journalctl -u tangerine-ui
 
 [Unit]
-Description=data-collector-description
+Description=tangerine-ui-description
 After=network.target
 
 [Service]
 WorkingDirectory=/home/madcatzx/projects/orange-home-automator-ui
-ExecStart=/usr/local/bin/node /home/madcatzx/projects/orange-home-automator-ui/ng serve --watch --ssl --port 80
+ExecStart=/usr/local/bin/node /home/madcatzx/projects/orange-home-automator-ui/ng serve --watch --ssl
 
 Restart=always
 User=madcatzx
