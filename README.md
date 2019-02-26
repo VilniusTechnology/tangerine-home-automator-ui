@@ -2,7 +2,7 @@
 
 ``cd server/ && node index.js``
 
-1. Create user and prepare [server] (server-setup.md).
+1. Create user and prepare [server](server-setup.md).
 
 2. git clone git@github.com:VilniusTechnology/orange-home-automator-ui.git
 
