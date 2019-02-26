@@ -7,8 +7,8 @@ import { LedEmulatorViewService } from 'src/app/services/led-view-emulator.servi
   styleUrls: ['./led-emulator.component.scss']
 })
 export class LedEmulatorComponent implements OnInit {
-  
-    public currentColor: {} = {};
+
+    public currentColor: any = {};
   
     constructor(private ledEmulatorService: LedEmulatorViewService) { }
     

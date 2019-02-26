@@ -9,11 +9,11 @@ export class LedSlidersComponent implements OnInit {
 
   @Input('state') public ledState: number = 0;
   @Input('sliders') public sliders = {
-    "red" : 0,
-    "green" : 0,
-    "blue" : 0,
-    "coldWhite" : 0,
-    "warmWhite" : 0,
+    "red" : {value: 0},
+    "green" : {value: 0},
+    "blue" : {value: 0},
+    "coldWhite" : {value: 0},
+    "warmWhite" : {value: 0},
   };
 
   @Output() public change = new EventEmitter();

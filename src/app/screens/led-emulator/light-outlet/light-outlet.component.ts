@@ -11,7 +11,7 @@ import { LedEmulatorViewService } from 'src/app/services/led-view-emulator.servi
 export class LightOutletComponent implements OnInit {
 
     public title = "Detached LED emulator";
-    public currentColor: {} = {};
+    public currentColor: any = {};
 
     constructor(
         private titleService: Title , 

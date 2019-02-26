@@ -10,7 +10,7 @@ import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 
 export class LedControlPanelComponent implements OnInit {
 
-    public currentColor: {} = {};
+    public currentColor: any = {};
 
     public ledModesList = [
         {code: 0, title: 'AUTO'},

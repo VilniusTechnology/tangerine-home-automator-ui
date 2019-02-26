@@ -100,7 +100,7 @@ export class LightingChartComponent implements OnInit {
 
     public chart;
 
-    protected title = 'Line Chart of sensors readings over time';
+    public title = 'Line Chart of sensors readings over time';
 
     constructor(private  httpClient:  HttpClient, private inj:Injector) {
         // this.currentLightReading = this.inj.get(GraphsComponent);

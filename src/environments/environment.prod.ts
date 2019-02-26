@@ -5,19 +5,19 @@
 import { environmentParams } from 'src/environments/environment.params';
 
 export const environment = {
-    production: false,
+    production: true,
     firebase: environmentParams.firebase, 
     endpoints: {
         healthCheckPeriod: 3000,
         useEmulator: false,
         emulatorEndpoints: {
-            nest: 'http://tangerine.local:8081',
+            nest: 'http://localhost:8081',
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
         },
         hardwareEndpoints: {
-            nest: 'http://tangerine.local:8081',
-            ledController: 'http://tangerine.local:8080',
+            nest: 'http://192.168.1.40:8081',
+            ledController: 'http://192.168.1.40:8080',
         },
     }
 };
