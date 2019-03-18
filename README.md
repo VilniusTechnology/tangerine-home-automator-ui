@@ -1,12 +1,14 @@
 # Production Launch
 
-1. Create user and prepare [server](/docs/server-setup.md).
+
 
 ## Config
 
 1. Build for PRODUCTION: ``ng build --prod``
 
 2. run ` `
+
+3. Create user and prepare [server](/docs/config.md).
 
 
 NG ON HTTPS:
