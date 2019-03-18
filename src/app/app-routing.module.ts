@@ -12,6 +12,8 @@ import { LedControlPanelComponent } from './components/led-control-panel/led-con
 
 import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
 import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/led-timing-modes.component';
+import { EffectorComponent } from './screens/effector/effector.component';
+import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
 
 const routes: Routes = [
     { 
@@ -50,6 +52,16 @@ const routes: Routes = [
             {
                 path:  'lightomator/timing',
                 component: LedTimingModesComponent,
+                canActivate: [AuthGuardService],
+            },
+            {
+                path:  'lightomator/led/effects',
+                component: EffectorComponent,
+                canActivate: [AuthGuardService],
+            },
+            {
+                path:  'lightomator/led/openpixel',
+                component: OpenpixelComponent,
                 canActivate: [AuthGuardService],
             },
             {

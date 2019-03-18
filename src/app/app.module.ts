@@ -46,6 +46,8 @@ import { LedControlPanelComponent } from './components/led-control-panel/led-con
 import { LightingChartComponent } from './screens/graphs/lighting-chart/lighting-chart.component';
 import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/led-timing-modes.component';
 import { AuthHeadersInterceptor } from './services/auth-headers-interceptor.service';
+import { EffectorComponent } from './screens/effector/effector.component';
+import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
 
 @NgModule({
     declarations: [
@@ -65,6 +67,8 @@ import { AuthHeadersInterceptor } from './services/auth-headers-interceptor.serv
         HeadedComponent,
         HeadlessComponent,
         ConnectionStatusComponent,
+        EffectorComponent,
+        OpenpixelComponent,
     ],
     imports: [
         ChartModule,

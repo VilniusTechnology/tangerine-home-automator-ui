@@ -50,15 +50,25 @@ export class AuthService {
 
     logout() {
         this.token = null;
+        this.userEmail = null;
 
         // Send request to invalidate token expirity.
+        this.router.navigate(['/login']);
     }
 
     isAuthenticated() {
-        return this.token != null; 
+        return this.getToken() != null; 
+    }
+
+    getToken() {
+        return localStorage.getItem('Auth-token');
+    }
+
+    getEmail() {
+        return localStorage.getItem('Auth-email');
     }
 
     getCredentials() {
-        return {email: this.userEmail, token: this.token};
+        return {email: this.getEmail(), token: this.getToken()};
     }
 }

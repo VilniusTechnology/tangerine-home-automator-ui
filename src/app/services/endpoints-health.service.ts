@@ -40,7 +40,7 @@ export class EndpointsHealthService {
 
     public checkEndpointHealth(endpointConfigKey: string) {
         const endpointUrl = this.endpointsService.getEndpointUrlByKey(endpointConfigKey);
-        this.httpClient.get(endpointUrl).subscribe( 
+        this.httpClient.get(`${endpointUrl}/healthcheck`).subscribe( 
             (response) => {
                 this.updateEndpointHealthStatus(endpointConfigKey, true);
             },

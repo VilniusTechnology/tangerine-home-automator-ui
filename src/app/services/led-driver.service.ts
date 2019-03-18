@@ -26,7 +26,7 @@ export class LedDriverService {
     }
 
     performHealthCheck() {
-        const prom = this.httpClient.get(`${this.baseUrl}`);
+        const prom = this.httpClient.get(`${this.baseUrl}/healthcheck`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);

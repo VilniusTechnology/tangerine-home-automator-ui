@@ -19,6 +19,15 @@ export class LightAutomatorConnectionService {
         this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
     }
 
+    toggleOpenPixel() {
+        return this.httpClient.get(`${this.baseUrl}/openpixel/toggle`);
+    }
+    
+    selectEffect(id: number) {
+        console.log('Should launch effect id: ', id);
+        return this.httpClient.get(`${this.baseUrl}/led/effects/play/${id}`);
+    }
+
     getTimedModes() {
         const prom = this.httpClient.get(`${this.baseUrl}/get-light-time-programs`);
 
