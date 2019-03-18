@@ -1,26 +1,12 @@
-# Build AND Launch
+# Production Launch
 
-1. Localy: ``git clone git@github.com:VilniusTechnology/orange-home-automator-ui.git``
+1. Create user and prepare [server](/docs/server-setup.md).
 
-2. ``cd orange-home-automator-ui``
+## Config
 
-3. ``npm install``
+1. Build for PRODUCTION: ``ng build --prod``
 
-4. ``npm install -g @angular/cli``
-
-5. Prepare params: ``mv environment.params.ts.dist environment.params.ts``
-
-6. Update config, with correct values: ``nano src/environments/environment.ts``.
-
-7. Test it: ``ng serve --ssl``
-
-8. Build for PRODUCTION: ``ng build --prod``
-
-9. Tarball it
-
-10. Create user and prepare [server](server-setup.md).
-
-11. Check it out.
+2. run ` `
 
 
 NG ON HTTPS:
@@ -31,5 +17,5 @@ https://medium.com/@richardr39/using-angular-cli-to-serve-over-https-locally-70d
 
 ## Running with emulator
 
-
+1. Prepare for [development](/docs/development.md).
 
