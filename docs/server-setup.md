@@ -22,3 +22,9 @@ Change ``root /var/www/html `` to path ``root /home/madcatzx/projects/nest-ui/di
 Restart ``sudo systemctl restart nginx``
 
 More details: http://www.codingpedia.org/ama/how-to-configure-nginx-in-production-to-serve-angular-app-and-reverse-proxy-nodejs
+
+
+NG ON HTTPS:
+https://medium.com/@rubenvermeulen/running-angular-cli-over-https-with-a-trusted-certificate-4a0d5f92747a
+
+https://medium.com/@richardr39/using-angular-cli-to-serve-over-https-locally-70dab07417c8
