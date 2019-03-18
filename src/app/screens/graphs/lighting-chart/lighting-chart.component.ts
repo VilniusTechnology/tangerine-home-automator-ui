@@ -5,6 +5,7 @@ import { GraphsComponent } from '../graphs.component';
 
 import * as Highcharts from 'highcharts/highstock';
 import * as _ from 'lodash';
+import { EndpointsService } from 'src/app/services/endpoints.service';
 
 
 Highcharts.setOptions({
@@ -102,7 +103,11 @@ export class LightingChartComponent implements OnInit {
 
     public title = 'Line Chart of sensors readings over time';
 
-    constructor(private  httpClient:  HttpClient, private inj:Injector) {
+    constructor(
+        private  httpClient:  HttpClient, 
+        private inj:Injector, 
+        private endpointsService: EndpointsService
+    ) {
         // this.currentLightReading = this.inj.get(GraphsComponent);
     }
 
@@ -113,7 +118,9 @@ export class LightingChartComponent implements OnInit {
     private getDataAndInit() {
         this.chart = Highcharts.chart('chart', this.options);
 
-        this.httpClient.get('http://192.168.1.40:8081/sensors/get-all')
+        const baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
+
+        this.httpClient.get(`${baseUrl}/sensors/get-all`)
         .subscribe(
             data => {
                 console.log('getDataAndInit', data);

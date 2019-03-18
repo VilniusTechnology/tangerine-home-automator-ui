@@ -8,7 +8,7 @@ export const environment = {
     production: true,
     firebase: environmentParams.firebase, 
     endpoints: {
-        healthCheckPeriod: 3000,
+        healthCheckPeriod: 30000,
         useEmulator: false,
         emulatorEndpoints: {
             nest: 'http://localhost:8081',

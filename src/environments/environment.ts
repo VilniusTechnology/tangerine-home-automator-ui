@@ -8,16 +8,18 @@ export const environment = {
     production: false,
     firebase: environmentParams.firebase, 
     endpoints: {
-        healthCheckPeriod: 3000,
+        healthCheckPeriod: 30000,
         useEmulator: false,
         emulatorEndpoints: {
-            nest: 'http://tangerine.local:8081',
+            nest: 'http://localhost:8081',
+            healthCheck: 'http://localhost:8081',
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
         },
         hardwareEndpoints: {
-            nest: 'http://tangerine.local:8081',
-            ledController: 'http://tangerine.local:8080',
+            nest: 'http://localhost:8081',
+            healthCheck: 'http://localhost:8081',
+            ledController: 'http://localhost:8081',
         },
     }
 };

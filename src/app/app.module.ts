@@ -45,6 +45,7 @@ import { LedSlidersComponent } from './components/led-control-panel/led-sliders/
 import { LedControlPanelComponent } from './components/led-control-panel/led-control-panel.component';
 import { LightingChartComponent } from './screens/graphs/lighting-chart/lighting-chart.component';
 import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/led-timing-modes.component';
+import { AuthHeadersInterceptor } from './services/auth-headers-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -102,7 +103,11 @@ import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/
             provide: HTTP_INTERCEPTORS,
             useClass: EndpointsStatusInterceptor,
             multi: true
-          }
+        },{
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthHeadersInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
