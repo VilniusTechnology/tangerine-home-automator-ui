@@ -1,8 +1,8 @@
 # Setup for development
 
-1. Clone localy: ``git clone git@github.com:VilniusTechnology/orange-home-automator-ui.git``
+1. Clone localy: ``git clone git@github.com:VilniusTechnology/tangerine-home-automator-ui.git``
 
-2. ``cd orange-home-automator-ui``
+2. ``cd tangerine-home-automator-ui``
 
 3. ``npm install``
 

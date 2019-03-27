@@ -11,16 +11,9 @@ import * as firebase from 'firebase/app';
   ]
 })
 export class AppComponent {
-    title = 'orange-home-automator-ui';
+    title = 'tangerine-home-automator-ui';
 
     ngOnInit(): void {
-        const apiKey = environment.firebase.apiKey;
-        const authDomain = environment.firebase.authDomain;
-
-        firebase.initializeApp({
-            apiKey,
-            authDomain,
-        });
     }
 
     constructor() { }

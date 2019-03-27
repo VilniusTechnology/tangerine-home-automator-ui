@@ -17,7 +17,7 @@ Configure NGINX
 
 Open: ``sudo nano /etc/nginx/sites-enabled/default``
 
-Change ``root /var/www/html `` to path ``root /home/madcatzx/projects/nest-ui/dist/orange-home-automator-ui;``
+Change ``root /var/www/html `` to path ``root /home/madcatzx/projects/nest-ui/dist/tangerine-home-automator-ui;``
 
 Restart ``sudo systemctl restart nginx``
 

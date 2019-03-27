@@ -15,4 +15,4 @@ scp nest-ui.tar.gz  madcatzx@tangerine.local:/home/madcatzx/projects/nest-ui.tar
 # ssh -t madcatzx@tangerine.local 'mkdir /home/madcatzx/projects/nest-ui'
 # Extract on remote: ssh -t madcatzx@tangerine.local 'tar -C /home/madcatzx/projects/nest-ui -zxvf nest-ui.tar.gz'
 
-# /home/madcatzx/projects/nest-ui/dist/orange-home-automator-ui
+# /home/madcatzx/projects/nest-ui/dist/tangerine-home-automator-ui
