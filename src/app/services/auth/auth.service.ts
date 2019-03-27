@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { EndpointsService } from '../endpoints.service';
+import { UserModel } from 'src/app/shared/models/system/user-model';
 
 
 @Injectable({
@@ -10,10 +11,11 @@ import { EndpointsService } from '../endpoints.service';
 })
 export class AuthService {
 
-    public token : string = null;
-    public userId : number = null;
-    public userEmail : string = null;
-    public userName : string = null;
+    public user: UserModel;
+    public token: string = null;
+    public userId: number = null;
+    public userEmail: string = null;
+    public userName: string = null;
 
     public loggedIn = false;
 
@@ -27,13 +29,15 @@ export class AuthService {
 
     login(email: string, password: string) {
         this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
-        this.http.post(`${this.baseUrl}/auth/log-in`, {email: email, password: password}).subscribe((user: any) => {
-            console.log(user);
+
+        this.http.post<UserModel>(`${this.baseUrl}/auth/log-in`, {email: email, password: password})
+        .subscribe((user: UserModel) => {
             if(user) {
                 console.log(user);
 
                 localStorage.setItem('Auth-token', user.token);
                 localStorage.setItem('Auth-email', user.email);
+                localStorage.setItem('user', JSON.stringify(user));
 
                 this.token = user.token;
                 this.userEmail = user.email;
@@ -58,6 +62,10 @@ export class AuthService {
 
     isAuthenticated() {
         return this.getToken() != null; 
+    }
+
+    getUser(): UserModel {
+        return JSON.parse(localStorage.getItem('user'));
     }
 
     getToken() {

@@ -1,4 +1,6 @@
-1. Localy: ``git clone git@github.com:VilniusTechnology/orange-home-automator-ui.git``
+# Setup for development
+
+1. Clone localy: ``git clone git@github.com:VilniusTechnology/orange-home-automator-ui.git``
 
 2. ``cd orange-home-automator-ui``
 
@@ -11,3 +13,5 @@
 6. Update config, with correct values: ``nano src/environments/environment.ts``.
 
 7. Test it: ``ng serve --ssl``
+
+In some cases, using emulator instead of real hardware might be needed. In this case You should launch tangerine-nest in [emulated mode](https://github.com/VilniusTechnology/tangerine-nest).

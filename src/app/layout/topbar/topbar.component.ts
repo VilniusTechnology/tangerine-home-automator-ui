@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { UserModel } from 'src/app/shared/models/system/user-model';
 
 @Component({
   selector: 'app-topbar',
@@ -14,11 +15,13 @@ import { environment } from 'src/environments/environment';
 export class TopbarComponent implements OnInit {
 
     public isEmulated: boolean;
+    public user_name: string = '';
 
     constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         this.isEmulated = environment.endpoints.useEmulator;
+        this.user_name = this.authService.getUser().name;
     }
 
     onLogout() {
