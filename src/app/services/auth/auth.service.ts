@@ -68,6 +68,16 @@ export class AuthService {
         return JSON.parse(localStorage.getItem('user'));
     }
 
+    getUserName(): string {
+        const data = JSON.parse(localStorage.getItem('user'));
+
+        if (data != null) {
+            return data.name;
+        }
+
+        return 'Guest';
+    }
+
     getToken() {
         return localStorage.getItem('Auth-token');
     }

@@ -1,6 +1,9 @@
+<button *ngIf="pwa.promptEvent" (click)="installPwa()">
+    Install
+</button>
+
 <div id="container">
     <app-topbar></app-topbar>
-
     <div id="content">
         <router-outlet></router-outlet> 
     </div>

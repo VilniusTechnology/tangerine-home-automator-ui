@@ -48,6 +48,8 @@ import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/
 import { AuthHeadersInterceptor } from './services/auth-headers-interceptor.service';
 import { EffectorComponent } from './screens/effector/effector.component';
 import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -93,6 +95,7 @@ import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
         MatGridListModule,
         MatProgressSpinnerModule,
         LedEmulatorDetachedModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     providers: [
         LedDriverService,
