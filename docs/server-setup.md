@@ -1,6 +1,6 @@
 # Prepare server and launch application
 
-###Create user:
+### Create user:
 
 ``sudo adduser tangerine``
 
@@ -10,18 +10,20 @@ Add line `tangerine ALL=(ALL:ALL) ALL` and save file
 
 (More info)[https://www.raspberrypi.org/documentation/linux/usage/users.md]
 
+Setup paswordless (login)[https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md]
 
-###Setup hostname (loacal URL):  
+
+### Setup hostname (loacal URL):  
 https://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/
 
 
-####Install NGINX:
+#### Install NGINX:
 
 ``sudo apt-get update``
 
 ``sudo apt-get install nginx``
 
-####Configure NGINX
+#### Configure NGINX
 
 `su tangerine`
 
@@ -34,6 +36,8 @@ Change ``root /var/www/html;`` to path ``root /home/tangerine/nest-ui/tangerine-
 Restart ``sudo systemctl restart nginx``
 
 Copy files produced by ``ng build --prod`` to directory `/home/tangerine/nest-ui/tangerine-home-automator-ui;`
+
+This could be achieved by running `sh upload.sh` locally.
 
 More details: http://www.codingpedia.org/ama/how-to-configure-nginx-in-production-to-serve-angular-app-and-reverse-proxy-nodejs
 

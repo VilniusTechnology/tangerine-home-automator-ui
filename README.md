@@ -12,13 +12,15 @@ Using it You should be able to get Your sensor readings or controll LED's or oth
 
 0. Launch `tangerine-nest`.
 
-1. Setup [config](/docs/config.md) params.
+1. Download locally.
 
-2. Build for PRODUCTION: ``ng build --prod``
+2. Setup [config](/docs/config.md) params.
 
-3. Run `build-deploy.sh` to upload.
+3. Build for PRODUCTION: ``ng build --prod``
 
-4. Prepare [server](/docs/server-setup.md) and launch APP.
+4. Run `build-deploy.sh` to upload.
+
+5. Prepare [server](/docs/server-setup.md) and launch APP.
 
 
 ### Running [DEV] with||without emulator
