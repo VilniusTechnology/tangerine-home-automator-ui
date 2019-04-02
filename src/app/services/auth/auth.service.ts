@@ -56,6 +56,10 @@ export class AuthService {
         this.token = null;
         this.userEmail = null;
 
+        localStorage.removeItem('Auth-token');
+        localStorage.removeItem('Auth-email');
+        localStorage.removeItem('user');
+
         // Send request to invalidate token expirity.
         this.router.navigate(['/login']);
     }
@@ -75,7 +79,7 @@ export class AuthService {
             return data.name;
         }
 
-        return 'Guest';
+        return '';
     }
 
     getToken() {

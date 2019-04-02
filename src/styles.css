@@ -28,6 +28,11 @@ button.mat-raised-button {
     margin-left: 10px;
 }
 
+mat-card {
+    margin: 5px;
+}
+
+/* SLIDER STUFF  */
 mat-slider.sli1> div > div.mat-slider-track-wrapper > div.mat-slider-track-fill,
 mat-slider.sli1 > div > div.mat-slider-thumb-container > div.mat-slider-thumb
 {

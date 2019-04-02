@@ -17,7 +17,7 @@ Setup paswordless (login)[https://www.raspberrypi.org/documentation/remote-acces
 https://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/
 
 
-#### Install NGINX:
+#### Install NGINX
 
 ``sudo apt-get update``
 
@@ -27,9 +27,9 @@ https://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your
 
 `su tangerine`
 
-Open: ``sudo nano /etc/nginx/sites-enabled/default``
-
 `mkdir -p /home/tangerine/nest-ui/tangerine-home-automator-ui`
+
+Open: ``sudo nano /etc/nginx/sites-enabled/default``
 
 Change ``root /var/www/html;`` to path ``root /home/tangerine/nest-ui/tangerine-home-automator-ui;``
 

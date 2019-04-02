@@ -21,12 +21,19 @@ export class TopbarComponent implements OnInit {
 
     ngOnInit() {
         this.isEmulated = environment.endpoints.useEmulator;
-        this.user_name = this.authService.getUserName();
     }
 
     onLogout() {
         this.authService.logout();
         this.router.navigate(['login']);
+    }
+
+    isAuthenticated() {
+        return this.authService.isAuthenticated();
+    }
+
+    getUserName() {
+        return this.authService.getUserName();
     }
 
 }

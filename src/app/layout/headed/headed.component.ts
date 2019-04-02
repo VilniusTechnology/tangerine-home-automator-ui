@@ -18,9 +18,8 @@ export class HeadedComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log('ngOnInit');
         if (this.swUpdate.isEnabled) {
-            console.log('this.swUpdate.isEnabled');
+            console.log('MUST DELETE: this.swUpdate.isEnabled');
             this.swUpdate.available.subscribe(() => {
                 if (confirm('Update ?')) {
                     window.location.reload();
