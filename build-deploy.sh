@@ -6,7 +6,7 @@ ng build --prod
 tar -zcvf nest-ui.tar.gz dist
 
 # 3. Send over SSH
-scp nest-ui.tar.gz  madcatzx@tangerine.local:/home/madcatzx/projects/nest-ui.tar.gz 
+scp nest-ui.tar.gz  tangerine@tangerine.local:/home/tangerine/nest-ui/nest-ui.tar.gz 
 
 
 ### TODO
