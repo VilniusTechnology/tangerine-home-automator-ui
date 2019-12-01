@@ -73,11 +73,19 @@ export class LedControlPanelComponent implements OnInit {
         this.dispatchLedControlAction();
     }
 
+    toggleLedState($event) {
+        console.log('toggleLedState: ', Number($event));
+        this.ledState = Number($event);
+        this.dispatchLedControlAction();
+    }
+
     ngGetLedLightingState() {
         this.currentColor = this.determineCurrentColor();
         
+        console.log('this.ledState: ', this.ledState);
+
         return {
-            state: this.ledState ? 1 : 0,
+            state: this.ledState,
             mode: this.ledMode,
             red: this.sliders.red.value,
             green: this.sliders.green.value,
@@ -89,6 +97,8 @@ export class LedControlPanelComponent implements OnInit {
 
     dispatchLedControlAction() {
         const data = this.ngGetLedLightingState();
+
+        console.log(data);
 
         this._mainTransportService.setLedParams(data)
             .then((data) => {

@@ -1,6 +1,6 @@
 <app-led-state-switch 
     [state]="ledState"
-    (change)="(ledState = ($event) ? 1 : 0)"
+    (change)="toggleLedState($event)"
     ></app-led-state-switch>
 
 <mat-card class="result">
