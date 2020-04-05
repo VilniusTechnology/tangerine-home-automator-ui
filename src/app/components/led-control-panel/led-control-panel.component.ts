@@ -32,8 +32,8 @@ export class LedControlPanelComponent implements OnInit {
             'value': 155
         },
         'coldWhite': {
-        'value': 155
-    },
+            'value': 155
+        },
         'warmWhite': {
             'value': 155
         },
@@ -48,6 +48,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('ngOnInit');
         this.dispatchHealthCheck();
     }
 
@@ -56,6 +57,8 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     setLedLightingState(data) {
+        console.log('setLedLightingState: ', data);
+
         this.ledMode = data.ledMode;
         this.ledState = data.ledState;
 
@@ -63,6 +66,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     setSlidersStates(data) {
+        console.log('setSlidersStates: ', data);
         this.sliders.red.value = data.red.value;
         this.sliders.green.value = data.green.value;
         this.sliders.blue.value = data.blue.value;
@@ -70,7 +74,7 @@ export class LedControlPanelComponent implements OnInit {
         this.sliders.warmWhite.value = data.warmWhite.value;
 
         this.currentColor = this.determineCurrentColor();
-        this.dispatchLedControlAction();
+        // this.dispatchLedControlAction();
     }
 
     toggleLedState($event) {
@@ -81,11 +85,9 @@ export class LedControlPanelComponent implements OnInit {
 
     ngGetLedLightingState() {
         this.currentColor = this.determineCurrentColor();
-        
-        console.log('this.ledState: ', this.ledState);
 
         return {
-            state: this.ledState,
+            state: +this.ledState,
             mode: this.ledMode,
             red: this.sliders.red.value,
             green: this.sliders.green.value,
@@ -98,29 +100,34 @@ export class LedControlPanelComponent implements OnInit {
     dispatchLedControlAction() {
         const data = this.ngGetLedLightingState();
 
-        console.log(data);
+        console.log('dispatchLedControlAction::ngGetLedLightingState: ', data);
 
         this._mainTransportService.setLedParams(data)
             .then((data) => {
+                console.log('dispatchLedControlAction::data: ', data);
                 this.setLedLightingState(data);
                 this.currentColor = this.determineCurrentColor();
             });
     }
 
     dispatchHealthCheck() {
+        console.log('dispatchHealthCheck');
         this._mainTransportService.performHealthCheck()
             .then((data) => {
+                console.log('dispatchHealthCheck::data: ', data);
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
             });
     }
 
     onLedModeSelect(event) {
+        console.log('onLedModeSelect: ', event);
         this.ledMode = event.value;
         this.dispatchLedControlAction();
     }
 
     onSlidersChange($event) {
+        console.log('onSlidersChange: ', event);
         this.dispatchLedControlAction();
     }
 

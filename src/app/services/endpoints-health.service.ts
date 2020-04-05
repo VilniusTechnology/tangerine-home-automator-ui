@@ -39,6 +39,8 @@ export class EndpointsHealthService {
     }
 
     public checkEndpointHealth(endpointConfigKey: string) {
+        console.log('Will checkEndpointHealth');
+
         const endpointUrl = this.endpointsService.getEndpointUrlByKey(endpointConfigKey);
         this.httpClient.get(`${endpointUrl}/healthcheck`).subscribe( 
             (response) => {
@@ -57,7 +59,8 @@ export class EndpointsHealthService {
     public updateEndpointHealthStatus(endpointConfigKey: string, status: boolean) {
         this.endpiontsHealthStatuses[endpointConfigKey] = status
         this.enspointsStateSubject.next(this.endpiontsHealthStatuses);
-        // console.log('updateEndpointHealthStatus', this.endpiontsHealthStatuses);
+
+        console.log('updateEndpointHealthStatus', this.endpiontsHealthStatuses);
     }
 
     public getEndpointHealthStatus(endpointConfigKey: string) {

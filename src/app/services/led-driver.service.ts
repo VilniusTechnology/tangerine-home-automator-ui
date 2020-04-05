@@ -18,7 +18,7 @@ export class LedDriverService {
         private  httpClient:  HttpClient, 
         private endpointsService: EndpointsService
     ) { 
-        this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest') + '/led/';
+        this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
     }
 
     getData(): Observable<AutomatorMainResponse> {
@@ -26,7 +26,11 @@ export class LedDriverService {
     }
 
     performHealthCheck() {
-        const prom = this.httpClient.get(`${this.baseUrl}/healthcheck`);
+        const url = `${this.baseUrl}/led`;
+
+        console.log('performHealthCheck :', url);
+
+        const prom = this.httpClient.get(url);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -40,7 +44,7 @@ export class LedDriverService {
             queryString += '&' + key + '=' + val;
         });
 
-        const prom = this.httpClient.get(`${this.baseUrl}${queryString}`);
+        const prom = this.httpClient.get(`${this.baseUrl}/led/${queryString}`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 // console.log('setLedParams: ', rawData);
