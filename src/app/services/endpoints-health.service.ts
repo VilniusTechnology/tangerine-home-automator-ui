@@ -4,6 +4,8 @@ import * as _ from 'lodash';
 import { EndpointsService } from './endpoints.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,7 @@ export class EndpointsHealthService {
 
         this.endpointsService.getAllEnpointKeys()
             .forEach((endpointConfigKey) => {
-                // console.log('Will check: ', endpointConfigKey);
+                console.log('Will check: ', endpointConfigKey);
                 this.checkEndpointHealth(endpointConfigKey);
             });
     }
@@ -39,14 +41,25 @@ export class EndpointsHealthService {
     }
 
     public checkEndpointHealth(endpointConfigKey: string) {
-        console.log('Will checkEndpointHealth');
+        console.log('Will checkEndpointHealth: ', endpointConfigKey);
 
         const endpointUrl = this.endpointsService.getEndpointUrlByKey(endpointConfigKey);
-        this.httpClient.get(`${endpointUrl}/healthcheck`).subscribe( 
+        this.httpClient.get(`${endpointUrl}/healthcheck`)
+        // .pipe(
+        //     // here we can stop the error being thrown for certain error responses
+        //     catchError(err => {
+        //       console.log('catchError: ', err)
+        //       if (err.status == 404) return of(null)
+        //       else throwError(err)
+        //     })
+        // )
+        .subscribe( 
             (response) => {
+                console.log('endpointConfigKey: ', endpointConfigKey);
                 this.updateEndpointHealthStatus(endpointConfigKey, true);
             },
             (error) => {
+                console.log('endpointConfigKey: ', endpointConfigKey);
                 this.updateEndpointHealthStatus(endpointConfigKey, false);
             }
         );
@@ -60,7 +73,7 @@ export class EndpointsHealthService {
         this.endpiontsHealthStatuses[endpointConfigKey] = status
         this.enspointsStateSubject.next(this.endpiontsHealthStatuses);
 
-        console.log('updateEndpointHealthStatus', this.endpiontsHealthStatuses);
+        console.log('updateEndpointHealthStatus: ', endpointConfigKey, this.endpiontsHealthStatuses);
     }
 
     public getEndpointHealthStatus(endpointConfigKey: string) {

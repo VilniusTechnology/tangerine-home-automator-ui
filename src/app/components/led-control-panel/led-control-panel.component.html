@@ -1,5 +1,6 @@
 <app-led-state-switch 
     [state]="ledState"
+    [disabled]="disabled"
     (change)="toggleLedState($event)"
     ></app-led-state-switch>
 
@@ -13,6 +14,7 @@
                 [value]="ledModeIn.code" 
                 checked="ledModeIn.code === ledMode"
                 [name]="ledModeIn.title"
+                [disabled]="disabled"
                 >
                 {{ledModeIn.title}}
             </mat-radio-button>
@@ -20,9 +22,10 @@
     </mat-card-content>
     </mat-card>
 
-<app-led-sliders
+    <app-led-sliders
     [state]="ledState"
     [sliders]="sliders"
+    [disabled]="disabled"
     (change)="onSlidersChange($event)"
     ></app-led-sliders>
 

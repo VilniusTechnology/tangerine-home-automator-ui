@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { LedDriverService } from 'src/app/services/led-driver.service';
 
 @Component({
   selector: 'app-led-sliders',
@@ -7,7 +8,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class LedSlidersComponent implements OnInit {
 
-  @Input('state') public ledState: number = 0;
+  private buttonsState: boolean = true;
+  private _ledState: boolean = true;
+  private _disabled: boolean = true;
+
+  @Input('state')
+  set ledState(ledState: number) {
+    this._ledState = !!ledState;
+    this.buttonsState = this.resolveSlidersState();
+  }
+  get ledState(): number { return +this._ledState; }
+  
+  @Input()
+  set disabled(disabled: boolean) {
+    this._disabled = disabled;
+    this.buttonsState = this.resolveSlidersState();
+  }
+  get disabled(): boolean { return this._disabled; }
+
   @Input('sliders') public sliders = {
     "red" : {value: 0},
     "green" : {value: 0},
@@ -18,9 +36,18 @@ export class LedSlidersComponent implements OnInit {
 
   @Output() public change = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private ledDriverService: LedDriverService
+  ) { 
+    this.buttonsState = true;
+  }
 
   ngOnInit() {
+    this.buttonsState = true;
+  }
+
+  resolveSlidersState() {
+    return this.ledDriverService.resolveState(this._disabled, this._ledState);
   }
 
   dispatchLedControlAction() {

@@ -13,8 +13,8 @@ export const environment = {
             ledEmulator: 'http://localhost:7777',
         },
         hardwareEndpoints: {
-            nest: 'http://tangerine.local:8081',
-            ledController: 'http://tangerine.local:8080',
+            nest: 'http://shady.local:8081',
+            ledController: 'http://shady.local:8080',
         },
     }
 };

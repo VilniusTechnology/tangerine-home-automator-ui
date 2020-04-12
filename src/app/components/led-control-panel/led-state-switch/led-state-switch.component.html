@@ -1,15 +1,16 @@
 <mat-card class="result">
     <mat-card-content>
-        <h2 class="example-h2"> Manual control is {{ (ledState == 1 ? 'ON' : 'OFF')  }}</h2>
+        <h2 class="example-h2">Lights are {{ resolveLabel()  }}</h2>
 
         <section class="example-section">
             <mat-slide-toggle
                     class="example-margin"
                     [(ngModel)]="ledState"
                     [checked]="ledState"
+                    [disabled]="disabled"
                     (change)="dispatchLedControlAction()"
             >
-                Switch On/Off
+                <!-- Switch On/Off -->
             </mat-slide-toggle>
         </section>
     </mat-card-content>

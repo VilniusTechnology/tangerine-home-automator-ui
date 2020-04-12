@@ -30,7 +30,7 @@ export class AuthHeadersInterceptor implements HttpInterceptor {
 
         return next.handle(req)
             .catch((err) => { 
-                console.log('Caught error', err);
+                console.log('Caught connection error', err);
                 if (err.status == 401) {
                     this.authService.logout();
                 }

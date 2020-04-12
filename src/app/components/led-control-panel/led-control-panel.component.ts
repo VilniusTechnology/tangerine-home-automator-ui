@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LedDriverService } from 'src/app/services/led-driver.service';
 import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
+import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
 
 @Component({
     selector: 'app-led-control-panel',
@@ -11,6 +12,7 @@ import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 export class LedControlPanelComponent implements OnInit {
 
     public currentColor: any = {};
+    private disabled: boolean = true;
 
     public ledModesList = [
         {code: 0, title: 'AUTO'},
@@ -40,16 +42,36 @@ export class LedControlPanelComponent implements OnInit {
     };
 
     constructor(
-        private _mainTransportService: LedDriverService,
-        private rgbService: RgbCalculatorService
+        private ledDriverService: LedDriverService,
+        private rgbService: RgbCalculatorService,
+        private healthService: EndpointsHealthService
     ) {
         this.ledMode = 1;
         this.currentColor = this.determineCurrentColor();
     }
 
     ngOnInit() {
-        console.log('ngOnInit');
         this.dispatchHealthCheck();
+
+        this.healthService.subscribeOnEndpointsHealthState().subscribe(
+            (status) => {
+                if (status.ledController === false) {
+                    this.disabled = true;
+                } 
+                
+                if (status.ledController === true) {
+                    this.disabled = false;
+                }
+            }
+        );
+    }
+
+    resolveState() {
+        return this.ledDriverService.resolveState(this.disabled, this.getLedState());
+    }
+
+    getLedState() {
+        return !this.ledState;
     }
 
     determineCurrentColor() {
@@ -57,7 +79,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     setLedLightingState(data) {
-        console.log('setLedLightingState: ', data);
+        // console.log('setLedLightingState: ', data);
 
         this.ledMode = data.ledMode;
         this.ledState = data.ledState;
@@ -66,7 +88,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     setSlidersStates(data) {
-        console.log('setSlidersStates: ', data);
+        // console.log('setSlidersStates: ', data);
         this.sliders.red.value = data.red.value;
         this.sliders.green.value = data.green.value;
         this.sliders.blue.value = data.blue.value;
@@ -78,7 +100,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     toggleLedState($event) {
-        console.log('toggleLedState: ', Number($event));
+        // console.log('toggleLedState: ', Number($event));
         this.ledState = Number($event);
         this.dispatchLedControlAction();
     }
@@ -99,22 +121,21 @@ export class LedControlPanelComponent implements OnInit {
 
     dispatchLedControlAction() {
         const data = this.ngGetLedLightingState();
+        // console.log('dispatchLedControlAction::ngGetLedLightingState: ', data);
 
-        console.log('dispatchLedControlAction::ngGetLedLightingState: ', data);
-
-        this._mainTransportService.setLedParams(data)
+        this.ledDriverService.setLedParams(data)
             .then((data) => {
-                console.log('dispatchLedControlAction::data: ', data);
+                // console.log('dispatchLedControlAction::data: ', data);
                 this.setLedLightingState(data);
                 this.currentColor = this.determineCurrentColor();
             });
     }
 
     dispatchHealthCheck() {
-        console.log('dispatchHealthCheck');
-        this._mainTransportService.performHealthCheck()
+        // console.log('dispatchHealthCheck');
+        this.ledDriverService.performHealthCheck()
             .then((data) => {
-                console.log('dispatchHealthCheck::data: ', data);
+                // console.log('dispatchHealthCheck::data: ', data);
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
             });

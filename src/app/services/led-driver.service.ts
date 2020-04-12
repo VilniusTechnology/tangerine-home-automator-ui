@@ -26,13 +26,14 @@ export class LedDriverService {
     }
 
     performHealthCheck() {
+        // console.log('Will performHealthCheck');
         const url = `${this.baseUrl}/led`;
-
-        console.log('performHealthCheck :', url);
+        // console.log('performHealthCheck :', url);
 
         const prom = this.httpClient.get(url);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
+                // console.log('rawData: ', rawData);
                 resolve(rawData);
             });
         });
@@ -72,4 +73,20 @@ export class LedDriverService {
             });
         });
     }
+
+    resolveState(disabled, ledState) {
+        if (!disabled && ledState) {
+          return false;
+        }
+
+        // if( !disabled && !ledState ) {
+        //     return true;
+        //   }
+        
+        // if( !(disabled || ledState) ) {
+        //   return false;
+        // }
+
+        return true;
+      }
 }

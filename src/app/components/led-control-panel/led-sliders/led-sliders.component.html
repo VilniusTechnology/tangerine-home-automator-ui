@@ -11,7 +11,7 @@
                     [step]="1"
                     [(ngModel)]="sliders.red.value"
                     (change)="dispatchLedControlAction()" 
-                    [disabled]="!(ledState == 1 ? true : false)" >
+                    [disabled]="buttonsState" >
             </mat-slider>
         </mat-card-content>
     </mat-card>
@@ -27,7 +27,7 @@
                     [step]="1"
                     [(ngModel)]="sliders.green.value"
                     (change)="dispatchLedControlAction()"
-                    [disabled]="!(ledState == 1 ? true : false)"  >
+                    [disabled]="buttonsState"  >
             </mat-slider>
         </mat-card-content>
     </mat-card>
@@ -43,7 +43,7 @@
                     [step]="1"
                     [(ngModel)]="sliders.blue.value"
                     (change)="dispatchLedControlAction()"
-                    [disabled]="!(ledState == 1 ? true : false)"  >
+                    [disabled]="buttonsState"  >
             </mat-slider>
         </mat-card-content>
     </mat-card>
@@ -59,7 +59,7 @@
                     [step]="1"
                     [(ngModel)]="sliders.warmWhite.value"
                     (change)="dispatchLedControlAction()" 
-                    [disabled]="!(ledState == 1 ? true : false)" >
+                    [disabled]="buttonsState" >
             </mat-slider>
         </mat-card-content>
     </mat-card>
@@ -75,7 +75,7 @@
                     [step]="1"
                     [(ngModel)]="sliders.coldWhite.value"
                     (change)="dispatchLedControlAction()" 
-                    [disabled]="!(ledState == 1 ? true : false)" >
+                    [disabled]="buttonsState" >
             </mat-slider>
         </mat-card-content>
     </mat-card>

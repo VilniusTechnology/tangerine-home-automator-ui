@@ -22,10 +22,12 @@ export class EndpointsStatusInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).do( (response) => {
             const endpointConfigKey = this.endpointsHealthService.getEndpointKeyFromUrl(req.url);
+            // console.log('endpointConfigKey: ', endpointConfigKey);
             this.endpointsHealthService.updateEndpointHealthStatus(endpointConfigKey, true);
         })
         .catch( (errorResponse) => {
             const endpointConfigKey = this.endpointsHealthService.getEndpointKeyFromUrl(req.url);
+            // console.log('endpointConfigKey: ', endpointConfigKey);
             this.endpointsHealthService.updateEndpointHealthStatus(endpointConfigKey, false);
 
             return _throw(`${req.urlWithParams} - produced connection errror.`);
