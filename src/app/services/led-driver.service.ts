@@ -26,14 +26,11 @@ export class LedDriverService {
     }
 
     performHealthCheck() {
-        // console.log('Will performHealthCheck');
         const url = `${this.baseUrl}/led`;
-        // console.log('performHealthCheck :', url);
 
         const prom = this.httpClient.get(url);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                // console.log('rawData: ', rawData);
                 resolve(rawData);
             });
         });
@@ -48,7 +45,6 @@ export class LedDriverService {
         const prom = this.httpClient.get(`${this.baseUrl}/led/${queryString}`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                // console.log('setLedParams: ', rawData);
                 resolve(rawData);
             });
         });
@@ -58,17 +54,16 @@ export class LedDriverService {
         const prom = this.httpClient.get(`${this.baseUrl}?mode=${payload.mode}&state=${payload.state}`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                // console.log('setLedSettings: ', rawData);
                 resolve(rawData);
             });
         });
     }
 
     getSensorsData() {
-        const prom = this.httpClient.get(`${this.baseUrl}/sensors/get-all`);
+        const url = `${this.baseUrl}/sensors/get-all`;
+        const prom = this.httpClient.get(url);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-                // console.log('setLedSettings: ', rawData);
                 resolve(rawData);
             });
         });
@@ -78,14 +73,6 @@ export class LedDriverService {
         if (!disabled && ledState) {
           return false;
         }
-
-        // if( !disabled && !ledState ) {
-        //     return true;
-        //   }
-        
-        // if( !(disabled || ledState) ) {
-        //   return false;
-        // }
 
         return true;
       }

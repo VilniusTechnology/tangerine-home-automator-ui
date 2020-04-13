@@ -21,13 +21,15 @@ export class EndpointsService {
     }
 
     public getEndpointUrlByKey(key: string) {
+        return environment.endpoints[this.endpointType][key].url;
+    }
+
+    public getEndpointByKey(key: string) {
         return environment.endpoints[this.endpointType][key];
     }
 
     public getEndpointKeyFromUrl(url: string) {
-        // console.log('url: ' ,url);
         const endpointsList = _.invert(environment.endpoints[this.endpointType]);
-        // console.log('endpointsList: ', endpointsList);
 
         return endpointsList[url];
     }

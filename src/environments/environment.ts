@@ -14,9 +14,9 @@ export const environment = {
             ledEmulator: 'http://localhost:7777',
         },
         hardwareEndpoints: {
-            nest: 'http://sunny.local:8081',
-            healthCheck: 'http://sunny.local:8081',
-            ledController: 'http://sunny.local:8081/led',
+            nest: { url: 'http://shady.local:8081'},
+            healthCheck: { url: 'http://shady.local:8081', healthcheck: true },
+            ledController: { url: 'http://shady.local:8081/led', healthcheck: true },
         },
     }
 };

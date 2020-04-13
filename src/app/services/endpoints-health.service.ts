@@ -21,17 +21,32 @@ export class EndpointsHealthService {
     constructor(
         private httpClient:  HttpClient, 
         private endpointsService: EndpointsService
-    ) {
-    }
+    ) {}
 
     public checkAllEndpointsHealth() {
-        // console.log('Will checkAllEndpointsHealth');
-
         this.endpointsService.getAllEnpointKeys()
             .forEach((endpointConfigKey) => {
-                console.log('Will check: ', endpointConfigKey);
                 this.checkEndpointHealth(endpointConfigKey);
             });
+    }
+
+    public checkEndpointHealth(endpointConfigKey: string) {
+        const endpoint = this.endpointsService.getEndpointByKey(endpointConfigKey);
+        if (endpoint.healthcheck == false || typeof endpoint.healthcheck == "undefined") {
+            return false;
+        }
+
+        const url = `${endpoint.url}/healthcheck`;
+
+        this.httpClient.get(url)
+        .subscribe(
+            (response) => {
+                this.updateEndpointHealthStatus(endpointConfigKey, true, response);
+            },
+            (error) => {
+                this.updateEndpointHealthStatus(endpointConfigKey, false, error);
+            }
+        );
     }
 
     public periodicallyCheckAllEndpointsHealth(interval: number) {
@@ -40,40 +55,17 @@ export class EndpointsHealthService {
         }, interval);
     }
 
-    public checkEndpointHealth(endpointConfigKey: string) {
-        console.log('Will checkEndpointHealth: ', endpointConfigKey);
+    public updateEndpointHealthStatus(endpointConfigKey: string, status: boolean, data) {
+        if (typeof endpointConfigKey !== "undefined") {
+            this.endpiontsHealthStatuses[endpointConfigKey] = {status: status, data: data};
+            this.endpiontsHealthStatuses['recent'] = endpointConfigKey;
 
-        const endpointUrl = this.endpointsService.getEndpointUrlByKey(endpointConfigKey);
-        this.httpClient.get(`${endpointUrl}/healthcheck`)
-        // .pipe(
-        //     // here we can stop the error being thrown for certain error responses
-        //     catchError(err => {
-        //       console.log('catchError: ', err)
-        //       if (err.status == 404) return of(null)
-        //       else throwError(err)
-        //     })
-        // )
-        .subscribe( 
-            (response) => {
-                console.log('endpointConfigKey: ', endpointConfigKey);
-                this.updateEndpointHealthStatus(endpointConfigKey, true);
-            },
-            (error) => {
-                console.log('endpointConfigKey: ', endpointConfigKey);
-                this.updateEndpointHealthStatus(endpointConfigKey, false);
-            }
-        );
+            this.enspointsStateSubject.next(this.endpiontsHealthStatuses);
+        }
     }
 
     public subscribeOnEndpointsHealthState(): Observable<any> {
         return this.enspointsStateSubject.asObservable();
-    }
-
-    public updateEndpointHealthStatus(endpointConfigKey: string, status: boolean) {
-        this.endpiontsHealthStatuses[endpointConfigKey] = status
-        this.enspointsStateSubject.next(this.endpiontsHealthStatuses);
-
-        console.log('updateEndpointHealthStatus: ', endpointConfigKey, this.endpiontsHealthStatuses);
     }
 
     public getEndpointHealthStatus(endpointConfigKey: string) {
