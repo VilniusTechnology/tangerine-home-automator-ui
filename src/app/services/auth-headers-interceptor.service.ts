@@ -18,11 +18,22 @@ export class AuthHeadersInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         if(this.authService.getCredentials().token != null) {
+            const oldHeaders = req.headers.keys();
+
+            let hdrs = {};
+            var i;
+            for (i = 0; i < oldHeaders.length; i++) {
+                hdrs[oldHeaders[i]] = req.headers.get(oldHeaders[i]);
+            }
+
+            _.assign(
+                hdrs, 
+                {'Auth-token': this.authService.getCredentials().token}, 
+                {'Auth-email': this.authService.getCredentials().email}
+            );
+
             const authReq = req.clone({
-                headers: new HttpHeaders({
-                    'Auth-token': this.authService.getCredentials().token,
-                    'Auth-email': this.authService.getCredentials().email,
-                })
+                headers: new HttpHeaders(hdrs)
             });
 
             req = authReq;

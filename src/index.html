@@ -14,7 +14,16 @@
     <meta name="theme-color" content="#1976d2">
 </head>
 <body>
-    <app-root></app-root>
-    <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+  <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./ngsw-worker.js')
+        .then((registration) => {
+          console.log('registration: ', registration);
+        })
+      }
+  </script>
 </body>
 </html>

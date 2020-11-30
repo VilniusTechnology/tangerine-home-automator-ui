@@ -4,8 +4,6 @@ import * as _ from 'lodash';
 import { EndpointsService } from './endpoints.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +15,9 @@ export class EndpointsHealthService {
     public endpiontsHealthStatuses: {} = {};
 
     private enspointsStateSubject = new Subject<any>();
-    
+
     constructor(
-        private httpClient:  HttpClient, 
+        private httpClient:  HttpClient,
         private endpointsService: EndpointsService
     ) {}
 
@@ -38,15 +36,15 @@ export class EndpointsHealthService {
 
         const url = `${endpoint.url}/healthcheck`;
 
-        this.httpClient.get(url)
-        .subscribe(
-            (response) => {
-                this.updateEndpointHealthStatus(endpointConfigKey, true, response);
-            },
-            (error) => {
-                this.updateEndpointHealthStatus(endpointConfigKey, false, error);
-            }
-        );
+        // this.httpClient.get(url)
+        // .subscribe(
+        //     (response) => {
+        //         this.updateEndpointHealthStatus(endpointConfigKey, true, response);
+        //     },
+        //     (error) => {
+        //         this.updateEndpointHealthStatus(endpointConfigKey, false, error);
+        //     }
+        // );
     }
 
     public periodicallyCheckAllEndpointsHealth(interval: number) {

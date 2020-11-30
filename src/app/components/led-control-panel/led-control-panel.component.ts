@@ -12,7 +12,7 @@ import { EndpointsHealthService } from 'src/app/services/endpoints-health.servic
 export class LedControlPanelComponent implements OnInit {
 
     public currentColor: any = {};
-    private disabled: boolean = true;
+    public disabled: boolean = true;
 
     public ledModesList = [
         {code: 0, title: 'AUTO'},
@@ -64,7 +64,7 @@ export class LedControlPanelComponent implements OnInit {
                     } else {
                         this.disabled = true;
                     }
-                }  
+                }
             },
             (error) => {
                 console.error('GOT AN ERROR ON ledController ENDPOINT: ', error);
@@ -110,7 +110,7 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     toggleLedState($event) {
-        this.ledState = Number($event);
+        this.ledState = Number(!(!!$event));
         this.dispatchLedControlAction();
     }
 
@@ -143,7 +143,10 @@ export class LedControlPanelComponent implements OnInit {
             .then((data) => {
                 this.setLedLightingState(data);
                 this.setSlidersStates(data);
-            });
+                this.disabled = false;
+            }).catch(() => {
+                this.disabled = true;
+            })
     }
 
     onLedModeSelect(event) {

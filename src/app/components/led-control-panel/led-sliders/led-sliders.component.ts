@@ -8,9 +8,9 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 })
 export class LedSlidersComponent implements OnInit {
 
-  private buttonsState: boolean = true;
-  private _ledState: boolean = true;
-  private _disabled: boolean = true;
+  public buttonsState: boolean = true;
+  public _ledState: boolean = true;
+  public _disabled: boolean = true;
 
   @Input('state')
   set ledState(ledState: number) {
@@ -18,7 +18,7 @@ export class LedSlidersComponent implements OnInit {
     this.buttonsState = this.resolveSlidersState();
   }
   get ledState(): number { return +this._ledState; }
-  
+
   @Input()
   set disabled(disabled: boolean) {
     this._disabled = disabled;
@@ -38,7 +38,7 @@ export class LedSlidersComponent implements OnInit {
 
   constructor(
     private ledDriverService: LedDriverService
-  ) { 
+  ) {
     this.buttonsState = true;
   }
 

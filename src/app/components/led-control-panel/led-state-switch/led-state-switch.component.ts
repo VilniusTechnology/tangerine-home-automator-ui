@@ -9,12 +9,21 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 })
 export class LedStateSwitchComponent implements OnInit {
 
-    @Input('state') public ledState: number = 0;
-    @Input('disabled') public disabled: boolean = true;
+  private _ledState: number = 0;
+  private _disabled: boolean = true;
+
+    @Input('disabled') set disabled(disabled: boolean) { this._disabled = disabled; this.resolveLabel(); }
 
     @Output() public change = new EventEmitter();
 
     public currentColor: string = 'white';
+    public label: string = '???';
+
+    @Input('state') set ledState(ledState: number)
+    {
+      this._ledState = ledState;
+      this.resolveLabel();
+    }
 
     constructor(
         private ledDriverService: LedDriverService
@@ -23,20 +32,21 @@ export class LedStateSwitchComponent implements OnInit {
     ngOnInit() {}
 
     dispatchLedControlAction() {
-        this.change.emit(this.ledState);
+      console.log('this._ledState: ', this._ledState);
+      this.change.emit(this._ledState);
     }
 
     resolveLabel() {
-        if (this.disabled) {
-          return '???';
-        }
-        
-        if(!!this.ledState) {
-          return 'ON';
+        if (this._disabled) {
+          this.label = '???';
         }
 
-        if( !(!!this.ledState) ) {
-            return 'OFF';
-          }
+        if(!!this._ledState) {
+          this.label = 'ON';
+        }
+
+        if( !(!!this._ledState) ) {
+          this.label = 'OFF';
+        }
       }
 }

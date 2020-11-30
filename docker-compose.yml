@@ -1,0 +1,16 @@
+version: '3'
+services:
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+#    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../tangerine-home-automator-ui/dist/tangerine-home-automator-ui:/var/www
+#      - ./www:/var/www
+      - ./conf.d:/etc/nginx/conf.d
+      - ./certs:/ssl
