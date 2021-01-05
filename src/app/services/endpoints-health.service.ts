@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
 
 import { EndpointsService } from './endpoints.service';
 import { HttpClient } from '@angular/common/http';
@@ -35,16 +34,15 @@ export class EndpointsHealthService {
         }
 
         const url = `${endpoint.url}/healthcheck`;
-
-        // this.httpClient.get(url)
-        // .subscribe(
-        //     (response) => {
-        //         this.updateEndpointHealthStatus(endpointConfigKey, true, response);
-        //     },
-        //     (error) => {
-        //         this.updateEndpointHealthStatus(endpointConfigKey, false, error);
-        //     }
-        // );
+        this.httpClient.get(url)
+        .subscribe(
+            (response) => {
+                this.updateEndpointHealthStatus(endpointConfigKey, true, response);
+            },
+            (error) => {
+              this.updateEndpointHealthStatus(endpointConfigKey, false, error);
+            }
+        );
     }
 
     public periodicallyCheckAllEndpointsHealth(interval: number) {

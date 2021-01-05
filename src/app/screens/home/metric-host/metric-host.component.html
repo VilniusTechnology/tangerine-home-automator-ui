@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>{{title|titlecase}}</mat-card-title>
+    <img src="../../../../assets/snips/{{title}}.svg"
+         style="height: 60px; width: 60px; color: white; fill: white;" />
+    <section class="example-section" style="font-size: 25px; padding-top: 10px;">
+      {{roundToTwo(value)}}
+    </section>
+  </mat-card-content>
+</mat-card>

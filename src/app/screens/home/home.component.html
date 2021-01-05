@@ -1,11 +1,15 @@
-<p>
-  Perfect will add some dashboards here probably.<br><br>
+<div *ngFor="let host of hosts;">
+  <h2 style="color: white; padding: 10px;">{{host.title}}</h2>
+  <div *ngFor="let zone of host.zones;" style="padding: 15px;">
+    <h2 style="color: white; padding: 5px; margin: 5px; font-size: 20px;">{{zone.title}}</h2>
+    <div style="color: white; display: flex; flex-wrap: wrap;">
+      <ng-container *ngFor="let metric of zone.metrics;">
+        <app-metric-snippet *ngIf="metricIsDefined(results, zone.id, metric)"
+                            [title]="metric"  [value]="results[zone.id][metric]"
+        >
+        </app-metric-snippet>
+      </ng-container>
 
-  Temp: {{ temperature }}<br><br>
-  Humidity: {{ humidity }}<br><br>
-</p>
-<h1>Prognoze</h1>
-<p>
-  {{ weatherPayload | json }}
-</p>
-
+    </div>
+  </div>
+</div>

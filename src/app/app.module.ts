@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
@@ -50,11 +49,20 @@ import { EffectorComponent } from './screens/effector/effector.component';
 import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {LedControlPanelListComponent} from "./components/led-control-panel/led-control-panel-list/led-control-panel-list.component";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import { GaugeModule } from 'angular-gauge';
+import {MetricSnippetComponent} from "./screens/home/metric-snippet/metric-snippet.component";
+import {MetricHostComponent} from "./screens/home/metric-host/metric-host.component";
+import {KeysComponent} from "./screens/keys/keys.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         LightingChartComponent,
+        MetricSnippetComponent,
         TopbarComponent,
         GraphsComponent,
         HistoryComponent,
@@ -65,6 +73,9 @@ import { environment } from '../environments/environment';
         LedTimingModesComponent,
         LedStateSwitchComponent,
         LedSlidersComponent,
+        LedControlPanelListComponent,
+        MetricHostComponent,
+        KeysComponent,
         LedEmulatorComponent,
         HeadedComponent,
         HeadlessComponent,
@@ -73,6 +84,7 @@ import { environment } from '../environments/environment';
         OpenpixelComponent,
     ],
     imports: [
+        GaugeModule.forRoot(),
         ChartModule,
         BrowserModule,
         HttpClientModule,

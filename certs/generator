@@ -1,0 +1,77 @@
+https://gist.github.com/kyledrake/d7457a46a03d7408da31
+
+
+
+1234
+
+openssl genrsa -des3 -out serveris.local.rootCA.key 2048
+
+openssl req -x509 -new -nodes -key serveris.local.rootCA.key -sha256 -days 825 -out serveris.local.rootCA.pem
+
+openssl req -new -nodes -out serveris.local.serveris.csr -newkey rsa:2048 -keyout serveris.local.serveris.key
+
+openssl x509 -req -in serveris.local.server.csr -CA serveris.local.rootCA.pem -CAkey serveris.local.rootCA.key -CAcreateserial -out serveris.local.server.crt -days 825 -sha256 -extfile v3.ext
+
+========================================
+
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = serveris.local
+
+
+------------------------------------------
+
+1234
+
+openssl genrsa -des3 -out universal.local.rootCA.key 2048
+
+openssl req -x509 -new -nodes -key universal.local.rootCA.key -sha256 -days 825 -out universal.local.rootCA.pem
+
+openssl req -new -nodes -out universal.local.server.csr -newkey rsa:2048 -keyout universal.local.server.key
+
+openssl x509 -req -in universal.local.server.csr -CA automator.local.rootCA.pem -CAkey universal.local.rootCA.key -CAcreateserial -out universal.local.server.crt -days 825 -sha256 -extfile v3.ext
+
+================================
+
+
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE 
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment 
+subjectAltName = @alt_names
+
+[alt_names] 
+DNS.1 = serveris.local
+DNS.2 = tangerine.local
+DNS.3 = sunny.local
+DNS.4 = sunny1.local
+DNS.5 = sunny2.local
+DNS.6 = sunny3.local
+DNS.7 = kids.local
+DNS.8 = wurk.local
+DNS.9 = kitchen.local
+DNS.10 = garage.local
+DNS.11 = shady.local
+DNS.12 = shady1.local
+DNS.13 = shady2.local
+DNS.14 = poligonas.local
+DNS.15 = katiline.local
+DNS.16 = koridorius.local
+DNS.17 = entry.local
+DNS.18 = automator.local
+
+========================================
+
+https://sites.google.com/site/techbobbins/home/articles/useful-openssl-scripts
+
+
+
+/usr/local/opt/libressl/bin/openssl req -x509 -nodes -days 825 -newkey rsa:4096 \
+    -addext "subjectAltName = DNS:serveris.local.com" \
+    -addext "extendedKeyUsage = serverAuth" \
+    -keyout serveris.local.key -out serveris.local.crt
+
+
+========================================

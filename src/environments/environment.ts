@@ -13,12 +13,53 @@ export const environment = {
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
         },
-        hardwareEndpoints: {
-            nest: { url: 'https://shady.local'},
-            healthCheck: { url: 'https://shady.local', healthcheck: true },
-            ledController: { url: 'https://shady.local/led', healthcheck: true },
-        },
-    }
+      led : {
+          servers: {
+            "shady":{
+              host: "https://shady.local",
+              contours: {
+                main: {}
+              },
+            },
+          },
+      },
+      sensors : {
+          servers: {
+            "shady":{
+              url: "https://shady.local",
+              uri: "sensors-all",
+              title: "Miegamasis",
+              zones: [
+                {
+                  id: '0',
+                  title: 'Visi',
+                  path: '/sensors-atmo',
+                  metrics: [
+                    'pressure',
+                    'humidity',
+                    'temperature',
+                    'light',
+                  ],
+                },{
+                  id: '1',
+                  title: 'Atmosferiniai',
+                  path: '/sensors-some',
+                  metrics: [
+                    'pressure',
+                    'humidity',
+                    'temperature',
+                  ],
+                }
+              ],
+            },
+          },
+      },
+      hardwareEndpoints: {
+          nest: { url: 'https://shady.local'},
+          healthCheck: { url: 'https://shady.local', healthcheck: true },
+          ledController: { url: 'https://shady.local/led', healthcheck: true },
+      },
+    },
 };
 
 /*

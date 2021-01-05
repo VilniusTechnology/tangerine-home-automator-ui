@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
 import { Injector } from '@angular/core';
-import { GraphsComponent } from '../graphs.component';
 
 import * as Highcharts from 'highcharts/highstock';
 import * as _ from 'lodash';
@@ -104,8 +103,8 @@ export class LightingChartComponent implements OnInit {
     public title = 'Line Chart of sensors readings over time';
 
     constructor(
-        private  httpClient:  HttpClient, 
-        private inj:Injector, 
+        private  httpClient:  HttpClient,
+        private inj:Injector,
         private endpointsService: EndpointsService
     ) {
         // this.currentLightReading = this.inj.get(GraphsComponent);

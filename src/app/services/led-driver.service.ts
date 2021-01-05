@@ -15,9 +15,9 @@ export class LedDriverService {
     private baseUrl: string;
 
     constructor(
-        private  httpClient:  HttpClient, 
+        private  httpClient:  HttpClient,
         private endpointsService: EndpointsService
-    ) { 
+    ) {
         this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
     }
 
@@ -25,10 +25,30 @@ export class LedDriverService {
         return this.httpClient.get<AutomatorMainResponse>(this.baseUrl);
     }
 
-    performHealthCheck() {
-        const url = `${this.baseUrl}/led`;
-
+    performHealthCheck(contour) {
+        if (contour) {
+          contour = 'main';
+        }
+        const url = this.getLedUri() + '?contour=' + contour
         const prom = this.httpClient.get(url);
+        return new Promise( (resolve, reject) => {
+            prom.subscribe(
+              (rawData) => {
+                  resolve(rawData);
+              },
+              error => reject(url)
+            );
+        });
+    }
+
+    setLedParams(contour, data) {
+        let queryString = '?';
+        _.forEach(data, (val, key) => {
+            queryString += '&' + key + '=' + val;
+        });
+
+        const finUrl = this.getLedUri() + '/' + queryString;
+        const prom = this.httpClient.get(finUrl);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -36,18 +56,8 @@ export class LedDriverService {
         });
     }
 
-    setLedParams(data) {
-        let queryString = '?';
-        _.forEach(data, (val, key) => {
-            queryString += '&' + key + '=' + val;
-        });
-
-        const prom = this.httpClient.get(`${this.baseUrl}/led/${queryString}`);
-        return new Promise( (resolve, reject) => {
-            prom.subscribe((rawData) => {
-                resolve(rawData);
-            });
-        });
+    getLedUri() {
+      return `${this.baseUrl}/led`;
     }
 
     setLedSettings(payload) {

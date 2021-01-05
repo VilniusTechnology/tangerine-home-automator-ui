@@ -8,19 +8,20 @@ import { LightAutomatorConnectionService } from 'src/app/services/light-automato
 })
 export class EffectorComponent implements OnInit {
 
-    constructor(private connectionService: LightAutomatorConnectionService) { }
+  constructor(
+    private connectionService: LightAutomatorConnectionService
+  ) { }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
-    selectEffect(id) {
-        this.connectionService.selectEffect(id).subscribe( (data) => {
-            console.log('Got effect response: ', data);
-        });
-    }
+  selectEffect(id) {
+      this.connectionService.selectEffect(id).subscribe( (data) => {
+          console.log('Got effect response: ', data);
+      });
+  }
 
-    stopCurrentEffect() {
+  stopCurrentEffect() {
 
-    }
-
+  }
 }

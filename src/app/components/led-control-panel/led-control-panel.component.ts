@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { LedDriverService } from 'src/app/services/led-driver.service';
 import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
@@ -11,17 +11,22 @@ import { EndpointsHealthService } from 'src/app/services/endpoints-health.servic
 
 export class LedControlPanelComponent implements OnInit {
 
+  @Input('server') server: string = '';
+  @Input('uri') uri: string = '';
+
     public currentColor: any = {};
     public disabled: boolean = true;
 
     public ledModesList = [
-        {code: 0, title: 'AUTO'},
         {code: 1, title: 'MANUAL'},
+        {code: 0, title: 'AUTO'},
         {code: 2, title: 'TIMED'}
     ];
 
     public ledMode = 1;
     public ledState = 0;
+
+    public contourId = 'main';
 
     public sliders = {
         'red': {
@@ -51,18 +56,16 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dispatchHealthCheck();
-
+        this.dispatchHealthCheck(this.server, this.uri);
         this.healthService.subscribeOnEndpointsHealthState().subscribe(
             (response) => {
                 if (response.recent == 'ledController') {
                     if (response.ledController && response.ledController.status) {
                         this.disabled = false;
-
-                        this.setSlidersStates(response.ledController.data);
-                        this.setLedLightingState(response.ledController.data);
+                        this.setSlidersStates(response.ledController.data[this.contourId]);
+                        this.setLedLightingState(response.ledController.data[this.contourId]);
                     } else {
-                        this.disabled = true;
+                      this.disabled = true;
                     }
                 }
             },
@@ -131,18 +134,18 @@ export class LedControlPanelComponent implements OnInit {
     dispatchLedControlAction() {
         const data = this.ngGetLedLightingState();
 
-        this.ledDriverService.setLedParams(data)
+        this.ledDriverService.setLedParams(false, data)
             .then((data) => {
-                this.setLedLightingState(data);
+                this.setLedLightingState(data[this.contourId]);
                 this.currentColor = this.determineCurrentColor();
             });
     }
 
-    dispatchHealthCheck() {
-        this.ledDriverService.performHealthCheck()
+    dispatchHealthCheck(server, uri) {
+        this.ledDriverService.performHealthCheck(false)
             .then((data) => {
-                this.setLedLightingState(data);
-                this.setSlidersStates(data);
+                this.setLedLightingState(data[this.contourId]);
+                this.setSlidersStates(data[this.contourId]);
                 this.disabled = false;
             }).catch(() => {
                 this.disabled = true;

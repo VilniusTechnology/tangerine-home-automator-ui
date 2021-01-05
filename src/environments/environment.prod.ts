@@ -17,6 +17,38 @@ export const environment = {
           healthCheck: { url: 'https://shady.local', healthcheck: true },
           ledController: { url: 'https://shady.local/led', healthcheck: true },
         },
+        led : {
+        servers: {
+          "shady":{
+            host: "https://shady.local",
+            contours: {
+              main: {}
+            },
+          },
+        },
+      },
+        sensors : {
+        servers: {
+          "shady":{
+            url: "https://shady.local",
+            uri: "sensors-all",
+            title: "Miegamasis",
+            zones: [
+              {
+                id: '0',
+                title: 'Visi',
+                path: '/sensors-atmo',
+                metrics: [
+                  'pressure',
+                  'humidity',
+                  'temperature',
+                  'light',
+                ],
+              }
+            ],
+          },
+        },
+      },
     }
 };
 

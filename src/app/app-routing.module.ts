@@ -1,6 +1,5 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HeadedComponent } from './layout/headed/headed.component';
 import { HomeComponent } from './screens/home/home.component';
@@ -8,16 +7,16 @@ import { GraphsComponent } from './screens/graphs/graphs.component';
 import { HistoryComponent } from './screens/history/history.component';
 import { LightomatorComponent } from './screens/lightomator/lightomator.component';
 import { LedEmulatorComponent } from './screens/led-emulator/led-emulator.component';
-import { LedControlPanelComponent } from './components/led-control-panel/led-control-panel.component';
-
-import { LedEmulatorDetachedModule } from './modules/led-emulator-detached/led-emulator-detached.module';
 import { LedTimingModesComponent } from './screens/lightomator/led-timing-modes/led-timing-modes.component';
 import { EffectorComponent } from './screens/effector/effector.component';
 import { OpenpixelComponent } from './screens/openpixel/openpixel.component';
+import {LedControlPanelListComponent} from "./components/led-control-panel/led-control-panel-list/led-control-panel-list.component";
+import {LedEmulatorDetachedModule} from "./modules/led-emulator-detached/led-emulator-detached.module";
+import {KeysComponent} from "./screens/keys/keys.component";
 
 const routes: Routes = [
-    { 
-        path: '', 
+    {
+        path: '',
         component: HeadedComponent,
         children: [
             {
@@ -26,8 +25,14 @@ const routes: Routes = [
                 canActivate: [AuthGuardService],
             },
             {
+                path:  'sensors',
+                component: HomeComponent,
+                canActivate: [AuthGuardService],
+            },
+            {
                 path:  'login',
-                component: LoginComponent,
+                component: HomeComponent,
+                // component: LoginComponent,
             },
             {
                 path:  'sensors/graphs',
@@ -46,7 +51,7 @@ const routes: Routes = [
             },
             {
                 path:  'lightomator/led',
-                component: LedControlPanelComponent,
+                component: LedControlPanelListComponent,
                 canActivate: [AuthGuardService],
             },
             {
@@ -67,6 +72,11 @@ const routes: Routes = [
             {
                 path:  'led-emulator',
                 component: LedEmulatorComponent,
+                canActivate: [AuthGuardService],
+            },
+            {
+                path:  'keys',
+                component: KeysComponent,
                 canActivate: [AuthGuardService],
             },
         ]

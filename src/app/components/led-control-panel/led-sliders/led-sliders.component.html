@@ -1,8 +1,12 @@
 <div class="flex-container">
     <mat-card class="result" [style.background-color]="'red'">
         <mat-card-content>
-            <input type="text" [(ngModel)]="sliders.red.value" class="sli1"
-            (input)="oncolorValuechange($event)" min="0" max="255" />
+            <input type="text"
+                   [(ngModel)]="sliders.red.value"
+                   class="sli1"
+                   (input)="oncolorValuechange($event)"
+                   [disabled]="buttonsState"
+                   min="0" max="255" />
             <br/>
             <mat-slider
                     class="sli1"
@@ -18,7 +22,10 @@
 
     <mat-card class="result" [style.background-color]="'green'">
         <mat-card-content>
-            <input type="text" [(ngModel)]="sliders.green.value" class="sli2" (input)="dispatchLedControlAction()"  />
+            <input type="text" [(ngModel)]="sliders.green.value"
+                   class="sli2" (input)="dispatchLedControlAction()"
+                   [disabled]="buttonsState"
+            />
             <br/>
             <mat-slider
                     class="sli2"
@@ -34,7 +41,10 @@
 
     <mat-card class="result" [style.background-color]="'blue'">
         <mat-card-content>
-            <input type="text" [(ngModel)]="sliders.blue.value"class="sli3" (input)="dispatchLedControlAction()"  />
+            <input type="text" [(ngModel)]="sliders.blue.value"
+                   class="sli3" (input)="dispatchLedControlAction()"
+                   [disabled]="buttonsState"
+            />
             <br/>
             <mat-slider
                     class="sli3"
@@ -50,7 +60,10 @@
 
     <mat-card class="result" [style.background-color]="'yellow'">
         <mat-card-content>
-            <input type="text" [(ngModel)]="sliders.warmWhite.value" class="sli4" (change)="dispatchLedControlAction()"  />
+            <input type="text" [(ngModel)]="sliders.warmWhite.value"
+                   class="sli4" (change)="dispatchLedControlAction()"
+                   [disabled]="buttonsState"
+            />
             <br/>
             <mat-slider
                     class="sli4"
@@ -66,7 +79,10 @@
 
     <mat-card class="result" [style.background-color]="'white'">
         <mat-card-content>
-            <input type="text" [(ngModel)]="sliders.coldWhite.value" class="sli5" (change)="dispatchLedControlAction()"  />
+            <input type="text" [(ngModel)]="sliders.coldWhite.value"
+                   class="sli5" (change)="dispatchLedControlAction()"
+                   [disabled]="buttonsState"
+            />
             <br/>
             <mat-slider
                     class="sli5"

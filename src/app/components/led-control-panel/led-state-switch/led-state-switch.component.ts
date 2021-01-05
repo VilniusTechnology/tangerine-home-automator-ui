@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
 import { LedDriverService } from 'src/app/services/led-driver.service';
 
 @Component({
@@ -9,10 +8,13 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 })
 export class LedStateSwitchComponent implements OnInit {
 
-  private _ledState: number = 0;
-  private _disabled: boolean = true;
+  public _ledState: number = 0;
+  public _disabled: boolean = true;
 
-    @Input('disabled') set disabled(disabled: boolean) { this._disabled = disabled; this.resolveLabel(); }
+    @Input('disabled') set disabled(disabled: boolean) {
+      this._disabled = disabled;
+      this.resolveLabel();
+    }
 
     @Output() public change = new EventEmitter();
 
@@ -21,7 +23,7 @@ export class LedStateSwitchComponent implements OnInit {
 
     @Input('state') set ledState(ledState: number)
     {
-      this._ledState = ledState;
+      this._ledState = ledState ? 1 : 0;
       this.resolveLabel();
     }
 
@@ -32,9 +34,13 @@ export class LedStateSwitchComponent implements OnInit {
     ngOnInit() {}
 
     dispatchLedControlAction() {
-      console.log('this._ledState: ', this._ledState);
       this.change.emit(this._ledState);
     }
+
+    returnBool(vari) {
+      return vari;
+    }
+
 
     resolveLabel() {
         if (this._disabled) {

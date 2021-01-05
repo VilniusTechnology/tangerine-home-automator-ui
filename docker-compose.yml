@@ -7,10 +7,10 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
+      - "1050:80"
       - "443:443"
     volumes:
-      - ../tangerine-home-automator-ui/dist/tangerine-home-automator-ui:/var/www
-#      - ./www:/var/www
+      - ./dist/tangerine-home-automator-ui:/var/www
       - ./conf.d:/etc/nginx/conf.d
       - ./certs:/ssl
+      - ./certs:/var/www/src/assets/certs

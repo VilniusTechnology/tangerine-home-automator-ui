@@ -8,5 +8,8 @@
     "test.ts",
     "**/*.spec.ts",
     "highcharts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }
 }

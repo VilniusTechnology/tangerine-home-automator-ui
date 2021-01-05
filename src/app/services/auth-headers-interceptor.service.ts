@@ -27,8 +27,8 @@ export class AuthHeadersInterceptor implements HttpInterceptor {
             }
 
             _.assign(
-                hdrs, 
-                {'Auth-token': this.authService.getCredentials().token}, 
+                hdrs,
+                {'Auth-token': this.authService.getCredentials().token},
                 {'Auth-email': this.authService.getCredentials().email}
             );
 
@@ -40,12 +40,10 @@ export class AuthHeadersInterceptor implements HttpInterceptor {
         }
 
         return next.handle(req)
-            .catch((err) => { 
-                console.log('Caught connection error', err);
+            .catch((err) => {
                 if (err.status == 401) {
                     this.authService.logout();
                 }
-                
 
                 return Observable.throw(err);
             });
