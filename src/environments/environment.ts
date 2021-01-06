@@ -39,7 +39,9 @@ export const environment = {
                     'humidity',
                     'temperature',
                     'light',
+                    'pir',
                   ],
+                  interval: 500,
                 },{
                   id: '1',
                   title: 'Atmosferiniai',
@@ -49,6 +51,7 @@ export const environment = {
                     'humidity',
                     'temperature',
                   ],
+                  interval: 250,
                 }
               ],
             },

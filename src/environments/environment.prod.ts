@@ -43,6 +43,7 @@ export const environment = {
                   'humidity',
                   'temperature',
                   'light',
+                  'pir',
                 ],
               }
             ],
