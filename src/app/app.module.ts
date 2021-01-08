@@ -57,6 +57,9 @@ import { GaugeModule } from 'angular-gauge';
 import {MetricSnippetComponent} from "./screens/home/metric-snippet/metric-snippet.component";
 import {MetricHostComponent} from "./screens/home/metric-host/metric-host.component";
 import {KeysComponent} from "./screens/keys/keys.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {UpdateDialogComponent} from "./components/update-dialog/update-dialog.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     declarations: [
@@ -82,9 +85,11 @@ import {KeysComponent} from "./screens/keys/keys.component";
         ConnectionStatusComponent,
         EffectorComponent,
         OpenpixelComponent,
+        UpdateDialogComponent,
     ],
     imports: [
         GaugeModule.forRoot(),
+        NgbModule,
         ChartModule,
         BrowserModule,
         HttpClientModule,
@@ -100,6 +105,7 @@ import {KeysComponent} from "./screens/keys/keys.component";
         MatIconModule,
         MatListModule,
         MatRadioModule,
+        MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
@@ -128,6 +134,9 @@ import {KeysComponent} from "./screens/keys/keys.component";
             multi: true
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+      UpdateDialogComponent,
+    ],
 })
 export class AppModule {}

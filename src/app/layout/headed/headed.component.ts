@@ -3,6 +3,8 @@ import { EndpointsHealthService } from 'src/app/services/endpoints-health.servic
 import { environment } from 'src/environments/environment';
 import { PwaService } from 'src/app/services/pwa.service';
 import { SwUpdate } from '@angular/service-worker';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {UpdateDialogComponent} from "../../components/update-dialog/update-dialog.component";
 
 @Component({
   selector: 'app-headed',
@@ -14,17 +16,18 @@ export class HeadedComponent implements OnInit {
     constructor(
         private endpointsHealthService: EndpointsHealthService,
         private swUpdate: SwUpdate,
-        public pwa: PwaService
+        public pwa: PwaService,
+        private dialog: NgbModal
     ) { }
 
     ngOnInit() {
         if (this.swUpdate.isEnabled) {
-            console.log('MUST DELETE: this.swUpdate.isEnabled');
-            this.swUpdate.available.subscribe(() => {
-                if (confirm('Update ?')) {
-                    window.location.reload();
-                }
-            })
+          this.swUpdate.available.subscribe((i) => {
+            const confirmModal = this.dialog.open(UpdateDialogComponent);
+            confirmModal.componentInstance.modalObservable.subscribe((a) => {
+              window.location.reload();
+            });
+          })
         }
 
         this.endpointsHealthService.periodicallyCheckAllEndpointsHealth(environment.endpoints.healthCheckPeriod);
@@ -33,5 +36,4 @@ export class HeadedComponent implements OnInit {
     installPwa(): void {
         this.pwa.promptEvent.prompt();
     }
-
 }

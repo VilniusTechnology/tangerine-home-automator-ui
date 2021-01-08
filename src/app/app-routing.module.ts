@@ -25,7 +25,7 @@ const routes: Routes = [
                 canActivate: [AuthGuardService],
             },
             {
-                path:  'sensors',
+                path:  'sensors/dashboard',
                 component: HomeComponent,
                 canActivate: [AuthGuardService],
             },
