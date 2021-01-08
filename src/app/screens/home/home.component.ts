@@ -43,14 +43,17 @@ export class HomeComponent implements OnInit {
       this.hosts.push(item);
 
       item.zones.forEach((i) => {
-
-        this.httpClient.get(`${item.url}/${item.uri}`)
-          .subscribe((rawData: any) => {
-            this.results[i.id] = rawData;
-          });
+        // console.log('item: ', item);
+        // console.log('i: ', i);
+        // const prm = new Promise( (resolve, reject) => {
+          this.httpClient.get(`${item.url}${item.uri}${i.path}`)
+            .subscribe((rawData: any) => {
+              this.results[i.id] = rawData;
+              // resolve({id: i.id, uri: item.uri, data: rawData})
+            });
+        // });
 
         // this.zonesProms.push(prm);
-        // https://stackoverflow.com/questions/34980973/how-to-bind-a-promise-to-a-component-property
       });
 
     });

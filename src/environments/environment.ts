@@ -27,13 +27,13 @@ export const environment = {
           servers: {
             "shady":{
               url: "https://shady.local",
-              uri: "sensors-all",
+              uri: "",
               title: "Miegamasis",
               zones: [
                 {
                   id: '0',
                   title: 'Visi',
-                  path: '/sensors-atmo',
+                  path: '/sensors-all',
                   metrics: [
                     'pressure',
                     'humidity',
@@ -45,7 +45,7 @@ export const environment = {
                 },{
                   id: '1',
                   title: 'Atmosferiniai',
-                  path: '/sensors-some',
+                  path: '/sensors-atmo',
                   metrics: [
                     'pressure',
                     'humidity',
