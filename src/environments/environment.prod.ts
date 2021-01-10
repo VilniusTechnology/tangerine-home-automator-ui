@@ -4,6 +4,7 @@
 
 export const environment = {
     production: true,
+    envTitle: 'PROD',
     endpoints: {
         healthCheckPeriod: 30000,
         useEmulator: false,

@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    envTitle: 'DEV',
     endpoints: {
         healthCheckPeriod: 30000,
         useEmulator: false,
@@ -62,7 +63,7 @@ export const environment = {
           healthCheck: { url: 'https://shady.local', healthcheck: true },
           ledController: { url: 'https://shady.local/led', healthcheck: true },
       },
-    },
+    }
 };
 
 /*

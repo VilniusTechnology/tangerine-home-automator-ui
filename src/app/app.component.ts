@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as firebase from 'firebase/app';
+import {VersionCheckService} from "./services/version-check.service";
 
 @Component({
   selector: 'app-root',
@@ -13,8 +13,15 @@ import * as firebase from 'firebase/app';
 export class AppComponent {
     title = 'tangerine-home-automator-ui';
 
-    ngOnInit(): void {
-    }
+    constructor(
+      private versionService: VersionCheckService
+    ) { }
 
-    constructor() { }
+  ngOnInit(): void {
+    if (environment.envTitle == 'PROD'
+      || environment.envTitle == 'TEST'
+    ) {
+      this.versionService.initVersionCheck("/version.json");
+    }
+  }
 }
