@@ -6,7 +6,7 @@ npm run build
 tar -zcvf nest-ui.tar.gz dist/tangerine-home-automator-ui
 
 # 3. Send over SSH
-rsync -avz --exclude '.*/' --exclude '.*' --progress ./nest-ui.tar.gz  serveris@serveris.local:/home/tangerine/uploads/nest-ui.tar.gz
+rsync -avz --exclude '.*/' --exclude '.*' --progress ./nest-ui.tar.gz  serveris@serveris.local:/tangerine/uploads/nest-ui.tar.gz
 
 # 4. Clen ap
 rm nest-ui.tar.gz
