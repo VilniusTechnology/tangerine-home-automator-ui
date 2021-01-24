@@ -8,11 +8,16 @@ import { LightAutomatorConnectionService } from 'src/app/services/light-automato
 })
 export class EffectorComponent implements OnInit {
 
+  effects;
+
   constructor(
     private connectionService: LightAutomatorConnectionService
   ) { }
 
   ngOnInit() {
+    this.connectionService.getEffects().then((rs) => {
+      this.effects = rs;
+    });
   }
 
   selectEffect(id) {

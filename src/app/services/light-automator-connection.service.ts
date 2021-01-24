@@ -13,16 +13,16 @@ export class LightAutomatorConnectionService {
     private baseUrl: string;
 
     constructor(
-        private httpClient: HttpClient, 
+        private httpClient: HttpClient,
         private endpointsService: EndpointsService
-    ) { 
+    ) {
         this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
     }
 
     toggleOpenPixel() {
         return this.httpClient.get(`${this.baseUrl}/openpixel/toggle`);
     }
-    
+
     selectEffect(id: number) {
         console.log('Should launch effect id: ', id);
         return this.httpClient.get(`${this.baseUrl}/led/effects/play/${id}`);
@@ -75,6 +75,15 @@ export class LightAutomatorConnectionService {
 
     deleteTimedMode(payload) {
         const prom = this.httpClient.post(`${this.baseUrl}/delete-light-time-program`, payload);
+        return new Promise( (resolve, reject) => {
+            prom.subscribe((rawData) => {
+                resolve(rawData);
+            });
+        });
+    }
+
+    getEffects() {
+        const prom = this.httpClient.get(`${this.baseUrl}/led/effects/list`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);

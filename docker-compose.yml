@@ -7,10 +7,10 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "1050:80"
+      - "80:80"
       - "443:443"
     volumes:
-      - ./dist/tangerine-home-automator-ui:/var/www
-      - ./conf.d:/etc/nginx/conf.d
-      - ./certs:/ssl
-      - ./certs:/var/www/src/assets/certs
+      - /tangerine/nest-ui:/var/www
+      - ./docker/conf.d:/etc/nginx/conf.d
+      - ./docker/certs/serveris.local:/ssl
+      - ./docker/certs:/var/www/assets/certs

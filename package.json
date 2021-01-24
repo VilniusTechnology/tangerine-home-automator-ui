@@ -6,6 +6,7 @@
     "start": "ng serve --watch --port 4202",
     "build": "ng build",
     "postbuild": "node ./build/post-build.js",
+    "deploy": "npm run build && sh deploy.sh",
     "test": "ng test",
     "lint": "ng lint",
     "pwa": "ng build --prod && sw-precache --root=dist --config=precache-config.js",
