@@ -12,5 +12,6 @@ services:
     volumes:
       - /tangerine/nest-ui:/var/www
       - ./docker/conf.d:/etc/nginx/conf.d
+      - ./docker/logs:/var/log/nginx
       - ./docker/certs/serveris.local:/ssl
       - ./docker/certs:/var/www/assets/certs
