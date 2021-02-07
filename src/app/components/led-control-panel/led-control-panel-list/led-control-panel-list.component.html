@@ -1,13 +1,14 @@
 <mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header class="disable_ripple">
-      <mat-panel-title>
-        Miegamasis - Main
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-led-control-panel
-      [server]="server"
-      [uri]="uri"
-    ></app-led-control-panel>
-  </mat-expansion-panel>
+  <ng-container *ngFor="let server of serversArr; index as i;">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="disable_ripple">
+        <mat-panel-title>
+          {{ server.title }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-led-control-panel
+        [server]="server"
+      ></app-led-control-panel>
+    </mat-expansion-panel>
+  </ng-container>
 </mat-accordion>

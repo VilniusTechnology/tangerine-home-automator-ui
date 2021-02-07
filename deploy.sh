@@ -10,3 +10,5 @@ rsync -avz --exclude '.*/' --exclude '.*' --progress ./nest-ui.tar.gz  serveris@
 
 # 4. Clen ap
 rm nest-ui.tar.gz
+
+# ln -s /certs /tangerine/nest-ui/assets/certs

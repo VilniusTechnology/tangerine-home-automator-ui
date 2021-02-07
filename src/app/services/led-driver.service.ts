@@ -18,8 +18,16 @@ export class LedDriverService {
         private  httpClient:  HttpClient,
         private endpointsService: EndpointsService
     ) {
-        this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
+      this.setUrl();
     }
+
+    setUrl(url = '') {
+      this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
+      if (url != '') {
+        this.baseUrl = url;
+      }
+    }
+
 
     getData(): Observable<AutomatorMainResponse> {
         return this.httpClient.get<AutomatorMainResponse>(this.baseUrl);

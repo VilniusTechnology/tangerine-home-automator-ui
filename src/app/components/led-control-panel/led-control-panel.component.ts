@@ -11,8 +11,8 @@ import { EndpointsHealthService } from 'src/app/services/endpoints-health.servic
 
 export class LedControlPanelComponent implements OnInit {
 
-  @Input('server') server: string = '';
-  @Input('uri') uri: string = '';
+  @Input('server') server: any = {};
+  uri: string = '';
 
     public currentColor: any = {};
     public disabled: boolean = true;
@@ -56,7 +56,9 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dispatchHealthCheck(this.server, this.uri);
+        this.ledDriverService.setUrl(this.server.host);
+
+        this.dispatchHealthCheck();
         this.healthService.subscribeOnEndpointsHealthState().subscribe(
             (response) => {
                 if (response.recent == 'ledController') {
@@ -141,7 +143,7 @@ export class LedControlPanelComponent implements OnInit {
             });
     }
 
-    dispatchHealthCheck(server, uri) {
+    dispatchHealthCheck() {
         this.ledDriverService.performHealthCheck(false)
             .then((data) => {
                 this.setLedLightingState(data[this.contourId]);

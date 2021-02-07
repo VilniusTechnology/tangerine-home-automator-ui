@@ -14,17 +14,25 @@ export const environment = {
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
         },
-      led : {
+        led: {
           servers: {
             "shady":{
+              title: "Miegamasis",
               host: "https://shady.local",
+              contours: {
+                main: {}
+              },
+            },
+            "sunny":{
+              title: "Svetaine",
+              host: "https://sunny.local",
               contours: {
                 main: {}
               },
             },
           },
       },
-      sensors : {
+        sensors: {
           servers: {
             "shady":{
               url: "https://shady.local",
@@ -43,7 +51,8 @@ export const environment = {
                     'pir',
                   ],
                   interval: 500,
-                },{
+                },
+                {
                   id: '1',
                   title: 'Atmosferiniai',
                   path: '/sensors-atmo',

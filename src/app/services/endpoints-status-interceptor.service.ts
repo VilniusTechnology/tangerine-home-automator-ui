@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
 
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +15,7 @@ export class EndpointsStatusInterceptor implements HttpInterceptor {
 
     constructor(
         private endpointsHealthService: EndpointsHealthService,
-        ) { 
+        ) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
