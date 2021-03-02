@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import { LedDriverService } from 'src/app/services/led-driver.service';
 import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
+import {HttpClient} from "@angular/common/http";
+import {EndpointsService} from "../../services/endpoints.service";
 
 @Component({
     selector: 'app-led-control-panel',
@@ -28,6 +30,8 @@ export class LedControlPanelComponent implements OnInit {
 
     public contourId = 'main';
 
+    public ledDriverService;
+
     public sliders = {
         'red': {
             'value': 155
@@ -47,20 +51,27 @@ export class LedControlPanelComponent implements OnInit {
     };
 
     constructor(
-        private ledDriverService: LedDriverService,
         private rgbService: RgbCalculatorService,
-        private healthService: EndpointsHealthService
+        private healthService: EndpointsHealthService,
+        private  httpClient:  HttpClient,
+        private endpointsService: EndpointsService
     ) {
         this.ledMode = 1;
         this.currentColor = this.determineCurrentColor();
+
+        this.ledDriverService = new LedDriverService(
+          httpClient,
+          endpointsService
+        );
     }
 
     ngOnInit() {
-        this.ledDriverService.setUrl(this.server.host);
+       this.ledDriverService.setUrl(this.server.host);
 
         this.dispatchHealthCheck();
         this.healthService.subscribeOnEndpointsHealthState().subscribe(
             (response) => {
+                console.log('State OK');
                 if (response.recent == 'ledController') {
                     if (response.ledController && response.ledController.status) {
                         this.disabled = false;
@@ -72,17 +83,10 @@ export class LedControlPanelComponent implements OnInit {
                 }
             },
             (error) => {
+                console.log('State NOK');
                 console.error('GOT AN ERROR ON ledController ENDPOINT: ', error);
             }
         );
-    }
-
-    resolveState() {
-        return this.ledDriverService.resolveState(this.disabled, this.getLedState());
-    }
-
-    getLedState() {
-        return !this.ledState;
     }
 
     determineCurrentColor() {
@@ -140,16 +144,21 @@ export class LedControlPanelComponent implements OnInit {
             .then((data) => {
                 this.setLedLightingState(data[this.contourId]);
                 this.currentColor = this.determineCurrentColor();
-            });
+                // console.log('CA OK: ', data);
+            }).catch((fail) => {
+                // console.log('CA OK: ', fail);
+            })
     }
 
     dispatchHealthCheck() {
         this.ledDriverService.performHealthCheck(false)
             .then((data) => {
+                // console.log('HC OK: ', data);
                 this.setLedLightingState(data[this.contourId]);
                 this.setSlidersStates(data[this.contourId]);
                 this.disabled = false;
-            }).catch(() => {
+            }).catch((rejection) => {
+                // console.log('HC rejection: ', rejection);
                 this.disabled = true;
             })
     }

@@ -26,4 +26,8 @@ export class KeysComponent implements OnInit {
       () => console.info('File downloaded successfully');
   }
 
+  goToLink(link) {
+    window.open(link, "_blank");
+  }
+
 }

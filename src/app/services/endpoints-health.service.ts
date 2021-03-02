@@ -21,6 +21,7 @@ export class EndpointsHealthService {
     ) {}
 
     public checkAllEndpointsHealth() {
+        this.endpointsService.getSpecificEndpointKeys('led') ;
         this.endpointsService.getAllEnpointKeys()
             .forEach((endpointConfigKey) => {
                 this.checkEndpointHealth(endpointConfigKey);
@@ -34,6 +35,7 @@ export class EndpointsHealthService {
         }
 
         const url = `${endpoint.url}/healthcheck`;
+        console.log('checkEndpointHealth: ', url);
         this.httpClient.get(url)
         .subscribe(
             (response) => {
@@ -53,6 +55,12 @@ export class EndpointsHealthService {
 
     public updateEndpointHealthStatus(endpointConfigKey: string, status: boolean, data) {
         if (typeof endpointConfigKey !== "undefined") {
+            console.log(
+              'Will updateEndpointHealthStatus: ',
+              endpointConfigKey,
+              status,
+              data
+            );
             this.endpiontsHealthStatuses[endpointConfigKey] = {status: status, data: data};
             this.endpiontsHealthStatuses['recent'] = endpointConfigKey;
 

@@ -26,3 +26,42 @@
           'sunny.local.rootCA.pem'
           )" color="primary">sunny.local</button>
 </mat-card>
+
+<br/>
+<hr/>
+<br/>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:3000/')"
+        color="warn">Grafana</button>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:5601/')"
+        color="warn">Kibana</button>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:9000')"
+        color="warn">Portainer</button>
+<hr/>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:27017/')"
+        color="warn">http://serveris.local:27017/</button>
+
+<button mat-raised-button
+        (click)="goToLink('serveris.local:8081')"
+        color="warn">serveris.local:8081</button>
+<hr/>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:9202/')"
+        color="warn">http://serveris.local:9202/</button>
+
+<button mat-raised-button
+        (click)="goToLink('http://serveris.local:9090/')"
+        color="warn">http://serveris.local:9090/</button>
+
+<button mat-raised-button
+        (click)="goToLink('http://shady.local:9100/')"
+        color="warn">http://shady.local:9100/</button>
+<hr/>

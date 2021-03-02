@@ -10,11 +10,11 @@ import { environment } from 'src/environments/environment';
 export class EndpointsService {
     private endpointType: string;
 
-    constructor() { 
+    constructor() {
         if (!environment.endpoints.useEmulator) {
             this.endpointType = 'hardwareEndpoints';
         }
-        
+
         if (environment.endpoints.useEmulator) {
             this.endpointType = 'emulatorEndpoints';
         }
@@ -36,5 +36,15 @@ export class EndpointsService {
 
     public getAllEnpointKeys() {
         return _.keys(environment.endpoints[this.endpointType]);
+    }
+
+    public getSpecificEndpointKeys(key: string) {
+      const endpoints = [];
+      _.forEach(environment.endpoints[key].servers, (value, key) => {
+        console.log(value.host, key);
+        endpoints.push(value.host)
+      });
+
+      // return _.keys(environment.endpoints[this.endpointType]);
     }
 }

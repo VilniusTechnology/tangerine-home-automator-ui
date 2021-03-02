@@ -17,9 +17,7 @@ export class LedDriverService {
     constructor(
         private  httpClient:  HttpClient,
         private endpointsService: EndpointsService
-    ) {
-      this.setUrl();
-    }
+    ) {}
 
     setUrl(url = '') {
       this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
@@ -39,6 +37,7 @@ export class LedDriverService {
         }
         const url = this.getLedUri() + '?contour=' + contour
         const prom = this.httpClient.get(url);
+
         return new Promise( (resolve, reject) => {
             prom.subscribe(
               (rawData) => {

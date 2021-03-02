@@ -27,7 +27,7 @@ export class EndpointsStatusInterceptor implements HttpInterceptor {
             const endpointConfigKey = this.endpointsHealthService.getEndpointKeyFromUrl(req.url);
             this.endpointsHealthService.updateEndpointHealthStatus(endpointConfigKey, false, errorResponse);
 
-            return _throw(`${req.urlWithParams} - produced connection errror.`);
+            return _throw(`${req.urlWithParams} - produced connection error.`);
         });
     }
 }
