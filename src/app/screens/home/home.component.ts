@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   public temperature;
   public humidity;
   public weatherPayload;
+  public interval;
 
   private baseUrl: string;
 
@@ -30,9 +31,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    setInterval(() => {
+    this.subscribeToHosts();
+    this.interval = setInterval(() => {
       this.subscribeToHosts();
-      }, 2500);
+      }, environment.endpoints.sensorCheckPeriod);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.interval);
   }
 
   subscribeToHosts() {

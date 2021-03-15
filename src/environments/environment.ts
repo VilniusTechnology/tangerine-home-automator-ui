@@ -6,7 +6,8 @@ export const environment = {
     production: false,
     envTitle: 'DEV',
     endpoints: {
-        healthCheckPeriod: 30000,
+        healthCheckPeriod: 5000,
+        sensorCheckPeriod: 5000,
         useEmulator: false,
         emulatorEndpoints: {
             nest: 'http://localhost:8081',
