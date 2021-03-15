@@ -17,7 +17,9 @@ export class LedControlPanelComponent implements OnInit {
   uri: string = '';
 
     public currentColor: any = {};
+
     public disabled: boolean = true;
+    public disabled_all: boolean = true;
 
     public ledModesList = [
         {code: 1, title: 'MANUAL'},
@@ -71,14 +73,15 @@ export class LedControlPanelComponent implements OnInit {
         this.dispatchHealthCheck();
         this.healthService.subscribeOnEndpointsHealthState().subscribe(
             (response) => {
-                console.log('State OK');
                 if (response.recent == 'ledController') {
                     if (response.ledController && response.ledController.status) {
                         this.disabled = false;
+                        this.disabled_all = false;
                         this.setSlidersStates(response.ledController.data[this.contourId]);
                         this.setLedLightingState(response.ledController.data[this.contourId]);
                     } else {
                       this.disabled = true;
+                      this.disabled_all = true;
                     }
                 }
             },
@@ -157,14 +160,24 @@ export class LedControlPanelComponent implements OnInit {
                 this.setLedLightingState(data[this.contourId]);
                 this.setSlidersStates(data[this.contourId]);
                 this.disabled = false;
+                this.disabled_all = false;
             }).catch((rejection) => {
                 // console.log('HC rejection: ', rejection);
                 this.disabled = true;
+                this.disabled_all = true;
             })
     }
 
     onLedModeSelect(event) {
         this.ledMode = event.value;
+
+        if (this.ledMode == 1) {
+          this.disabled = false;
+        }
+
+        if (this.ledMode != 1) {
+          this.disabled = true;
+        }
         this.dispatchLedControlAction();
     }
 

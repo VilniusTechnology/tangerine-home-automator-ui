@@ -4,8 +4,6 @@
     (change)="toggleLedState($event)"
     ></app-led-state-switch>
 
-DD: {{ disabled }}
-
 <mat-card class="result">
     <mat-card-content>
         <mat-radio-group [(ngModel)]="ledMode"
@@ -17,7 +15,7 @@ DD: {{ disabled }}
                 [value]="ledModeIn.code"
                 checked="ledModeIn.code === ledMode"
                 [name]="ledModeIn.title"
-                [disabled]="disabled"
+                [disabled]="disabled_all"
                 >
                 {{ledModeIn.title}}
             </mat-radio-button>

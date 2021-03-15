@@ -4,7 +4,8 @@
         <section class="example-section">
             <mat-slide-toggle
                     class="example-margin"
-                    [checked]="returnBool(_ledState)"
+                    [color]="'warn'"
+                    [checked]="!returnBool(_ledState)"
                     [disabled]="returnBool(_disabled)"
                     (change)="dispatchLedControlAction()"
             >

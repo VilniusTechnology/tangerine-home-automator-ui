@@ -1,46 +1,15 @@
 <mat-card>
   <mat-card-header>
-      <div mat-card-avatar>
-          <mat-icon>send</mat-icon>
-      </div>
-      <mat-card-title>Add timing mode</mat-card-title>
+    <div mat-card-avatar>
+      <mat-icon>arrow_right_alt</mat-icon>
+    </div>
+    <mat-card-title>Time ranges visualization</mat-card-title>
   </mat-card-header>
-  <form [formGroup]="myForm">
-      <mat-form-field>
-          <input matInput placeholder="title" formControlName="title">
-      </mat-form-field>
 
-      <mat-form-field>
-          <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
-      </mat-form-field>
-
-      <mat-form-field>
-          <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
-      </mat-form-field>
-
-      <mat-form-field>
-          <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
-      </mat-form-field>
-
-      <mat-form-field>
-          <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
-      </mat-form-field>
-
-      <mat-form-field>
-          <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
-      </mat-form-field>
-
-    <br/>
-
-      <button mat-raised-button color="primary"
-          (click)="handleAdd($event)"
-          >
-          Add
-      </button>
-
-  </form>
+  <div style="width: 100%;">
+    <div [chart]="chart"></div>
+  </div>
 </mat-card>
-
 
 <mat-card>
   <mat-card-header>
@@ -59,14 +28,17 @@
 
                   <mat-expansion-panel-header [style.background-color]=
                     "colorRgbToHex(
-                        intervals[i].settings.red, 
-                        intervals[i].settings.green, 
+                        intervals[i].settings.red,
+                        intervals[i].settings.green,
                         intervals[i].settings.blue
                         )"
                     >
                       <mat-panel-title class="headingFont">
-                          {{ intervals[i].title}} - {{ intervals[i].id}} | 
-                          [ {{ intervals[i].from}} - {{ intervals[i].to}} ]
+                        <span style="margin-right: 20px; cursor: grab;">
+                          <i class="material-icons">drag_indicator</i>
+                        </span>
+                        {{ intervals[i].title}} - {{ intervals[i].id}} |
+                        [ {{ intervals[i].from}} - {{ intervals[i].to}} ]
                       </mat-panel-title>
                       <mat-panel-description> </mat-panel-description>
                   </mat-expansion-panel-header>
@@ -109,39 +81,68 @@
                         >
                             Delete
                         </button>
-                        
+
                     </div>
               </mat-expansion-panel>
             </div>
         </mat-accordion>
-    </div>  
+    </div>
 </mat-card>
 
 <mat-card>
-    <mat-card-header>
-        <div mat-card-avatar>
-            <mat-icon>send</mat-icon>
-        </div>
-        <mat-card-title>Add timing mode</mat-card-title>
-    </mat-card-header>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>send</mat-icon>
+    </div>
+    <mat-card-title>Add timing mode</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="myForm">
+    <mat-form-field>
+      <input matInput placeholder="title" formControlName="title">
+    </mat-form-field>
 
-    <button mat-raised-button color="warn"
-        (click)="reloadDb()">
-            ReloadDB
+    <mat-form-field>
+      <input matInput placeholder="from" formControlName="from" type="time" min="00:00" max="23:59">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="to" formControlName="to" type="time" min="00:00" max="23:58" >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="red" formControlName="red" type="number" min="0" max="255" >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="green" formControlName="green" type="number" min="0" max="255">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="blue" formControlName="blue" type="number" min="0" max="255">
+    </mat-form-field>
+
+    <br/>
+
+    <button mat-raised-button color="primary"
+            (click)="handleAdd($event)"
+    >
+      Add
     </button>
+
+  </form>
 </mat-card>
 
-
 <mat-card>
-        <mat-card-header>
-            <div mat-card-avatar>
-                <mat-icon>arrow_right_alt</mat-icon>
-            </div>
-            <mat-card-title>Time ranges visualization</mat-card-title>
-        </mat-card-header>
-    
-        <div style="width: 100%;">
-                <div [chart]="chart"></div>
-        </div>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>send</mat-icon>
+    </div>
+    <mat-card-title>Clear light timing DB</mat-card-title>
+  </mat-card-header>
+
+  <button mat-raised-button color="warn"
+          (click)="reloadDb()">
+    ReloadDB
+  </button>
 </mat-card>
 
