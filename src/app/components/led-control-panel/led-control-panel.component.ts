@@ -16,7 +16,7 @@ export class LedControlPanelComponent implements OnInit {
   @Input('server') server: any = {};
   uri: string = '';
 
-    public currentColor: any = {};
+  public currentColor: any = {};
 
     public disabled: boolean = true;
     public disabled_all: boolean = true;
@@ -33,6 +33,7 @@ export class LedControlPanelComponent implements OnInit {
     public contourId = 'main';
 
     public ledDriverService;
+    public interval;
 
     public sliders = {
         'red': {
@@ -68,31 +69,57 @@ export class LedControlPanelComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.ledDriverService.setUrl(this.server.host);
+      this.ledDriverService.setUrl(this.server.host);
 
-        this.dispatchHealthCheck();
-        this.healthService.subscribeOnEndpointsHealthState().subscribe(
-            (response) => {
-                if (response.recent == 'ledController') {
-                    if (response.ledController && response.ledController.status) {
-                        this.disabled = false;
-                        this.disabled_all = false;
-                        this.setSlidersStates(response.ledController.data[this.contourId]);
-                        this.setLedLightingState(response.ledController.data[this.contourId]);
-                    } else {
-                      this.disabled = true;
-                      this.disabled_all = true;
-                    }
-                }
-            },
-            (error) => {
-                console.log('State NOK');
-                console.error('GOT AN ERROR ON ledController ENDPOINT: ', error);
-            }
-        );
+      this.dispatchHealthCheck();
+
+      this.interval = setInterval(() => {
+         this.dispatchHealthCheck();
+       }, 5000);
+
+        // this.healthService.subscribeOnEndpointsHealthState().subscribe(
+        //     (response) => {
+        //       console.log('response: ', response);
+        //         if (response.recent == 'ledController') {
+        //             if (response.ledController && response.ledController.status) {
+        //                 this.disabled = false;
+        //                 this.disabled_all = false;
+        //                 this.setSlidersStates(response.ledController.data[this.contourId]);
+        //                 this.setLedLightingState(response.ledController.data[this.contourId]);
+        //             } else {
+        //               this.disabled = true;
+        //               this.disabled_all = true;
+        //             }
+        //         }
+        //     },
+        //     (error) => {
+        //         console.log('State NOK');
+        //         console.error('GOT AN ERROR ON ledController ENDPOINT: ', error);
+        //     }
+        // );
     }
 
-    determineCurrentColor() {
+  ngOnDestroy() {
+    clearTimeout(this.interval);
+  }
+
+  dispatchHealthCheck() {
+    this.ledDriverService.performHealthCheck(false)
+      .then((data) => {
+        // console.log('HC OK: ', data);
+        this.setLedLightingState(data[this.contourId]);
+        this.setSlidersStates(data[this.contourId]);
+        this.disabled = false;
+        this.disabled_all = false;
+      }).catch((rejection) => {
+      // console.log('HC rejection: ', rejection);
+      this.disabled = true;
+      this.disabled_all = true;
+    })
+  }
+
+
+  determineCurrentColor() {
         return this.rgbService.determineCurrentColor(this.sliders);
     }
 
@@ -150,21 +177,6 @@ export class LedControlPanelComponent implements OnInit {
                 // console.log('CA OK: ', data);
             }).catch((fail) => {
                 // console.log('CA OK: ', fail);
-            })
-    }
-
-    dispatchHealthCheck() {
-        this.ledDriverService.performHealthCheck(false)
-            .then((data) => {
-                // console.log('HC OK: ', data);
-                this.setLedLightingState(data[this.contourId]);
-                this.setSlidersStates(data[this.contourId]);
-                this.disabled = false;
-                this.disabled_all = false;
-            }).catch((rejection) => {
-                // console.log('HC rejection: ', rejection);
-                this.disabled = true;
-                this.disabled_all = true;
             })
     }
 
