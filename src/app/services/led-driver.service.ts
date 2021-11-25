@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { AutomatorMainResponse } from '../models/AutomatorMainResponse';
 import { EndpointsService } from './endpoints.service';
+import {IMqttMessage, MqttService } from 'ngx-mqtt';
+import {Subscription} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,12 @@ import { EndpointsService } from './endpoints.service';
 
 export class LedDriverService {
     private baseUrl: string;
+    private subscription: Subscription;
 
     constructor(
         private  httpClient:  HttpClient,
-        private endpointsService: EndpointsService
+        private endpointsService: EndpointsService,
+        private _mqttService: MqttService
     ) {}
 
     setUrl(url = '') {
@@ -35,7 +39,16 @@ export class LedDriverService {
         if (contour) {
           contour = 'main';
         }
-        const url = this.getLedUri() + '?contour=' + contour
+
+
+
+        let msg = 'contour=' + contour;
+        this._mqttService.publish('zigbee2mqtt/shady/led', msg);
+        this.subscription = this._mqttService.observe('zigbee2mqtt/shady/sensors.all').subscribe((message: IMqttMessage) => {
+          console.log(message.payload.toString());
+        });
+
+        const url = this.getLedUri() + '?' + msg;
         const prom = this.httpClient.get(url);
 
         return new Promise( (resolve, reject) => {
@@ -56,6 +69,7 @@ export class LedDriverService {
 
         const finUrl = this.getLedUri() + '/' + queryString;
         const prom = this.httpClient.get(finUrl);
+
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -65,25 +79,6 @@ export class LedDriverService {
 
     getLedUri() {
       return `${this.baseUrl}/led`;
-    }
-
-    setLedSettings(payload) {
-        const prom = this.httpClient.get(`${this.baseUrl}?mode=${payload.mode}&state=${payload.state}`);
-        return new Promise( (resolve, reject) => {
-            prom.subscribe((rawData) => {
-                resolve(rawData);
-            });
-        });
-    }
-
-    getSensorsData() {
-        const url = `${this.baseUrl}/sensors/get-all`;
-        const prom = this.httpClient.get(url);
-        return new Promise( (resolve, reject) => {
-            prom.subscribe((rawData) => {
-                resolve(rawData);
-            });
-        });
     }
 
     resolveState(disabled, ledState) {

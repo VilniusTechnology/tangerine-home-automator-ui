@@ -24,6 +24,7 @@ export class EndpointsHealthService {
         this.endpointsService.getSpecificEndpointKeys('led') ;
         this.endpointsService.getAllEnpointKeys()
             .forEach((endpointConfigKey) => {
+                console.log('will check for: ', endpointConfigKey);
                 this.checkEndpointHealth(endpointConfigKey);
             });
     }
@@ -35,7 +36,7 @@ export class EndpointsHealthService {
         }
 
         const url = `${endpoint.url}/healthcheck`;
-        console.log('checkEndpointHealth: ', url);
+
         this.httpClient.get(url)
         .subscribe(
             (response) => {
@@ -49,7 +50,8 @@ export class EndpointsHealthService {
 
     public periodicallyCheckAllEndpointsHealth(interval: number) {
         setInterval(() => {
-            this.checkAllEndpointsHealth();
+          // console.log('Should check...');
+            // this.checkAllEndpointsHealth();
         }, interval);
     }
 

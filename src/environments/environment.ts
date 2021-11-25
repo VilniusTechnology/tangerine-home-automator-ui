@@ -6,16 +6,21 @@ export const environment = {
     production: false,
     envTitle: 'DEV',
     endpoints: {
-        healthCheckPeriod: 5000,
-        sensorCheckPeriod: 5000,
-        useEmulator: false,
-        emulatorEndpoints: {
+      healthCheckPeriod: 5000,
+      sensorCheckPeriod: 5000,
+      useEmulator: false,
+      mqtt: {
+        server: 'poligonas.local',
+        // protocol: "wss",
+        // port: 1883
+      },
+      emulatorEndpoints: {
             nest: 'http://localhost:8081',
             healthCheck: 'http://localhost:8081',
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
         },
-        led: {
+      led: {
           servers: {
             "shady":{
               title: "Miegamasis",
@@ -31,9 +36,16 @@ export const environment = {
                 main: {}
               },
             },
+            "wurk":{
+              title: "Darbo kambarys",
+              host: "https://wurk.local",
+              contours: {
+                main: {}
+              },
+            },
           },
       },
-        sensors: {
+      sensors: {
           servers: {
             "shady":{
               url: "https://shady.local",
@@ -53,17 +65,6 @@ export const environment = {
                   ],
                   interval: 500,
                 },
-                {
-                  id: '1',
-                  title: 'Atmosferiniai',
-                  path: '/sensors-atmo',
-                  metrics: [
-                    'pressure',
-                    'humidity',
-                    'temperature',
-                  ],
-                  interval: 250,
-                }
               ],
             },
           },

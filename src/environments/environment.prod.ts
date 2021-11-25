@@ -6,8 +6,13 @@ export const environment = {
     production: true,
     envTitle: 'PROD',
     endpoints: {
-        healthCheckPeriod: 30000,
-        useEmulator: false,
+      healthCheckPeriod: 30000,
+      useEmulator: false,
+      mqtt: {
+        server: 'poligonas.local',
+        // protocol: "wss",
+        // port: 1883
+      },
         emulatorEndpoints: {
             nest: 'http://localhost:8081',
             ledController: 'http://localhost:7777',
@@ -44,7 +49,7 @@ export const environment = {
                 {
                   id: '0',
                   title: 'Visi',
-                  path: '/sensors-atmo',
+                  path: '/sensors-all',
                   metrics: [
                     'pressure',
                     'humidity',
@@ -52,7 +57,8 @@ export const environment = {
                     'light',
                     'pir',
                   ],
-                }
+                  interval: 500,
+                },
               ],
             },
           },

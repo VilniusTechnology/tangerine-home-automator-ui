@@ -4,6 +4,7 @@ import { RgbCalculatorService } from 'src/app/services/rgb-calculator.service';
 import { EndpointsHealthService } from 'src/app/services/endpoints-health.service';
 import {HttpClient} from "@angular/common/http";
 import {EndpointsService} from "../../services/endpoints.service";
+import { MqttService } from 'ngx-mqtt';
 
 @Component({
     selector: 'app-led-control-panel',
@@ -57,14 +58,16 @@ export class LedControlPanelComponent implements OnInit {
         private rgbService: RgbCalculatorService,
         private healthService: EndpointsHealthService,
         private  httpClient:  HttpClient,
-        private endpointsService: EndpointsService
+        private endpointsService: EndpointsService,
+        private _mqttService: MqttService
     ) {
         this.ledMode = 1;
         this.currentColor = this.determineCurrentColor();
 
         this.ledDriverService = new LedDriverService(
           httpClient,
-          endpointsService
+          endpointsService,
+          _mqttService
         );
     }
 

@@ -60,6 +60,7 @@ import {KeysComponent} from "./screens/keys/keys.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {UpdateDialogComponent} from "./components/update-dialog/update-dialog.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
 
 @NgModule({
     declarations: [
@@ -88,6 +89,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         UpdateDialogComponent,
     ],
     imports: [
+        MqttModule.forRoot({hostname: environment.endpoints.mqtt.server, port: 8082}),
         GaugeModule.forRoot(),
         NgbModule,
         ChartModule,
