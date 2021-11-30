@@ -56,6 +56,7 @@ export const environment = {
               zones: [
                 {
                   id: '0',
+                  type: 'http',
                   title: 'Visi',
                   path: '/sensors-all',
                   metrics: [
@@ -67,6 +68,39 @@ export const environment = {
                   ],
                   interval: 500,
                 },
+              ],
+            },
+            "sunny":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Svetainė",
+              zones: [
+                // {
+                //   id: '0',
+                //   type: 'mqtt',
+                //   title: 'Atmosferinis',
+                //   base: 'zigbee2mqtt',
+                //   room: 'sunny',
+                //   path: 'sensors/atmo',
+                //   metrics: [
+                //     'atmo',
+                //     'humidity',
+                //     'temperature',
+                //     'light',
+                //     'pir',
+                //   ],
+                // },
+                {
+                  id: '1',
+                  type: 'mqtt',
+                  title: 'Šviesos',
+                  base: 'zigbee2mqtt',
+                  room: 'sunny',
+                  path: 'sensors/light',
+                  metrics: [
+                    'illuminance_lux',
+                  ],
+                }
               ],
             },
           },

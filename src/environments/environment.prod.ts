@@ -9,6 +9,7 @@ export const environment = {
     envTitle: 'PROD',
     endpoints: {
       healthCheckPeriod: 30000,
+      sensorCheckPeriod: 15000,
       useEmulator: false,
       mqtt: {
         server: 'hub.local',
@@ -41,58 +42,64 @@ export const environment = {
           },
           },
         },
-        sensors : {
-            servers: {
-            "shady":{
-              url: "https://shady.local",
-              type: 'native',
-              uri: "sensors-all",
-              title: "Miegamasis",
-              zones: [
-                {
-                  id: '0',
-                  title: 'Visi',
-                  path: '/sensors-all',
-                  metrics: [
-                    'pressure',
-                    'humidity',
-                    'temperature',
-                    'light',
-                    'pir',
-                  ],
-                  interval: 500,
-                },
-              ],
-            },
-            "sunny":{
-              url: "wss://hub.local",
-              type: 'mqtt',
-              uri: "sensors-all",
-              title: "Svetainė",
-              zones: [
-                {
-                  id: '0',
-                  title: 'Atmosferinis',
-                  path: 'atmo',
-                  metrics: [
-                    'atmo',
-                    'humidity',
-                    'temperature',
-                    'light',
-                    'pir',
-                  ],
-                },{
-                  id: '1',
-                  title: 'Šviesos',
-                  path: 'light',
-                  metrics: [
-                    'light',
-                  ],
-                }
-              ],
-            },
+      sensors: {
+        servers: {
+          "shady":{
+            url: "https://shady.local",
+            uri: "",
+            title: "Miegamasis",
+            zones: [
+              {
+                id: '0',
+                type: 'http',
+                title: 'Visi',
+                path: '/sensors-all',
+                metrics: [
+                  'pressure',
+                  'humidity',
+                  'temperature',
+                  'light',
+                  'pir',
+                ],
+                interval: 500,
+              },
+            ],
+          },
+          "sunny":{
+            url: "wss://hub.local",
+            uri: "sensors-all",
+            title: "Svetainė",
+            zones: [
+              // {
+              //   id: '0',
+              //   type: 'mqtt',
+              //   title: 'Atmosferinis',
+              //   base: 'zigbee2mqtt',
+              //   room: 'sunny',
+              //   path: 'sensors/atmo',
+              //   metrics: [
+              //     'atmo',
+              //     'humidity',
+              //     'temperature',
+              //     'light',
+              //     'pir',
+              //   ],
+              // },
+              {
+                id: '1',
+                type: 'mqtt',
+                title: 'Šviesos',
+                base: 'zigbee2mqtt',
+                room: 'sunny',
+                path: 'sensors/light',
+                metrics: [
+                  'illuminance_lux',
+                ],
+              }
+            ],
           },
         },
+      },
     }
 };
 

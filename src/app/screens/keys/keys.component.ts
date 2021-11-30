@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FileService} from "../../services/file.service";
 import * as FileSaver from 'file-saver';
+import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-keys',
@@ -8,9 +10,16 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./keys.component.scss']
 })
 export class KeysComponent implements OnInit {
+
+    private subscription: Subscription;
+    private dataMqtt;
+
     constructor(
-      private fileService: FileService
-    ) { }
+      private fileService: FileService,
+      private _mqttService: MqttService
+    ) {
+      this.dataMqtt = [];
+    }
 
     ngOnInit() {
     }

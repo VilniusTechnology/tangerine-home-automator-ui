@@ -4,6 +4,7 @@ import { EndpointsService } from 'src/app/services/endpoints.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import {interval, Subject} from "rxjs";
+import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 @Component({
   selector: 'app-home',
@@ -27,14 +28,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private  httpClient:  HttpClient,
-    private endpointsService: EndpointsService
+    private endpointsService: EndpointsService,
+    private mqttService: MqttService
   ) { }
 
   ngOnInit() {
     this.subscribeToHosts();
-    this.interval = setInterval(() => {
-      this.subscribeToHosts();
-      }, environment.endpoints.sensorCheckPeriod);
+    // this.interval = setInterval(() => {
+    //   this.subscribeToHosts();
+    //   }, environment.endpoints.sensorCheckPeriod);
   }
 
   ngOnDestroy() {
@@ -45,24 +47,34 @@ export class HomeComponent implements OnInit {
     this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
 
     this.hosts = [];
-    _.forEach(environment.endpoints.sensors.servers, (item) => {
-      this.hosts.push(item);
+    _.forEach(environment.endpoints.sensors.servers, (room) => {
+      this.hosts.push(room);
 
-      item.zones.forEach((i) => {
-        // console.log('item: ', item);
-        // console.log('i: ', i);
-        // const prm = new Promise( (resolve, reject) => {
-          this.httpClient.get(`${item.url}${item.uri}${i.path}`)
-            .subscribe((rawData: any) => {
-              this.results[i.id] = rawData;
-              // resolve({id: i.id, uri: item.uri, data: rawData})
-            });
-        // });
+      room.zones.forEach((zone) => {
+        if (zone.type == 'http') {
+          this.subscribeToHttp(room, zone);
+        }
 
-        // this.zonesProms.push(prm);
+        if (zone.type == 'mqtt') {
+          const path = `${zone.base}/${zone.room}/${zone.path}`;
+
+          this.mqttService.publish(path + '/availability', 'online');
+          this.mqttService.observe(path).subscribe((message: IMqttMessage) => {
+            this.results[room.title + zone.id] = JSON.parse(message.payload.toString());
+          });
+        }
       });
 
     });
+  }
+
+  subscribeToHttp(room, zone) {
+    setInterval(() => {
+      this.httpClient.get(`${room.url}${room.uri}${zone.path}`)
+        .subscribe((rawData: any) => {
+          this.results[room.title + zone.id] = rawData;
+        });
+    }, environment.endpoints.sensorCheckPeriod);
   }
 
   metricIsDefined(data, a, b) {

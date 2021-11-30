@@ -4,8 +4,8 @@
     <h2 style="color: white; padding: 5px; margin: 5px; font-size: 20px;">{{zone.title}}</h2>
     <div style="color: white; display: flex; flex-wrap: wrap;">
       <ng-container *ngFor="let metric of zone.metrics;">
-        <app-metric-snippet *ngIf="metricIsDefined(results, zone.id, metric)"
-                            [title]="metric"  [value]="results[zone.id][metric]"
+        <app-metric-snippet *ngIf="metricIsDefined(results, host.title + zone.id, metric)"
+                            [title]="metric"  [value]="results[host.title + zone.id][metric]"
         >
         </app-metric-snippet>
       </ng-container>
