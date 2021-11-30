@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {IMqttServiceOptions} from "ngx-mqtt";
+
 export const environment = {
     production: false,
     envTitle: 'DEV',
@@ -10,9 +12,9 @@ export const environment = {
       sensorCheckPeriod: 5000,
       useEmulator: false,
       mqtt: {
-        server: 'poligonas.local',
-        // protocol: "wss",
-        // port: 1883
+        server: 'hub.local',
+        protocol: 'wss' as IMqttServiceOptions['protocol'],
+        port: 8884
       },
       emulatorEndpoints: {
             nest: 'http://localhost:8081',

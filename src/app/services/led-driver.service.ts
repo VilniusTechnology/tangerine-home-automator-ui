@@ -43,7 +43,8 @@ export class LedDriverService {
 
 
         let msg = 'contour=' + contour;
-        this._mqttService.publish('zigbee2mqtt/shady/led', msg);
+        // this._mqttService.publish('zigbee2mqtt/shady/led', msg);
+        console.log('Will subscribe zigbee2mqtt/shady/sensors.all');
         this.subscription = this._mqttService.observe('zigbee2mqtt/shady/sensors.all').subscribe((message: IMqttMessage) => {
           console.log(message.payload.toString());
         });

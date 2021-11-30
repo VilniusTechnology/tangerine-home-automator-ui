@@ -23,9 +23,8 @@ export class LightAutomatorConnectionService {
         return this.httpClient.get(`${this.baseUrl}/openpixel/toggle`);
     }
 
-    selectEffect(id: number) {
-        console.log('Should launch effect id: ', id);
-        return this.httpClient.get(`${this.baseUrl}/led/effects/play/${id}`);
+    launchEffect(id: number, host: string) {
+        return this.httpClient.get(`${host}/led/effects/play/${id}`);
     }
 
     getTimedModes() {
@@ -86,6 +85,7 @@ export class LightAutomatorConnectionService {
         const prom = this.httpClient.get(`${this.baseUrl}/led/effects/list`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
+              console.log('Effects rawData: ', rawData);
                 resolve(rawData);
             });
         });

@@ -1,7 +1,22 @@
-<ng-container *ngFor="let effect of effects;">
-  <mat-card>
-    <button mat-raised-button (click)="selectEffect(effect.key)" color="primary">
-      {{effect.title}}
-    </button>
-  </mat-card>
-</ng-container>
+<h1 style="color: #f1f1f1; padding: 10px;">Efektai</h1>
+
+<mat-accordion class="example-headers-align" multi>
+  <ng-container *ngFor="let server of serversArr; index as i;">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="disable_ripple">
+        <mat-panel-title>
+          {{ server.title }} - {{ server.host }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngFor="let effect of effects;">
+        <mat-card>
+          <button mat-raised-button (click)="launchEffect(effect.key, server.host)" color="primary">
+            {{effect.title}}
+          </button>
+        </mat-card>
+      </ng-container>
+
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>

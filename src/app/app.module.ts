@@ -89,7 +89,11 @@ import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
         UpdateDialogComponent,
     ],
     imports: [
-        MqttModule.forRoot({hostname: environment.endpoints.mqtt.server, port: 8082}),
+        MqttModule.forRoot({
+          protocol: environment.endpoints.mqtt.protocol,
+          hostname: environment.endpoints.mqtt.server,
+          port: environment.endpoints.mqtt.port
+        }),
         GaugeModule.forRoot(),
         NgbModule,
         ChartModule,
