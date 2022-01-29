@@ -41,7 +41,7 @@
     "highcharts": "^6.2.0",
     "lled": "^1.0.0",
     "lodash": "^4.17.11",
-    "log4js": "^6.1.2",
+    "log4js": "^6.4.0",
     "mandarin-nest-local-light-driver": "^1.0.12",
     "md5": "^2.3.0",
     "moment": "^2.22.2",
