@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import {interval, Subject} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {MqttConnectionService} from "../../services/mqtt-connection.service";
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private  httpClient:  HttpClient,
     private endpointsService: EndpointsService,
-    private mqttService: MqttService
+    private mqtt: MqttService,
+    private mqttConnectionService: MqttConnectionService
   ) { }
 
   ngOnInit() {
@@ -57,20 +59,9 @@ export class HomeComponent implements OnInit {
 
         if (zone.type == 'mqtt') {
           const path = `${zone.base}/${zone.room}/${zone.path}`;
-          const msg = '{"state": ""}';
-          const fulPath = path + '/get';
-
-          this.mqttService.publish(fulPath, msg);
-          this.mqttService.observe(path).subscribe((message: IMqttMessage) => {
-            this.results[room.title + zone.id] = JSON.parse(message.payload.toString());
-            console.log('rsp LIGHT: ', message, message.payload.toString());
+          this.mqttConnectionService.requestSensorData(path).then((rs) => {
+            this.results[room.title + zone.id] = rs;
           });
-
-          // this.mqttService.publish(zone.base + 'sunny/sensors/atmo/get', msg);
-          // this.mqttService.observe(zone.base + 'sunny/sensors/atmo').subscribe((message: IMqttMessage) => {
-            // this.results[room.title + zone.id] = JSON.parse(message.payload.toString());
-            // console.log('rsp ATMO: ', message.payload.toString());
-          // });
         }
       });
 

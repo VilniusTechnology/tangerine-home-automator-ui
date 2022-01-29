@@ -1,4 +1,6 @@
 <h2 style="color: #F5F5F6; padding: 5px;">LED</h2>
+
+
 <mat-accordion class="example-headers-align" multi>
   <ng-container *ngFor="let server of serversArr; index as i;">
     <mat-expansion-panel>
@@ -7,9 +9,23 @@
           {{ server.title }} - {{ server.host }}
         </mat-panel-title>
       </mat-expansion-panel-header>
+
       <app-led-control-panel
         [server]="server"
       ></app-led-control-panel>
+
     </mat-expansion-panel>
   </ng-container>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="disable_ripple">
+      <mat-panel-title>
+        PLP
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-tasmota-snippet></app-tasmota-snippet>
+
+  </mat-expansion-panel>
+
 </mat-accordion>

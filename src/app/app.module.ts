@@ -53,20 +53,22 @@ import {LedControlPanelListComponent} from "./components/led-control-panel/led-c
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { GaugeModule } from 'angular-gauge';
 import {MetricSnippetComponent} from "./screens/home/metric-snippet/metric-snippet.component";
 import {MetricHostComponent} from "./screens/home/metric-host/metric-host.component";
 import {KeysComponent} from "./screens/keys/keys.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {UpdateDialogComponent} from "./components/update-dialog/update-dialog.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
+import {MqttModule} from "ngx-mqtt";
+import {MqttConnectionService} from "./services/mqtt-connection.service";
+import {TasmotaSnippetComponent} from "./screens/home/tasmota-snippet/tasmota-snippet.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         LightingChartComponent,
         MetricSnippetComponent,
+        TasmotaSnippetComponent,
         TopbarComponent,
         GraphsComponent,
         HistoryComponent,
@@ -94,7 +96,6 @@ import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
           hostname: environment.endpoints.mqtt.server,
           port: environment.endpoints.mqtt.port,
         }),
-        GaugeModule.forRoot(),
         NgbModule,
         ChartModule,
         BrowserModule,
@@ -129,6 +130,7 @@ import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
         AuthService,
         LedEmulatorViewService,
         EndpointsService,
+        MqttConnectionService,
         EndpointsHealthService,
         {
             provide: HTTP_INTERCEPTORS,

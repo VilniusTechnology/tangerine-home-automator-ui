@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="tasmota-image"></div>
+    <mat-card-title>hub.local</mat-card-title>
+    <mat-card-subtitle>Tasmota</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div>
+      <div>
+        <mat-slide-toggle
+          class="example-margin"
+          [color]="'warn'"
+          [checked]="status"
+          (change)="sendRelayStatus($event)">
+        </mat-slide-toggle>
+        {{status}}
+      </div>
+    </div>
+    <div>
+      <div *ngFor="let reading of readings;">
+        {{reading.key}}: {{reading.reading}}
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
