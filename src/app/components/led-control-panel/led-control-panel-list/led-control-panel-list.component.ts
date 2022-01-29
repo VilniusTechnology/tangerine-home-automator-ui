@@ -12,9 +12,6 @@ export class LedControlPanelListComponent implements OnInit {
   servers = {};
   serversArr = [];
 
-  server = '';
-  uri = '';
-
   constructor() {
 
   }

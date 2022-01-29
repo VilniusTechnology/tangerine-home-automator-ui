@@ -57,11 +57,20 @@ export class HomeComponent implements OnInit {
 
         if (zone.type == 'mqtt') {
           const path = `${zone.base}/${zone.room}/${zone.path}`;
+          const msg = '{"state": ""}';
+          const fulPath = path + '/get';
 
-          this.mqttService.publish(path + '/availability', 'online');
+          this.mqttService.publish(fulPath, msg);
           this.mqttService.observe(path).subscribe((message: IMqttMessage) => {
             this.results[room.title + zone.id] = JSON.parse(message.payload.toString());
+            console.log('rsp LIGHT: ', message, message.payload.toString());
           });
+
+          // this.mqttService.publish(zone.base + 'sunny/sensors/atmo/get', msg);
+          // this.mqttService.observe(zone.base + 'sunny/sensors/atmo').subscribe((message: IMqttMessage) => {
+            // this.results[room.title + zone.id] = JSON.parse(message.payload.toString());
+            // console.log('rsp ATMO: ', message.payload.toString());
+          // });
         }
       });
 

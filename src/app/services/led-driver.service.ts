@@ -18,9 +18,9 @@ export class LedDriverService {
     private subscription: Subscription;
 
     constructor(
-        private  httpClient:  HttpClient,
+        private httpClient:  HttpClient,
         private endpointsService: EndpointsService,
-        private _mqttService: MqttService
+        private mqttService: MqttService
     ) {}
 
     setUrl(url = '') {
@@ -39,8 +39,6 @@ export class LedDriverService {
         if (contour) {
           contour = 'main';
         }
-
-
 
         let msg = 'contour=' + contour;
         const url = this.getLedUri() + '?' + msg;

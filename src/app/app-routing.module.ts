@@ -44,11 +44,11 @@ const routes: Routes = [
                 component: HistoryComponent,
                 canActivate: [AuthGuardService],
             },
-            {
-                path:  'lightomator',
-                component: LightomatorComponent,
-                canActivate: [AuthGuardService],
-            },
+            // {
+            //     path:  'lightomator',
+            //     component: LightomatorComponent,
+            //     canActivate: [AuthGuardService],
+            // },
             {
                 path:  'lightomator/led',
                 component: LedControlPanelListComponent,
@@ -56,7 +56,7 @@ const routes: Routes = [
             },
             {
                 path:  'lightomator/timing',
-                component: LedTimingModesComponent,
+                component: LightomatorComponent,
                 canActivate: [AuthGuardService],
             },
             {

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 
 import { Chart } from 'angular-highcharts';
@@ -30,12 +30,17 @@ export class LedTimingModesComponent implements OnInit {
 
     public chart: any;
 
+    @Input('server') server: any = {};
+    uri: string = '';
+
     constructor(
         private fb: FormBuilder,
         private _lightAutomatorConnectionService: LightAutomatorConnectionService
     ) { }
 
     ngOnInit() {
+        this.uri = this.server.host;
+
         this.initChart([0], [0]);
         this.updateTimeModesChart();
 
@@ -44,7 +49,7 @@ export class LedTimingModesComponent implements OnInit {
             intervals: this.fb.array([])
         });
 
-        this.loadTimedModes();  
+        this.loadTimedModes();
     }
 
     initChart(data, columns) {
@@ -85,7 +90,7 @@ export class LedTimingModesComponent implements OnInit {
     }
 
     updateTimeModesChart() {
-        this._lightAutomatorConnectionService.getTimedModes().then((data: any) => {
+        this._lightAutomatorConnectionService.getTimedModes(this.uri).then((data: any) => {
             const preparedData = this.prepareDataForChart(data);
             this.initChart(preparedData.data, preparedData.columns);
         });
@@ -124,7 +129,7 @@ export class LedTimingModesComponent implements OnInit {
         return  '#' + this.rgbToHex(red) + this.rgbToHex(green) + this.rgbToHex(blue);
     }
 
-    rgbToHex(rgb) { 
+    rgbToHex(rgb) {
         var hex = Number(rgb).toString(16);
         if (hex.length < 2) {
             hex = "0" + hex;
@@ -133,7 +138,7 @@ export class LedTimingModesComponent implements OnInit {
     };
 
     loadTimedModes() {
-        this._lightAutomatorConnectionService.getTimedModes().then((data) => {
+        this._lightAutomatorConnectionService.getTimedModes(this.uri).then((data) => {
             this.intervals = _.values(data);
 
             this.formSet = this.fb.group({
@@ -149,7 +154,7 @@ export class LedTimingModesComponent implements OnInit {
 
     updateTimedMode(key) {
         // console.log('updateTimedMode', this.formSet['controls'].intervals['controls']);
-        this._lightAutomatorConnectionService.editTimedMode(this.formSet['controls'].intervals['controls'][key].value)
+        this._lightAutomatorConnectionService.editTimedMode(this.uri, this.formSet['controls'].intervals['controls'][key].value)
             .then((data) => {
                 this.loadTimedModes();
                 this.updateTimeModesChart();
@@ -157,7 +162,7 @@ export class LedTimingModesComponent implements OnInit {
     }
 
     deleteTimedMode(id: string) {
-        this._lightAutomatorConnectionService.deleteTimedMode({'id' : id})
+        this._lightAutomatorConnectionService.deleteTimedMode(this.uri, {'id' : id})
             .then((data) => {
                 this.loadTimedModes();
                 this.updateTimeModesChart();
@@ -165,7 +170,7 @@ export class LedTimingModesComponent implements OnInit {
     }
 
     addTimedMode() {
-        this._lightAutomatorConnectionService.createTimedMode(this.myForm.value)
+        this._lightAutomatorConnectionService.createTimedMode(this.uri, this.myForm.value)
             .then((data) => {
                 this.loadTimedModes();
                 this.createFormEntry(this.formTemplate);
@@ -174,7 +179,7 @@ export class LedTimingModesComponent implements OnInit {
     }
 
     reloadDb() {
-        this._lightAutomatorConnectionService.reloadDb({})
+        this._lightAutomatorConnectionService.reloadDb(this.uri, {})
             .then((data) => {
                 this.loadTimedModes();
                 this.createFormEntry(this.formTemplate);

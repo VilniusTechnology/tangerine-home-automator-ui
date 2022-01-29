@@ -27,8 +27,8 @@ export class LightAutomatorConnectionService {
         return this.httpClient.get(`${host}/led/effects/play/${id}`);
     }
 
-    getTimedModes() {
-        const prom = this.httpClient.get(`${this.baseUrl}/get-light-time-programs`);
+    getTimedModes(url) {
+        const prom = this.httpClient.get(`${url}/get-light-time-programs`);
 
         return new Promise(function(resolve, reject) {
             prom.subscribe((rawData) => {
@@ -42,9 +42,9 @@ export class LightAutomatorConnectionService {
         });
     }
 
-    createTimedMode(payload) {
+    createTimedMode(url, payload) {
         // console.log('payload', payload);
-        const prom = this.httpClient.post(`${this.baseUrl}/add-light-time-program`, payload);
+        const prom = this.httpClient.post(`${url}/add-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -52,9 +52,9 @@ export class LightAutomatorConnectionService {
         });
     }
 
-    editTimedMode(payload) {
+    editTimedMode(url, payload) {
         // console.log('payload', payload);
-        const prom = this.httpClient.post(`${this.baseUrl}/edit-light-time-program`, payload);
+        const prom = this.httpClient.post(`${url}/edit-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -62,9 +62,9 @@ export class LightAutomatorConnectionService {
         });
     }
 
-    reloadDb(payload) {
+    reloadDb(url, payload) {
         // console.log('payload', payload);
-        const prom = this.httpClient.post(`${this.baseUrl}/reload-db`, payload);
+        const prom = this.httpClient.post(`${url}/reload-db`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -72,8 +72,8 @@ export class LightAutomatorConnectionService {
         });
     }
 
-    deleteTimedMode(payload) {
-        const prom = this.httpClient.post(`${this.baseUrl}/delete-light-time-program`, payload);
+    deleteTimedMode(url, payload) {
+        const prom = this.httpClient.post(`${url}/delete-light-time-program`, payload);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
                 resolve(rawData);
@@ -85,7 +85,6 @@ export class LightAutomatorConnectionService {
         const prom = this.httpClient.get(`${this.baseUrl}/led/effects/list`);
         return new Promise( (resolve, reject) => {
             prom.subscribe((rawData) => {
-              console.log('Effects rawData: ', rawData);
                 resolve(rawData);
             });
         });

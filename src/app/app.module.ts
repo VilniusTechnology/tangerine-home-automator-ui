@@ -92,7 +92,7 @@ import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
         MqttModule.forRoot({
           protocol: environment.endpoints.mqtt.protocol,
           hostname: environment.endpoints.mqtt.server,
-          port: environment.endpoints.mqtt.port
+          port: environment.endpoints.mqtt.port,
         }),
         GaugeModule.forRoot(),
         NgbModule,
