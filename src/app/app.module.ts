@@ -62,6 +62,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MqttModule} from "ngx-mqtt";
 import {MqttConnectionService} from "./services/mqtt-connection.service";
 import {TasmotaSnippetComponent} from "./screens/home/tasmota-snippet/tasmota-snippet.component";
+import {MqttZigbeeSnippetComponent} from "./screens/home/mqtt-zigbee-snippet/mqtt-zigbee-snippet.component";
 
 @NgModule({
     declarations: [
@@ -69,6 +70,7 @@ import {TasmotaSnippetComponent} from "./screens/home/tasmota-snippet/tasmota-sn
         LightingChartComponent,
         MetricSnippetComponent,
         TasmotaSnippetComponent,
+        MqttZigbeeSnippetComponent,
         TopbarComponent,
         GraphsComponent,
         HistoryComponent,

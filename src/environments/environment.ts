@@ -8,20 +8,20 @@ export const environment = {
     production: false,
     envTitle: 'DEV',
     endpoints: {
-      healthCheckPeriod: 5000,
+      healthCheckPeriod: 10000,
       sensorCheckPeriod: 5000,
       useEmulator: false,
       mqtt: {
         server: 'hub.local',
         protocol: 'wss' as IMqttServiceOptions['protocol'],
-        port: 8884
+        port: 8884,
       },
       emulatorEndpoints: {
             nest: 'http://localhost:8081',
             healthCheck: 'http://localhost:8081',
             ledController: 'http://localhost:7777',
             ledEmulator: 'http://localhost:7777',
-        },
+      },
       led: {
           servers: {
             "shady":{
@@ -63,44 +63,82 @@ export const environment = {
                     'pressure',
                     'humidity',
                     'temperature',
-                    'light',
-                    'pir',
+                    'light_lvl',
+                  ],
+                  interval: 500,
+                 // 294 x 203
+                },
+              ],
+            },
+            "sunny":{
+              url: "https://sunny.local",
+              uri: "",
+              title: "Svetaine",
+              zones: [
+                {
+                  id: '0',
+                  type: 'http',
+                  title: 'Visi',
+                  path: '/sensors-all',
+                  metrics: [
+                    'pressure',
+                    'humidity',
+                    'temperature',
+                    'light_lvl',
                   ],
                   interval: 500,
                 },
               ],
             },
-            "sunny":{
+            "wurk":{
               url: "wss://hub.local",
               uri: "sensors-all",
-              title: "Svetainė",
+              title: "Darbo Luko",
               zones: [
-                // {
-                //   id: '0',
-                //   type: 'mqtt',
-                //   title: 'Atmosferinis',
-                //   base: 'zigbee2mqtt',
-                //   room: 'sunny',
-                //   path: 'sensors/atmo',
-                //   metrics: [
-                //     'atmo',
-                //     'humidity',
-                //     'temperature',
-                //     'light',
-                //     'pir',
-                //   ],
-                // },
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'wurk',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                    'pressure',
+                  ],
+                },
                 {
                   id: '1',
                   type: 'mqtt',
                   title: 'Šviesos',
                   base: 'zigbee2mqtt',
-                  room: 'sunny',
+                  room: 'wurk',
                   path: 'sensors/light',
                   metrics: [
                     'illuminance_lux',
                   ],
                 }
+              ],
+            },
+            "medium":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Darbo Neringos",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'medium',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                    'pressure',
+                  ],
+                },
               ],
             },
           },

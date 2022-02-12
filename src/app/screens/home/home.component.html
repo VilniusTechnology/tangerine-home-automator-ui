@@ -1,10 +1,8 @@
-<app-tasmota-snippet></app-tasmota-snippet>
-
-
-<div *ngFor="let host of hosts;">
-  <h2 style="color: white; padding: 10px;">{{host.title}}</h2>
-  <div *ngFor="let zone of host.zones;" style="padding: 15px;">
-    <h2 style="color: white; padding: 5px; margin: 5px; font-size: 20px;">{{zone.title}}</h2>
+<div style="display: flex;">
+  <div *ngFor="let host of hosts;">
+  <h2 style="color: white; padding: 10px 0 0 10px;">{{host.title}}</h2>
+  <div *ngFor="let zone of host.zones;">
+    <h2 style="color: white; margin: 5px 0 0 12px; font-size: 18px;">{{zone.title}}</h2>
     <div style="color: white; display: flex; flex-wrap: wrap;">
       <ng-container *ngFor="let metric of zone.metrics;">
         <app-metric-snippet *ngIf="metricIsDefined(results, host.title + zone.id, metric)"
@@ -15,4 +13,5 @@
 
     </div>
   </div>
+</div>
 </div>

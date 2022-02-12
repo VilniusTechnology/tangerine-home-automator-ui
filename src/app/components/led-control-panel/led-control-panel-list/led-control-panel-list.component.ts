@@ -22,4 +22,8 @@ export class LedControlPanelListComponent implements OnInit {
       this.serversArr.push(val);
     });
   }
+
+  isIs(a,b) {
+    return (a==b)
+  }
 }

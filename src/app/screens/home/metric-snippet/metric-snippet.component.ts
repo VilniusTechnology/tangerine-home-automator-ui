@@ -15,12 +15,12 @@ export class MetricSnippetComponent implements OnInit {
 
     ngOnInit() {}
 
-  roundToTwo(value) {
-    if (isNaN(value)){
-      return value;
-    }
+    roundToTwo(value) {
+      if (isNaN(value)){
+        return value;
+      }
 
-    return(Math.round(value * 100) / 100);
-  }
+      return(Math.round(value * 100) / 100);
+    }
 
 }

@@ -3,9 +3,9 @@ import { HttpClient } from  '@angular/common/http';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
-import {interval, Subject} from "rxjs";
-import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {MqttService} from "ngx-mqtt";
 import {MqttConnectionService} from "../../services/mqtt-connection.service";
+import {SensorsResultsService} from "../../services/sensors-results.service";
 
 @Component({
   selector: 'app-home',
@@ -16,29 +16,25 @@ export class HomeComponent implements OnInit {
 
   public hosts = [];
   public zones = [];
-  public zonesProms = [];
   public results = {};
   public temperature;
   public humidity;
-  public weatherPayload;
   public interval;
 
   private baseUrl: string;
-
-  private ngUnsubscribe: Subject<any> = new Subject();
 
   constructor(
     private  httpClient:  HttpClient,
     private endpointsService: EndpointsService,
     private mqtt: MqttService,
+    private resultsSrv: SensorsResultsService,
     private mqttConnectionService: MqttConnectionService
   ) { }
 
   ngOnInit() {
+    this.results = this.resultsSrv.get();
+
     this.subscribeToHosts();
-    // this.interval = setInterval(() => {
-    //   this.subscribeToHosts();
-    //   }, environment.endpoints.sensorCheckPeriod);
   }
 
   ngOnDestroy() {
@@ -47,8 +43,8 @@ export class HomeComponent implements OnInit {
 
   subscribeToHosts() {
     this.baseUrl = this.endpointsService.getEndpointUrlByKey('nest');
-
     this.hosts = [];
+
     _.forEach(environment.endpoints.sensors.servers, (room) => {
       this.hosts.push(room);
 
@@ -59,8 +55,9 @@ export class HomeComponent implements OnInit {
 
         if (zone.type == 'mqtt') {
           const path = `${zone.base}/${zone.room}/${zone.path}`;
-          this.mqttConnectionService.requestSensorData(path).then((rs) => {
+          this.mqttConnectionService.requestSensorData(path).subscribe((rs) => {
             this.results[room.title + zone.id] = rs;
+            this.resultsSrv.set(this.results);
           });
         }
       });
@@ -69,10 +66,17 @@ export class HomeComponent implements OnInit {
   }
 
   subscribeToHttp(room, zone) {
+    this.httpClient.get(`${room.url}${room.uri}${zone.path}`)
+      .subscribe((rawData: any) => {
+        this.results[room.title + zone.id] = rawData;
+        this.resultsSrv.set(this.results);
+      });
+
     setInterval(() => {
       this.httpClient.get(`${room.url}${room.uri}${zone.path}`)
         .subscribe((rawData: any) => {
           this.results[room.title + zone.id] = rawData;
+          this.resultsSrv.set(this.results);
         });
     }, environment.endpoints.sensorCheckPeriod);
   }

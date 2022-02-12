@@ -11,26 +11,28 @@ import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 export class TasmotaSnippetComponent implements OnInit {
 
-  @Input('value') value;
-  @Input('title') title;
+    @Input('title') title;
+    @Input('device') device;
 
-  device = 'tasmota/top/server/';
-  type = 'stat/';
+    type = 'stat/';
 
-  readings = [];
-  status;
+    readings = [];
+    status;
+    label;
 
     constructor(
       private mqttConnectionService: MqttConnectionService
     ) {}
 
     ngOnInit() {
+      console.log(this.title, this.device);
+
       this.mqttConnectionService.subscribeTasmotaData(
         this.device,
         this.type,
         'POWER'
       ).then((rs) => {
-        // console.log('POWER TASMOTA RESPONSE: ', rs);
+        console.log(this.title, this.device, 'POWER TASMOTA RESPONSE: ', rs);
         this.setRelayStatus(rs);
       });
 
@@ -96,6 +98,7 @@ export class TasmotaSnippetComponent implements OnInit {
       } else {
         this.status = false;
       }
+      this.resolveLabel();
     }
 
     sendRelayStatus(ev) {
@@ -109,5 +112,19 @@ export class TasmotaSnippetComponent implements OnInit {
       // console.log('status: ', status);
       // this.status = ev.checked;
       this.mqttConnectionService.publish(this.device + 'cmnd/POWER', status);
+      this.resolveLabel();
     }
+
+  resolveLabel() {
+    if (this.status) {
+      this.label = 'ON';
+    }
+
+    if (!this.status) {
+      this.label = 'OFF';
+    }
+
+    // console.log('this.status: ', this.status);
+    // console.log('this.label: ', this.label);
+  }
 }
