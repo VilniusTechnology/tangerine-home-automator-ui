@@ -10,3 +10,13 @@
 .example-selected-value {
   margin: 20px 0;
 }
+
+@media (max-width: 375px) {
+  .flex-parent {
+    display: flex;
+  }
+
+  .flex-kid {
+    width: 145px;
+  }
+}

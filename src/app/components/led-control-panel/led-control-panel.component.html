@@ -1,35 +1,38 @@
-<app-led-state-switch
-    [state]="ledState"
-    [disabled]="disabled"
-    (change)="toggleLedState($event)"
-    ></app-led-state-switch>
-
-<mat-card class="result">
-    <mat-card-content>
-        <mat-radio-group [(ngModel)]="ledMode"
-            class="example-radio-group"
-            (change)="onLedModeSelect($event)"
-        >
-            <mat-radio-button class="example-radio-button"
-                *ngFor="let ledModeIn of ledModesList"
-                [value]="ledModeIn.code"
-                checked="ledModeIn.code === ledMode"
-                [name]="ledModeIn.title"
-                [disabled]="disabled_all"
-                >
-                {{ledModeIn.title}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </mat-card-content>
-    </mat-card>
-
-    <app-led-sliders
-    [state]="ledState"
-    [sliders]="sliders"
-    [disabled]="disabled"
-    (change)="onSlidersChange($event)"
-    ></app-led-sliders>
-
+<div>
+  <div class="flex-parent">
+    <div class="flex-kid">
+      <app-led-state-switch
+          [state]="ledState"
+          [disabled]="disabled"
+          (change)="toggleLedState($event)"
+          ></app-led-state-switch>
+    </div>
+    <mat-card class="result flex-kid">
+        <mat-card-content>
+            <mat-radio-group [(ngModel)]="ledMode"
+                class="example-radio-group"
+                (change)="onLedModeSelect($event)"
+            >
+                <mat-radio-button class="example-radio-button"
+                    *ngFor="let ledModeIn of ledModesList"
+                    [value]="ledModeIn.code"
+                    checked="ledModeIn.code === ledMode"
+                    [name]="ledModeIn.title"
+                    [disabled]="disabled_all"
+                    >
+                    {{ledModeIn.title}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </mat-card-content>
+        </mat-card>
+  </div>
+  <app-led-sliders
+  [state]="ledState"
+  [sliders]="sliders"
+  [disabled]="disabled"
+  (change)="onSlidersChange($event)"
+  ></app-led-sliders>
+</div>
 <!--<app-led-chip-->
 <!--    [ledColor]="currentColor.rgb"-->
 <!--    [ledColorColdWhite]="currentColor.cw"-->

@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
     selector: 'app-metric-snippet',
     templateUrl: './metric-snippet.component.html',
-    styleUrls: ['./metric-snippet.component.css']
+    styleUrls: ['./metric-snippet.component.scss']
 })
 
 export class MetricSnippetComponent implements OnInit {

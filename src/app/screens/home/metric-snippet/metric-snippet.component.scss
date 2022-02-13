@@ -1,0 +1,23 @@
+mat-card {
+  min-width: 130px;
+}
+
+img {
+  height: 60px;
+  width: 60px;
+  color: white;
+  fill: white;
+}
+
+@media (max-width: 375px) {
+  mat-card {
+    min-width: 100px;
+  }
+
+  img {
+    height: 30px;
+    width: 30px;
+    color: white;
+    fill: white;
+  }
+}

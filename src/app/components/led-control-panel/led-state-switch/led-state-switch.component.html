@@ -1,6 +1,9 @@
 <mat-card class="result">
     <mat-card-content>
-        <h2 class="example-h2" [ngClass]="{'is-off' : _disabled}">Lights are {{ label  }}</h2>
+        <h2 class="example-h2" [ngClass]="{'is-off' : _disabled}">
+          <span class="lights-label">Lights are</span>
+          {{ label  }}
+        </h2>
         <section class="example-section">
             <mat-slide-toggle
                     class="example-margin"

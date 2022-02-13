@@ -3,7 +3,7 @@
         <mat-card-content>
             <input type="text"
                    [(ngModel)]="sliders.red.value"
-                   class="sli1"
+                   class="sli1 sli"
                    (input)="oncolorValuechange($event)"
                    [disabled]="buttonsState"
                    min="0" max="255" />
@@ -23,7 +23,7 @@
     <mat-card class="result" [style.background-color]="'green'">
         <mat-card-content>
             <input type="text" [(ngModel)]="sliders.green.value"
-                   class="sli2" (input)="dispatchLedControlAction()"
+                   class="sli2 sli" (input)="dispatchLedControlAction()"
                    [disabled]="buttonsState"
             />
             <br/>
@@ -42,7 +42,7 @@
     <mat-card class="result" [style.background-color]="'blue'">
         <mat-card-content>
             <input type="text" [(ngModel)]="sliders.blue.value"
-                   class="sli3" (input)="dispatchLedControlAction()"
+                   class="sli3 sli" (input)="dispatchLedControlAction()"
                    [disabled]="buttonsState"
             />
             <br/>
@@ -61,7 +61,7 @@
     <mat-card class="result" [style.background-color]="'yellow'">
         <mat-card-content>
             <input type="text" [(ngModel)]="sliders.warmWhite.value"
-                   class="sli4" (change)="dispatchLedControlAction()"
+                   class="sli4 sli" (change)="dispatchLedControlAction()"
                    [disabled]="buttonsState"
             />
             <br/>
@@ -80,7 +80,7 @@
     <mat-card class="result" [style.background-color]="'white'">
         <mat-card-content>
             <input type="text" [(ngModel)]="sliders.coldWhite.value"
-                   class="sli5" (change)="dispatchLedControlAction()"
+                   class="sli5 sli" (change)="dispatchLedControlAction()"
                    [disabled]="buttonsState"
             />
             <br/>

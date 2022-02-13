@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-led-control-panel-list',
   templateUrl: './led-control-panel-list.component.html',
-  styleUrls: ['./led-control-panel-list.component.css']
+  styleUrls: ['./led-control-panel-list.component.scss']
 })
 export class LedControlPanelListComponent implements OnInit {
 

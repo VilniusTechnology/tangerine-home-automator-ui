@@ -1,0 +1,25 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-container > div {
+    background-color: #f1f1f1;
+    margin: 5px;
+  }
+
+
+@media (max-width: 375px) {
+  input.sli {
+    display: none;
+  }
+
+  .result.mat-card  {
+    padding: 0 16px 0 16px;
+    width: 140px;
+  }
+
+  mat-slider {
+    margin-top: -13px;
+  }
+}

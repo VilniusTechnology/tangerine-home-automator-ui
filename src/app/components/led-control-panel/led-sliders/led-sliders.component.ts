@@ -4,7 +4,7 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 @Component({
   selector: 'app-led-sliders',
   templateUrl: './led-sliders.component.html',
-  styleUrls: ['./led-sliders.component.css']
+  styleUrls: ['./led-sliders.component.scss']
 })
 export class LedSlidersComponent implements OnInit {
 

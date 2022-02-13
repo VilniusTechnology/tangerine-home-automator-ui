@@ -9,7 +9,7 @@ import { MqttService } from 'ngx-mqtt';
 @Component({
     selector: 'app-led-control-panel',
     templateUrl: './led-control-panel.component.html',
-    styleUrls: ['./led-control-panel.component.css']
+    styleUrls: ['./led-control-panel.component.scss']
 })
 
 export class LedControlPanelComponent implements OnInit {

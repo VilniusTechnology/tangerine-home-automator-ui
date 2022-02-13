@@ -25,7 +25,7 @@ export const environment = {
       led: {
           servers: {
             "shady":{
-              title: "Miegamasis",
+              title: "Miegamas",
               host: "https://shady.local",
               contours: {
                 main: {}
@@ -52,7 +52,7 @@ export const environment = {
             "shady":{
               url: "https://shady.local",
               uri: "",
-              title: "Miegamasis",
+              title: "Miegamas",
               zones: [
                 {
                   id: '0',

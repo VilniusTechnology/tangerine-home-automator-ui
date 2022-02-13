@@ -4,7 +4,7 @@ import { LedDriverService } from 'src/app/services/led-driver.service';
 @Component({
     selector: 'app-led-state-switch',
     templateUrl: './led-state-switch.component.html',
-    styleUrls: ['./led-state-switch.component.css']
+    styleUrls: ['./led-state-switch.component.scss']
 })
 export class LedStateSwitchComponent implements OnInit {
 
