@@ -141,6 +141,63 @@ export const environment = {
                 },
               ],
             },
+            "dusas":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Dusas",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'dusas',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
+            "vonia":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Vonia",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'vonia',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
+            "kateline":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Kateline",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'boiler',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
           },
       },
       hardwareEndpoints: {

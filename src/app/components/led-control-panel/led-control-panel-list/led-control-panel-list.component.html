@@ -29,11 +29,10 @@
     </mat-expansion-panel-header>
 
     <div style="display: flex;">
-      <app-tasmota-snippet [title]="'hub.local'" [device]="'tasmota/top/mqtt/'"></app-tasmota-snippet>
-      <app-tasmota-snippet [title]="'plant'" [device]="'tasmota/top/plant/'"></app-tasmota-snippet>
-      <app-tasmota-snippet [title]="'serveris'" [device]="'tasmota/top/server/'"></app-tasmota-snippet>
-      <app-tasmota-snippet [title]="'rpi.rozete'" [device]="'tasmota/top/rpi.rozete'"></app-tasmota-snippet>
-<!--      <app-tasmota-snippet [title]="'rpi'" [device]="'tasmota/top/rpi/'"></app-tasmota-snippet>-->
+      <app-tasmota-snippet [title]="'hub.local'" [device]="'tasmota/top/hub/'"></app-tasmota-snippet>
+      <app-tasmota-snippet [title]="'plant'" [device]="'tasmota/top/plant/'" [deviceType]="'4ch'"></app-tasmota-snippet>
+      <app-tasmota-snippet [title]="'rpi.rozete'" [device]="'tasmota/top/rpi.rozete/'"></app-tasmota-snippet>
+      <app-tasmota-snippet [title]="'pastoge'" [device]="'tasmota/pastoge/termo/'"></app-tasmota-snippet>
     </div>
   </mat-expansion-panel>
 

@@ -6,7 +6,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <div>
+    <div *ngIf="(deviceType != '4ch')">
       <div>
         <mat-slide-toggle
           class="example-margin"
@@ -17,6 +17,58 @@
         {{label}}
       </div>
     </div>
+
+    <div *ngIf="(deviceType == '4ch')">
+      <div>
+        <div>
+          1 -
+          <mat-slide-toggle
+            class="example-margin"
+            [color]="'warn'"
+            [checked]="status1"
+            (change)="sendRelayStatus($event, '1')">
+          </mat-slide-toggle>
+          {{label}}
+        </div>
+      </div>
+      <div>
+        <div>
+          2 -
+          <mat-slide-toggle
+            class="example-margin"
+            [color]="'warn'"
+            [checked]="status2"
+            (change)="sendRelayStatus($event, '2')">
+          </mat-slide-toggle>
+          {{label}}
+        </div>
+      </div>
+      <div>
+        <div>
+          3 -
+          <mat-slide-toggle
+            class="example-margin"
+            [color]="'warn'"
+            [checked]="status3"
+            (change)="sendRelayStatus($event, '3')">
+          </mat-slide-toggle>
+          {{label}}
+        </div>
+      </div>
+      <div>
+        <div>
+          4 -
+          <mat-slide-toggle
+            class="example-margin"
+            [color]="'warn'"
+            [checked]="status4"
+            (change)="sendRelayStatus($event, '4')">
+          </mat-slide-toggle>
+         {{label}}
+        </div>
+      </div>
+    </div>
+
     <div>
       <div *ngFor="let reading of readings;">
         {{reading.key}}: {{reading.reading}}

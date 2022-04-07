@@ -28,7 +28,6 @@ export class MqttZigbeeSnippetComponent implements OnInit {
       this.mqttConnectionService.requestSensorData(
         this.device
       ).subscribe((rsp) => {
-        // console.log('IKEA: ', rsp);
         //@ts-ignore
         this.setRelayStatus(rsp.state);
         this.populateData('path', rsp);
@@ -37,25 +36,19 @@ export class MqttZigbeeSnippetComponent implements OnInit {
       this.mqttConnectionService.subscribe(
         this.device
       ).subscribe((data) => {
-        // console.log('data: ', data);
         //@ts-ignore
         this.setRelayStatus(data.state);
       });
     }
 
     populateData(path, data) {
-      // console.log('populateData: ', data);
-
       const keys = [
         'brightness',
         'color_mode',
         'color_temp',
       ];
-      // console.log('populateData: ', _.get(data, path));
       _.forEach(keys, (reading, key) => {
         this.readings.push({reading: data[reading], key: reading});
-        // console.log('(reading, key): ', reading, data[reading]);
-        // console.log('this.readings: ', this.readings);
       });
     }
 
@@ -69,16 +62,13 @@ export class MqttZigbeeSnippetComponent implements OnInit {
     }
 
     sendRelayStatus(ev) {
-      // console.log('ev.checked: ', ev.checked);
       let status = 'OFF';
 
       if (ev.checked) {
         status = 'ON';
       }
-      // this.resolveLabel();
 
       this.mqttConnectionService.publish(this.device + '/set/state', status);
-      // this.mqttConnectionService.safePublish(this.device + '/set', {state: status});
     }
 
     resolveLabel() {
@@ -89,8 +79,5 @@ export class MqttZigbeeSnippetComponent implements OnInit {
       if (!this.status) {
         this.label = 'OFF';
       }
-
-      console.log('this.status: ', this.status);
-      console.log('this.label: ', this.label);
     }
 }

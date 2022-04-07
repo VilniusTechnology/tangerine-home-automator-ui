@@ -13,31 +13,48 @@ export class TasmotaSnippetComponent implements OnInit {
 
     @Input('title') title;
     @Input('device') device;
+    @Input('deviceType') deviceType;
 
     type = 'stat/';
-
     readings = [];
-    status;
     label;
+
+    status;
+
+    status1;
+    status2;
+    status3;
+    status4;
 
     constructor(
       private mqttConnectionService: MqttConnectionService
     ) {}
 
     ngOnInit() {
-      console.log(this.title, this.device);
-
-      this.mqttConnectionService.subscribeTasmotaData(
-        this.device,
-        this.type,
-        'POWER'
-      ).then((rs) => {
-        console.log(this.title, this.device, 'POWER TASMOTA RESPONSE: ', rs);
-        this.setRelayStatus(rs);
-      });
+      // console.log(this.title, this.device, this.deviceType);
+      if (this.deviceType == '4ch') {
+        this.mqttConnectionService.subscribeTasmotaData(
+          this.device,
+          this.type,
+          'STATUS11'
+        ).then((rs) => {
+          // console.log('POWER1 TASMOTA RESPONSE: ', rs);
+          this.set4CHRelayStatus(rs);
+        });
+      } else {
+        this.mqttConnectionService.subscribeTasmotaData(
+          this.device,
+          this.type,
+          'POWER'
+        ).then((rs) => {
+          // console.log(this.title, this.device, 'POWER TASMOTA RESPONSE: ', rs);
+          this.setRelayStatus(rs);
+        });
+      }
 
       this.readData().then((data) => {
         this.populateData('StatusSNS.SI7021', data);
+        this.populateData('StatusSNS.DS18B20', data);
       });
       this.readRelayStatus().then((rs) => {
         this.setRelayStatus(rs);
@@ -51,7 +68,6 @@ export class TasmotaSnippetComponent implements OnInit {
           this.type,
           'STATUS10'
         ).then((rs) => {
-          // console.log('readData TASMOTA RESPONSE: ', rs);
           resolve(rs);
         });
       });
@@ -64,7 +80,6 @@ export class TasmotaSnippetComponent implements OnInit {
           this.type,
           'STATUS11'
         ).then((rs) => {
-          // console.log('TASMOTA RESPONSE 11: ', _.get(rs, 'StatusSTS.POWER') );
           resolve(_.get(rs, 'StatusSTS.POWER'));
         });
       });
@@ -85,10 +100,10 @@ export class TasmotaSnippetComponent implements OnInit {
     }
 
     populateData(path, data) {
-      // console.log('populateData: ', _.get(data, path));
       _.forEach(_.get(data, path), (reading, key) => {
-        this.readings.push({reading, key});
-        // console.log('this.readings: ', this.readings);
+        if (key != 'Id') {
+          this.readings.push({reading, key});
+        }
       });
     }
 
@@ -101,17 +116,54 @@ export class TasmotaSnippetComponent implements OnInit {
       this.resolveLabel();
     }
 
-    sendRelayStatus(ev) {
-      // console.log('ev.checked: ', ev.checked);
+    set4CHRelayStatus(status) {
+      const statuses = JSON.parse(status).StatusSTS;
+
+      if (statuses.POWER1 == 'ON') {
+        this.status1 = true;
+      } else {
+        this.status1 = false;
+      }
+
+      if (statuses.POWER2 == 'ON') {
+        this.status2 = true;
+      } else {
+        this.status2 = false;
+      }
+
+      if (statuses.POWER3 == 'ON') {
+        this.status3 = true;
+      } else {
+        this.status3 = false;
+      }
+
+      if (statuses.POWER4 == 'ON') {
+        this.status4 = true;
+      } else {
+        this.status4 = false;
+      }
+
+      this.resolveLabel();
+    }
+
+    sendRelayStatus(ev, seq = '') {
+      console.log(
+        'ev: ', ev,
+        'seq: ', seq
+      );
       let status = 'OFF';
 
       if (ev.checked) {
         status = 'ON';
       }
 
-      // console.log('status: ', status);
-      // this.status = ev.checked;
-      this.mqttConnectionService.publish(this.device + 'cmnd/POWER', status);
+      console.log('status: ', status);
+
+      const command = this.device + 'cmnd/POWER' + seq;
+
+      console.log('command: ', command, status);
+
+      this.mqttConnectionService.publish(command, status);
       this.resolveLabel();
     }
 
@@ -123,8 +175,5 @@ export class TasmotaSnippetComponent implements OnInit {
     if (!this.status) {
       this.label = 'OFF';
     }
-
-    // console.log('this.status: ', this.status);
-    // console.log('this.label: ', this.label);
   }
 }
