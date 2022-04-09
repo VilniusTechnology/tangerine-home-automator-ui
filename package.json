@@ -44,7 +44,7 @@
     "log4js": "^6.1.2",
     "mandarin-nest-local-light-driver": "^1.0.12",
     "md5": "^2.3.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.23",
     "ngx-color-picker": "^7.0.1",
     "ngx-material-timepicker": "^2.8.4",
