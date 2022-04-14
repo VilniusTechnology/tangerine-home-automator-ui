@@ -52,100 +52,157 @@ export const environment = {
           },
         },
         sensors: {
-        servers: {
-          "shady":{
-            url: "https://shady.local",
-            uri: "",
-            title: "Miegamasis",
-            zones: [
-              {
-                id: '0',
-                type: 'http',
-                title: 'Visi',
-                path: '/sensors-all',
-                metrics: [
-                  'pressure',
-                  'humidity',
-                  'temperature',
-                  'light_lvl',
-                ],
-                interval: 500,
-              },
-            ],
-          },
-          "sunny":{
-            url: "https://sunny.local",
-            uri: "",
-            title: "Svetaine",
-            zones: [
-              {
-                id: '0',
-                type: 'http',
-                title: 'Visi',
-                path: '/sensors-all',
-                metrics: [
-                  'pressure',
-                  'humidity',
-                  'temperature',
-                  'light_lvl',
-                ],
-                interval: 500,
-              },
-            ],
-          },
-          "wurk":{
-            url: "wss://hub.local",
-            uri: "sensors-all",
-            title: "Darbo Luko",
-            zones: [
-              {
-                id: '0',
-                type: 'mqtt',
-                title: 'Atmosferinis',
-                base: 'zigbee2mqtt',
-                room: 'wurk',
-                path: 'sensors/atmo',
-                metrics: [
-                  'humidity',
-                  'temperature',
-                  'pressure',
-                ],
-              },
-              {
-                id: '1',
-                type: 'mqtt',
-                title: 'Šviesos',
-                base: 'zigbee2mqtt',
-                room: 'wurk',
-                path: 'sensors/light',
-                metrics: [
-                  'illuminance_lux',
-                ],
-              }
-            ],
-          },
-          "medium":{
-            url: "wss://hub.local",
-            uri: "sensors-all",
-            title: "Darbo Neringos",
-            zones: [
-              {
-                id: '0',
-                type: 'mqtt',
-                title: 'Atmosferinis',
-                base: 'zigbee2mqtt',
-                room: 'medium',
-                path: 'sensors/atmo',
-                metrics: [
-                  'humidity',
-                  'temperature',
-                  'pressure',
-                ],
-              },
-            ],
+          servers: {
+            "shady":{
+              url: "https://shady.local",
+              uri: "",
+              title: "Miegamasis",
+              zones: [
+                {
+                  id: '0',
+                  type: 'http',
+                  title: 'Visi',
+                  path: '/sensors-all',
+                  metrics: [
+                    'pressure',
+                    'humidity',
+                    'temperature',
+                    'light_lvl',
+                  ],
+                  interval: 500,
+                },
+              ],
+            },
+            "sunny":{
+              url: "https://sunny.local",
+              uri: "",
+              title: "Svetaine",
+              zones: [
+                {
+                  id: '0',
+                  type: 'http',
+                  title: 'Visi',
+                  path: '/sensors-all',
+                  metrics: [
+                    'pressure',
+                    'humidity',
+                    'temperature',
+                    'light_lvl',
+                  ],
+                  interval: 500,
+                },
+              ],
+            },
+            "wurk":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Darbo Luko",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'wurk',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                    'pressure',
+                  ],
+                },
+                {
+                  id: '1',
+                  type: 'mqtt',
+                  title: 'Šviesos',
+                  base: 'zigbee2mqtt',
+                  room: 'wurk',
+                  path: 'sensors/light',
+                  metrics: [
+                    'illuminance_lux',
+                  ],
+                }
+              ],
+            },
+            "medium":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Darbo Neringos",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'medium',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                    'pressure',
+                  ],
+                },
+              ],
+            },
+            "dusas":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Dusas",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'dusas',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
+            "vonia":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Vonia",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'vonia',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
+            "kateline":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Kateline",
+              zones: [
+                {
+                  id: '0',
+                  type: 'mqtt',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'boiler',
+                  path: 'sensors/atmo',
+                  metrics: [
+                    'humidity',
+                    'temperature',
+                  ],
+                },
+              ],
+            },
           },
         },
-      },
     }
 };
 
