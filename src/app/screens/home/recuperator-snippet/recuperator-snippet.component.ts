@@ -20,7 +20,7 @@ export class RecuperatorSnippetComponent implements OnInit {
         this.getStatus().then((mode) => {
           this.mode = mode;
         });
-      }, 500);
+      }, 1500);
     }
 
     getStatus() {
@@ -41,10 +41,11 @@ export class RecuperatorSnippetComponent implements OnInit {
       const prom = this.httpClient.get('https://hub.local/konfovent/set?mode=' + mode.toLowerCase());
       return new Promise( (resolve, reject) => {
           prom.subscribe(
-            (rawData) => {
+            () => {
                 //@ts-ignore
                 this.getStatus().then((mode) => {
                   this.mode = mode;
+                  console.log('this.mode: ', this.mode);
                   resolve(mode);
               });
             },
