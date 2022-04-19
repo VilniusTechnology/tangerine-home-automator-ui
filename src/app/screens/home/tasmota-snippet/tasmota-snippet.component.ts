@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MqttConnectionService} from "../../../services/mqtt-connection.service";
 import * as _ from 'lodash';
-import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 @Component({
     selector: 'app-tasmota-snippet',
@@ -17,9 +16,14 @@ export class TasmotaSnippetComponent implements OnInit {
 
     type = 'stat/';
     readings = [];
-    label;
 
+    label;
     status;
+
+    label1;
+    label2;
+    label3;
+    label4;
 
     status1;
     status2;
@@ -37,7 +41,7 @@ export class TasmotaSnippetComponent implements OnInit {
           this.device,
           this.type,
           'STATUS11'
-        ).then((rs) => {
+        ).subscribe((rs) => {
           // console.log('POWER1 TASMOTA RESPONSE: ', rs);
           this.set4CHRelayStatus(rs);
         });
@@ -46,8 +50,9 @@ export class TasmotaSnippetComponent implements OnInit {
           this.device,
           this.type,
           'POWER'
-        ).then((rs) => {
+        ).subscribe((rs) => {
           // console.log(this.title, this.device, 'POWER TASMOTA RESPONSE: ', rs);
+          console.log('1 rs: ', rs);
           this.setRelayStatus(rs);
         });
       }
@@ -57,7 +62,9 @@ export class TasmotaSnippetComponent implements OnInit {
         this.populateData('StatusSNS.DS18B20', data);
       });
       this.readRelayStatus().then((rs) => {
-        this.setRelayStatus(rs);
+        if (rs != undefined) {
+          this.setRelayStatus(rs);
+        }
       })
     }
 
@@ -80,7 +87,11 @@ export class TasmotaSnippetComponent implements OnInit {
           this.type,
           'STATUS11'
         ).then((rs) => {
-          resolve(_.get(rs, 'StatusSTS.POWER'));
+          //@ts-ignore
+          const status = JSON.parse(rs)
+          if (status != undefined) {
+            resolve(_.get(status, 'StatusSTS.POWER'));
+          }
         });
       });
     }
@@ -91,10 +102,9 @@ export class TasmotaSnippetComponent implements OnInit {
           device,
           type,
           command
-        ).then((rs) => {
-          // console.log('read TASMOTA RESPONSE: ', rs);
+        ).subscribe((rs) => {
           // @ts-ignore
-          resolve(JSON.parse(rs));
+          resolve(rs);
         });
       });
     }
@@ -118,6 +128,11 @@ export class TasmotaSnippetComponent implements OnInit {
 
     set4CHRelayStatus(status) {
       const statuses = JSON.parse(status).StatusSTS;
+
+      this.label1 = statuses.POWER1;
+      this.label2 = statuses.POWER2;
+      this.label3 = statuses.POWER3;
+      this.label4 = statuses.POWER4;
 
       if (statuses.POWER1 == 'ON') {
         this.status1 = true;

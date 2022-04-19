@@ -25,35 +25,37 @@ export class MqttConnectionService {
     }
 
   requestSensorData(topic) {
-      const msg = '{"state": ""}';
-      const getTopic = topic + '/get';
+    const msg = '{"state": ""}';
+    const getTopic = topic + '/get';
 
     return new Observable((observer) => {
         this.mqtt.publish(getTopic, msg);
         this.mqtt.observe(topic).subscribe((message: IMqttMessage) => {
           if (message.topic == topic) {
-            observer.next(JSON.parse(message.payload.toString()));
+            observer.next(message.payload.toString());
           }
         });
-      });
+    });
   }
 
   subscribeTasmotaData(device, type, command) {
-      const topic = device + type + command;
+    const topic = device + type + command;
 
-      return new Promise((resolve, reject) => {
+    return new Observable((observer) => {
+
+      setTimeout(() => {
         this.requestTasmotaData(device).then(() => {
-
           this.mqtt.observe(topic).subscribe((message: IMqttMessage) => {
             if (message.topic == topic) {
-              resolve(message.payload.toString());
+              // console.log(topic, message.payload.toString());
+              observer.next(message.payload.toString());
             }
           });
-
         });
-      });
+      }, 3000);
+    });
   }
-
+  
   requestTasmotaData(device) {
     const msg = '0';
     const getTopic = device + 'cmnd/status';

@@ -16,11 +16,17 @@ export class RecuperatorSnippetComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-      setInterval(() => {
-        this.getStatus().then((mode) => {
-          this.mode = mode;
-        });
-      }, 1500);
+      this.getStatus().then((mode) => {
+        this.mode = mode;
+      });
+
+      setTimeout(() => {
+        setInterval(() => {
+          this.getStatus().then((mode) => {
+            this.mode = mode;
+          });
+        }, 1500);
+      }, 3000);
     }
 
     getStatus() {

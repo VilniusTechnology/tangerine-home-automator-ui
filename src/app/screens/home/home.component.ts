@@ -56,7 +56,8 @@ export class HomeComponent implements OnInit {
         if (zone.type == 'mqtt') {
           const path = `${zone.base}/${zone.room}/${zone.path}`;
           this.mqttConnectionService.requestSensorData(path).subscribe((rs) => {
-            this.results[room.title + zone.id] = rs;
+            //@ts-ignore
+            this.results[room.title + zone.id] = JSON.parse(rs);
             this.resultsSrv.set(this.results);
           });
         }
