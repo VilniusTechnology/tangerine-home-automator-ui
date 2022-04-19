@@ -63,6 +63,7 @@ import {MqttModule} from "ngx-mqtt";
 import {MqttConnectionService} from "./services/mqtt-connection.service";
 import {TasmotaSnippetComponent} from "./screens/home/tasmota-snippet/tasmota-snippet.component";
 import {MqttZigbeeSnippetComponent} from "./screens/home/mqtt-zigbee-snippet/mqtt-zigbee-snippet.component";
+import { RecuperatorSnippetComponent } from './screens/home/recuperator-snippet/recuperator-snippet.component';
 
 @NgModule({
     declarations: [
@@ -76,6 +77,7 @@ import {MqttZigbeeSnippetComponent} from "./screens/home/mqtt-zigbee-snippet/mqt
         HistoryComponent,
         LoginComponent,
         HomeComponent,
+        RecuperatorSnippetComponent,
         LightomatorComponent,
         LedControlPanelComponent,
         LedTimingModesComponent,
