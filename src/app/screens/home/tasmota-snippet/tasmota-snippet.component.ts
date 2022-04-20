@@ -35,14 +35,12 @@ export class TasmotaSnippetComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-      // console.log(this.title, this.device, this.deviceType);
       if (this.deviceType == '4ch') {
         this.mqttConnectionService.subscribeTasmotaData(
           this.device,
           this.type,
           'STATUS11'
         ).subscribe((rs) => {
-          // console.log('POWER1 TASMOTA RESPONSE: ', rs);
           this.set4CHRelayStatus(rs);
         });
       } else {
@@ -51,8 +49,6 @@ export class TasmotaSnippetComponent implements OnInit {
           this.type,
           'POWER'
         ).subscribe((rs) => {
-          // console.log(this.title, this.device, 'POWER TASMOTA RESPONSE: ', rs);
-          console.log('1 rs: ', rs);
           this.setRelayStatus(rs);
         });
       }
@@ -110,7 +106,7 @@ export class TasmotaSnippetComponent implements OnInit {
     }
 
     populateData(path, data) {
-      _.forEach(_.get(data, path), (reading, key) => {
+      _.forEach(_.get(JSON.parse(data), path), (reading, key) => {
         if (key != 'Id') {
           this.readings.push({reading, key});
         }
@@ -172,11 +168,7 @@ export class TasmotaSnippetComponent implements OnInit {
         status = 'ON';
       }
 
-      console.log('status: ', status);
-
       const command = this.device + 'cmnd/POWER' + seq;
-
-      console.log('command: ', command, status);
 
       this.mqttConnectionService.publish(command, status);
       this.resolveLabel();

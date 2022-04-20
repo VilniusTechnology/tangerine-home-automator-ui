@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MqttConnectionService} from "../../../services/mqtt-connection.service";
 import * as _ from 'lodash';
-import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 @Component({
     selector: 'app-mqtt-zigbee-snippet',
@@ -42,13 +41,15 @@ export class MqttZigbeeSnippetComponent implements OnInit {
     }
 
     populateData(path, data) {
+      const parsedData = JSON.parse(data);
       const keys = [
         'brightness',
         'color_mode',
         'color_temp',
       ];
-      _.forEach(keys, (reading, key) => {
-        this.readings.push({reading: data[reading], key: reading});
+      this.readings = [];
+      _.forEach(keys, (reading) => {
+        this.readings.push({reading: parsedData[reading], key: reading});
       });
     }
 

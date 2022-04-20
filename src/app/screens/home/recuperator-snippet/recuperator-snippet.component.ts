@@ -25,7 +25,7 @@ export class RecuperatorSnippetComponent implements OnInit {
           this.getStatus().then((mode) => {
             this.mode = mode;
           });
-        }, 1500);
+        }, 3000);
       }, 3000);
     }
 

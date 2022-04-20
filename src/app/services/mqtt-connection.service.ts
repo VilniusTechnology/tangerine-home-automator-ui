@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-
 import { environment } from 'src/environments/environment';
 import {IMqttMessage, MqttService} from "ngx-mqtt";
 import {Observable} from "rxjs";
@@ -42,6 +41,14 @@ export class MqttConnectionService {
     const topic = device + type + command;
 
     return new Observable((observer) => {
+      this.requestTasmotaData(device).then(() => {
+        this.mqtt.observe(topic).subscribe((message: IMqttMessage) => {
+          if (message.topic == topic) {
+            // console.log(topic, message.payload.toString());
+            observer.next(message.payload.toString());
+          }
+        });
+      });
 
       setTimeout(() => {
         this.requestTasmotaData(device).then(() => {
