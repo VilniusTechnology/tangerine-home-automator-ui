@@ -61,6 +61,25 @@ export class HomeComponent implements OnInit {
             this.resultsSrv.set(this.results);
           });
         }
+
+        if (zone.type == 'tasmota') {
+          this.mqttConnectionService.subscribeTasmotaData(zone.path, '', 'stat/STATUS10').subscribe((rs) => {
+            let result = {};
+            // @ts-ignore
+            result = _.get(JSON.parse(rs), 'StatusSNS.SI7021')
+            if (result != undefined) {
+              this.results[room.title + zone.id] = result;
+              this.resultsSrv.set(this.results);
+            }
+            // @ts-ignore
+            result = _.get(JSON.parse(rs), 'StatusSNS.DS18B20')
+            if (result != undefined) {
+              this.results[room.title + zone.id] = result;
+              this.resultsSrv.set(this.results);
+            }
+          });
+        }
+
       });
 
     });

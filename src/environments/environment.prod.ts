@@ -56,7 +56,7 @@ export const environment = {
             "shady":{
               url: "https://shady.local",
               uri: "",
-              title: "Miegamasis",
+              title: "Miegamas",
               zones: [
                 {
                   id: '0',
@@ -64,12 +64,13 @@ export const environment = {
                   title: 'Visi',
                   path: '/sensors-all',
                   metrics: [
+                    'temperature',
                     'pressure',
                     'humidity',
-                    'temperature',
                     'light_lvl',
                   ],
                   interval: 500,
+                 // 294 x 203
                 },
               ],
             },
@@ -84,9 +85,9 @@ export const environment = {
                   title: 'Visi',
                   path: '/sensors-all',
                   metrics: [
-                    'pressure',
-                    'humidity',
                     'temperature',
+                    'pressure',
+                    'humidity', 
                     'light_lvl',
                   ],
                   interval: 500,
@@ -96,7 +97,7 @@ export const environment = {
             "wurk":{
               url: "wss://hub.local",
               uri: "sensors-all",
-              title: "Darbo Luko",
+              title: "Luko D",
               zones: [
                 {
                   id: '0',
@@ -106,8 +107,8 @@ export const environment = {
                   room: 'wurk',
                   path: 'sensors/atmo',
                   metrics: [
-                    'humidity',
                     'temperature',
+                    'humidity',
                     'pressure',
                   ],
                 },
@@ -127,7 +128,7 @@ export const environment = {
             "medium":{
               url: "wss://hub.local",
               uri: "sensors-all",
-              title: "Darbo Neringos",
+              title: "Neringos D",
               zones: [
                 {
                   id: '0',
@@ -137,8 +138,8 @@ export const environment = {
                   room: 'medium',
                   path: 'sensors/atmo',
                   metrics: [
-                    'humidity',
                     'temperature',
+                    'humidity',
                     'pressure',
                   ],
                 },
@@ -157,8 +158,8 @@ export const environment = {
                   room: 'dusas',
                   path: 'sensors/atmo',
                   metrics: [
-                    'humidity',
                     'temperature',
+                    'humidity',
                   ],
                 },
               ],
@@ -176,8 +177,8 @@ export const environment = {
                   room: 'vonia',
                   path: 'sensors/atmo',
                   metrics: [
-                    'humidity',
                     'temperature',
+                    'humidity',
                   ],
                 },
               ],
@@ -195,8 +196,45 @@ export const environment = {
                   room: 'boiler',
                   path: 'sensors/atmo',
                   metrics: [
-                    'humidity',
                     'temperature',
+                    'humidity',
+                  ],
+                },
+              ],
+            },
+            "palepe":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Palepe",
+              zones: [
+                {
+                  id: '0',
+                  type: 'tasmota',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'boiler',
+                  path: 'tasmota/top/hub/',
+                  metrics: [
+                    'Temperature',
+                    'Humidity',
+                  ],
+                },
+              ],
+            },
+            "pastoge":{
+              url: "wss://hub.local",
+              uri: "sensors-all",
+              title: "Pastoge",
+              zones: [
+                {
+                  id: '0',
+                  type: 'tasmota',
+                  title: 'Atmosferinis',
+                  base: 'zigbee2mqtt',
+                  room: 'boiler',
+                  path: 'tasmota/pastoge/termo/',
+                  metrics: [
+                    'Temperature',
                   ],
                 },
               ],

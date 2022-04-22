@@ -43,6 +43,13 @@ export class TasmotaSnippetComponent implements OnInit {
         ).subscribe((rs) => {
           this.set4CHRelayStatus(rs);
         });
+        this.mqttConnectionService.subscribeTasmotaData(
+          this.device,
+          this.type,
+          'RESULT'
+        ).subscribe((rs) => {
+          this.set4CHRelayStatus(rs);
+        });
       } else {
         this.mqttConnectionService.subscribeTasmotaData(
           this.device,
@@ -125,43 +132,57 @@ export class TasmotaSnippetComponent implements OnInit {
     set4CHRelayStatus(status) {
       const statuses = JSON.parse(status).StatusSTS;
 
-      this.label1 = statuses.POWER1;
-      this.label2 = statuses.POWER2;
-      this.label3 = statuses.POWER3;
-      this.label4 = statuses.POWER4;
+      if (statuses !== undefined) {
+        this.label1 = statuses.POWER1;
+        this.label2 = statuses.POWER2;
+        this.label3 = statuses.POWER3;
+        this.label4 = statuses.POWER4;
+      } else {
+      const statuses = JSON.parse(status).StatusSTS;
+        const p1 = JSON.parse(status).POWER1;
+        if (p1 !== undefined) {
+          this.label1 = p1;
+        }
+        const p2 = JSON.parse(status).POWER2;
+        if (p2 !== undefined) {
+          this.label2 = p2;
+        }
+        const p3 = JSON.parse(status).POWER3;
+        if (p3 !== undefined) {
+          this.label3 = p3;
+        }
+        const p4 = JSON.parse(status).POWER4;
+        if (p4 !== undefined) {
+          this.label4 = p4;
+        }
+      }
 
-      if (statuses.POWER1 == 'ON') {
+      if (this.label1 == 'ON') {
         this.status1 = true;
       } else {
         this.status1 = false;
       }
 
-      if (statuses.POWER2 == 'ON') {
+      if (this.label2 == 'ON') {
         this.status2 = true;
       } else {
         this.status2 = false;
       }
 
-      if (statuses.POWER3 == 'ON') {
+      if (this.label3 == 'ON') {
         this.status3 = true;
       } else {
         this.status3 = false;
       }
 
-      if (statuses.POWER4 == 'ON') {
+      if (this.label4 == 'ON') {
         this.status4 = true;
       } else {
         this.status4 = false;
       }
-
-      this.resolveLabel();
     }
 
     sendRelayStatus(ev, seq = '') {
-      console.log(
-        'ev: ', ev,
-        'seq: ', seq
-      );
       let status = 'OFF';
 
       if (ev.checked) {

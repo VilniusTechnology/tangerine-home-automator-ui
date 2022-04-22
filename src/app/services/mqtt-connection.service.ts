@@ -44,7 +44,6 @@ export class MqttConnectionService {
       this.requestTasmotaData(device).then(() => {
         this.mqtt.observe(topic).subscribe((message: IMqttMessage) => {
           if (message.topic == topic) {
-            // console.log(topic, message.payload.toString());
             observer.next(message.payload.toString());
           }
         });
@@ -54,7 +53,6 @@ export class MqttConnectionService {
         this.requestTasmotaData(device).then(() => {
           this.mqtt.observe(topic).subscribe((message: IMqttMessage) => {
             if (message.topic == topic) {
-              // console.log(topic, message.payload.toString());
               observer.next(message.payload.toString());
             }
           });
